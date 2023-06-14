@@ -15,9 +15,9 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url('../img/lionel-hesry-_PZRfifYqDI-unsplash.jpg');
+    background-image: url('../img/Background.jpg');
     background-repeat: no-repeat;
-    background-position:right;
+    background-position:left;
     background-size:cover;
 }
 main{
@@ -34,7 +34,7 @@ main .wrapper-top{
     flex-direction: column;
 }
 main .wrapper-top>.wrapper-now-information{
-    background-color: #050101;
+    background-color: #FFC745;
     width: 100%;
     height: 20%;
     display: flex;
@@ -44,9 +44,13 @@ main .wrapper-top>.wrapper-now-information{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: antiquewhite;
+    background-color: #FFC745;
     height: 100%;
     width: 20%;
+}
+.wrapper-now-information div>span{
+    color: #fff;
+    font-size: 1.3em;
 }
 main .wrapper-top>.wrapper-input{
     width: 100%;
@@ -54,22 +58,27 @@ main .wrapper-top>.wrapper-input{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: bisque;
+    background-color: #FFC745;
 }
 .wrapper-input input{
     width: 98%;
     height: 98%;
+    padding: .06em;
     text-align: right;
     outline: none;
     font-size: 5em;
+    border-radius: .07em;
+    border-color: #FFDE91;
+    background-color: #000;
+    color: #F1F7FF;
 }
 .wrapper-input input::placeholder{
-    color: black;
+    color: #F1F7FF;
 }
 main .wrapper-functions{
     width: 100%;
     height: 8%;
-    background-color: blueviolet;
+    background-color: #FFC745;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -80,14 +89,14 @@ main .wrapper-functions .wrapper-function-buttons{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: darkblue;
+    background-color: #FFC745;
 }
 .wrapper-function-buttons button{
     width: 30%;
     height: 80%;
 }
 main .wrapper-functions .wrapper-backspace-button{
-    background-color: darkslateblue;
+    background-color: #FFC745;
     width: 25%;
     height: 100%;
     display: flex;
@@ -101,14 +110,14 @@ main .wrapper-functions .wrapper-backspace-button{
 div[class="wrapper-buttons"]{
     width: 100%;
     height: 67%;
-    background-color: chartreuse;
+    background-color: #FFC745;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 .wrapper-buttons .wrapper-buttons-queues{
-    background-color: blueviolet;
+    background-color: #FFC745;
     width: 98%;
     height: 19.5%;
     margin-bottom: 0.1em;
