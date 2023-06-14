@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'digital-7';
+    src: url('../fonts/digital-7.ttf') format('truetype');
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'digital-7';
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../img/lionel-hesry-_PZRfifYqDI-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-position:right;
+    background-size:cover;
+}
+main{
+    width: 39%;
+    height: 96%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.5em;
+}
+main .wrapper-top{
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+}
+main .wrapper-top>.wrapper-now-information{
+    background-color: #050101;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content:space-between;
+}
+.wrapper-now-information div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    height: 100%;
+    width: 20%;
+}
+main .wrapper-top>.wrapper-input{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: bisque;
+}
+.wrapper-input input{
+    width: 98%;
+    height: 98%;
+    text-align: right;
+    outline: none;
+    font-size: 5em;
+}
+.wrapper-input input::placeholder{
+    color: black;
+}
+main .wrapper-functions{
+    width: 100%;
+    height: 8%;
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+main .wrapper-functions .wrapper-function-buttons{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: darkblue;
+}
+.wrapper-function-buttons button{
+    width: 30%;
+    height: 80%;
+}
+main .wrapper-functions .wrapper-backspace-button{
+    background-color: darkslateblue;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper-backspace-button button{
+    width: 60%;
+    height: 80%;
+}
+div[class="wrapper-buttons"]{
+    width: 100%;
+    height: 67%;
+    background-color: chartreuse;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper-buttons .wrapper-buttons-queues{
+    background-color: blueviolet;
+    width: 98%;
+    height: 19.5%;
+    margin-bottom: 0.1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper-buttons-queues button{
+    width: 24.5%;
+    height: 99%;
+    margin-right: 0.1em;
+}
+
+
+/* MOBILE STYLE BELOW*/
+
+@media(max-width: 1000px){
+    main {
+        width: 80%;
+    }
+}
+@media(max-width: 660px){
+    main {
+        width: 100%;
+        height: 100%;
+    }
+    .wrapper-now-information div{
+        width: 25%;
+    }
+}
