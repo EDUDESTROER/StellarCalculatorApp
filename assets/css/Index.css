@@ -72,6 +72,10 @@ main .wrapper-top>.wrapper-input{
     background-color: #000;
     color: #F1F7FF;
 }
+.wrapper-input input:hover{
+    background-color: #101010;
+    transition-duration: 500ms;
+}
 .wrapper-input input::placeholder{
     color: #F1F7FF;
 }
@@ -93,7 +97,19 @@ main .wrapper-functions .wrapper-function-buttons{
 }
 .wrapper-function-buttons button{
     width: 30%;
+    background-color: transparent;
+    border: none;
     height: 80%;
+    border-radius: .2em;
+    transition-duration: 300ms;
+}
+.wrapper-function-buttons button:hover{
+    background-color: #fdcf65;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+.wrapper-function-buttons button img{
+    width: 50%;
 }
 main .wrapper-functions .wrapper-backspace-button{
     background-color: #FFC745;
@@ -106,6 +122,19 @@ main .wrapper-functions .wrapper-backspace-button{
 .wrapper-backspace-button button{
     width: 60%;
     height: 80%;
+    background-color: transparent;
+    border: none;
+    border-radius: .2em;
+    transition-duration: 300ms;
+}
+.wrapper-backspace-button button:hover{
+    cursor: pointer;
+    background-color: #fdcf65;
+    transform: scale(1.02)
+}
+.wrapper-backspace-button button img{
+    width: 80%;
+    height: 100%;
 }
 div[class="wrapper-buttons"]{
     width: 100%;
@@ -130,6 +159,10 @@ div[class="wrapper-buttons"]{
     width: 24.5%;
     height: 99%;
     margin-right: 0.1em;
+    background-color: #E8A033;
+    border: none;
+    color: #F1F7FF;
+    font-size: 2.5em;
 }
 
 
