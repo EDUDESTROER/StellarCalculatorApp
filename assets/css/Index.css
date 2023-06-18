@@ -108,6 +108,9 @@ main .wrapper-functions .wrapper-function-buttons{
     transform: scale(1.02);
     cursor: pointer;
 }
+.wrapper-function-buttons button:active{
+    transform: scale(0.98)
+}
 .wrapper-function-buttons button img{
     width: 50%;
 }
@@ -131,6 +134,9 @@ main .wrapper-functions .wrapper-backspace-button{
     cursor: pointer;
     background-color: #fdcf65;
     transform: scale(1.02)
+}
+.wrapper-backspace-button button:active{
+    transform: scale(0.98);
 }
 .wrapper-backspace-button button img{
     width: 80%;
@@ -161,8 +167,18 @@ div[class="wrapper-buttons"]{
     margin-right: 0.1em;
     background-color: #E8A033;
     border: none;
+    border-radius: 0.15em;
     color: #F1F7FF;
-    font-size: 2.5em;
+    font-size: 2.3em;
+    transition-duration: 300ms;
+}
+.wrapper-buttons-queues button:hover{
+    cursor: pointer;
+    border: solid .1em #f1f7ff62;
+}
+.wrapper-buttons-queues button:active{
+    transform: scale(0.97);
+    background-color: #ebae53;
 }
 
 
