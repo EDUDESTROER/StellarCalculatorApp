@@ -76,9 +76,6 @@ main .wrapper-top>.wrapper-input{
     background-color: #101010;
     transition-duration: 500ms;
 }
-.wrapper-input input::placeholder{
-    color: #F1F7FF;
-}
 main .wrapper-functions{
     width: 100%;
     height: 8%;
@@ -174,7 +171,7 @@ div[class="wrapper-buttons"]{
 }
 .wrapper-buttons-queues button:hover{
     cursor: pointer;
-    border: solid .1em #f1f7ff62;
+    outline: solid 0.01em #F1F7FF;
 }
 .wrapper-buttons-queues button:active{
     transform: scale(0.97);
