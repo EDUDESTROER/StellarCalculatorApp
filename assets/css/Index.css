@@ -49,6 +49,7 @@ main .wrapper-top>.wrapper-now-information{
     width: 20%;
 }
 .wrapper-now-information div>span{
+    user-select: none;
     color: #fff;
     font-size: 1.3em;
 }
@@ -77,6 +78,7 @@ main .wrapper-top>.wrapper-input{
     transition-duration: 500ms;
 }
 main .wrapper-functions{
+    user-select: none;
     width: 100%;
     height: 8%;
     background-color: #FFC745;
@@ -149,6 +151,7 @@ div[class="wrapper-buttons"]{
     justify-content: center;
 }
 .wrapper-buttons .wrapper-buttons-queues{
+    user-select: none;
     background-color: #FFC745;
     width: 98%;
     height: 19.5%;
