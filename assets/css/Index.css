@@ -201,6 +201,8 @@ div[class="wrapper-buttons"]{
         height: 100%;
     }
     .wrapper-now-information div{
-        width: 25%;
+        width: 43%;
+        margin-right: 2.3%;
+        margin-left: 0;
     }
 }
