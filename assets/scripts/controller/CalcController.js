@@ -2,6 +2,8 @@ class CalcController {
 
     constructor(){
 
+        this._lastOperator = '';
+        this._lastNumber = '';
         this._operation = [];
         this._locale = navigator.language;
         this._displayCalcEl = document.querySelector("#display");
@@ -23,6 +25,8 @@ class CalcController {
 
        }, 1000);
 
+       this.setLastNumberToDisplay();
+
     }
 
     addEventListenerALL(element, events, fn){
@@ -37,11 +41,15 @@ class CalcController {
 
         this._operation = [];
 
+        this.setLastNumberToDisplay();
+
     }
 
     clearEntry(){
 
         this._operation.pop();
+
+        this.setLastNumberToDisplay();
 
     }
 
@@ -53,7 +61,7 @@ class CalcController {
 
     setError(){
 
-        this.displayCalc.value = "ERROR!"
+        this.displayCalc = "ERROR!";
 
     }
     setLastOperation(value){
@@ -62,9 +70,36 @@ class CalcController {
 
     }
 
+    getLastItem(isOperator = true){
+
+        let lastItem;
+
+        for (let i = this._operation.length-1; i >=0; i--){
+
+            if (this.isOperator(this._operation[i]) == isOperator) {
+                lastItem = this._operation[i];
+                break;
+            }
+
+        }
+
+        if(!lastItem){
+
+            lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
+
+        }
+
+        return lastItem;
+
+    }
+
     setLastNumberToDisplay(){
 
-        
+        let lastNumber = this.getLastItem(false);
+
+        if (!lastNumber) lastNumber = 0;
+
+        this.displayCalc = lastNumber;
 
     }
 
@@ -86,19 +121,57 @@ class CalcController {
 
     }
 
+    getResult(){
+
+        return eval(this._operation.join(""));
+
+    }
+
     calc(){
 
-        let last = this._operation.pop();
+        let last = "";
 
-        let result = eval(this._operation.join(""));
+        this._lastOperator = this.getLastItem();
 
-        this._operation = [result, last];
+        if (this._operation.length < 3){
+
+            let fristItem = this._operation[0];
+            this._operation = [fristItem, this._lastOperator,this._lastNumber];
+
+
+        }
+
+        if(this._operation.length > 3){
+            last = this._operation.pop();
+            this._lastNumber = this.getResult();
+
+        }else if(this._operation.length == 3){
+
+            this._lastNumber = this.getLastItem(false);
+
+        }
+
+        let result = this.getResult();
+
+        if (last == "%"){
+
+            result /= 100;
+
+            this._operation = [result];
+
+        }else{
+
+            this._operation = [result];
+
+            if(last) this._operation.push(last);
+
+        }
+
+        this.setLastNumberToDisplay();
 
     }
 
     addOperation(value){
-
-        console.log('Coisa ',value, isNaN(this.getLastOperation()));
 
         if (isNaN(this.getLastOperation())) {
 
@@ -108,12 +181,12 @@ class CalcController {
 
             }else if(isNaN(value)){
 
-                console.log('Outra Coisa ',value);
+                console.log('Outra coisa: ', value);
 
             }else {
 
                 this.pushOperation(value);
-                console.log(value);
+                this.setLastNumberToDisplay();
 
             }
 
@@ -167,7 +240,7 @@ class CalcController {
                 this.addOperation('.');
                 break;
             case 'equal':
-                
+                this.calc();
                 break;
             case '0':
             case '1':
@@ -208,7 +281,11 @@ class CalcController {
 
     setDisplayDateTime(){
 
-        this.displayDate = this.currentDate.toLocaleDateString(this._locale);
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
         this.displayHour = this.currentDate.toLocaleTimeString(this._locale,{
             hour: "2-digit",
             minute: "2-digit"
@@ -237,7 +314,7 @@ class CalcController {
     }
     
     set displayCalc(value){
-        this._displayCalcEl = value;
+        this._displayCalcEl.value = value;
     }
 
     get currentDate(){
