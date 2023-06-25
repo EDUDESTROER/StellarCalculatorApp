@@ -12,6 +12,7 @@ class CalcController {
         this._currentDate;
         this.initialize();
         this.initButtonsevents();
+        this.initKeyboard();
 
     }
 
@@ -40,6 +41,8 @@ class CalcController {
     clearALL(){
 
         this._operation = [];
+        this._lastNumber = '';
+        this._lastOperator = '';
 
         this.setLastNumberToDisplay();
 
@@ -98,13 +101,14 @@ class CalcController {
         let lastNumber = this.getLastItem(false);
 
         if (!lastNumber) lastNumber = 0;
+        if (lastNumber.toString().length > 10) lastNumber = lastNumber.toString().substr(0, 10);
 
         this.displayCalc = lastNumber;
 
     }
 
     isOperator(value){
-
+        
         return (['%', '*','-','+','/'].indexOf(value) > -1);
 
     }
@@ -179,10 +183,6 @@ class CalcController {
 
                 this.setLastOperation(value);
 
-            }else if(isNaN(value)){
-
-                console.log('Outra coisa: ', value);
-
             }else {
 
                 this.pushOperation(value);
@@ -199,13 +199,83 @@ class CalcController {
             }else{
 
                 let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseInt(newValue));
+                this.setLastOperation(newValue);
 
                 this.setLastNumberToDisplay();
 
             }
 
         }
+
+    }
+
+    addDot(){
+
+        let lastOperation = this.getLastOperation();
+
+        if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
+        
+        if(this.isOperator(lastOperation) || !lastOperation && lastOperation != 0){ 
+
+            this.pushOperation('0.');
+
+        }else{
+
+            this.setLastOperation(lastOperation.toString() + '.');
+
+        }
+
+        this.setLastNumberToDisplay();
+
+    }
+
+    initKeyboard(){
+
+        document.addEventListener('keyup', e=>{
+
+            console.log();
+
+            switch (e.key){
+                case 'Backspace':
+                    this.clearEntry();
+                    break;
+                case 'Escape':
+                    this.clearALL();
+                    break;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '%':
+                    this.addOperation(e.key);
+                    break;
+                case 'change-signal':
+                    this.addChangeSignal();
+                    break;
+                case '.':
+                case ',':
+                    this.addDot();
+                    break;
+                case 'Enter':
+                case '=':
+                    this.calc();
+                    break;
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    this.addOperation(parseInt(e.key));
+                    break;
+                
+            }
+
+        });
 
     }
 
@@ -233,11 +303,11 @@ class CalcController {
             case 'sum':
                 this.addOperation('+');
                 break;
-            case 'change-sing':
-                this.addOperation('+/-');
+            case 'change-signal':
+                this.addChangeSignal();
                 break;
-            case 'point':
-                this.addOperation('.');
+            case 'dot':
+                this.addDot();
                 break;
             case 'equal':
                 this.calc();
