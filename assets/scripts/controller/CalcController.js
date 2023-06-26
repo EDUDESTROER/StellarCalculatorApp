@@ -16,6 +16,28 @@ class CalcController {
 
     }
 
+    copyToClipboard(){
+
+        let input = this.displayCalc;
+
+        input.select();
+
+        document.execCommand("Copy"); // Problema, comando desatualizado!
+
+    }
+
+    pasteFromClipboard(){
+
+        document.addEventListener('paste', e=>{//não insere o valor!
+
+            let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
+
+        })
+
+    }
+
     initialize(){
 
         this.setDisplayDateTime();
@@ -27,6 +49,7 @@ class CalcController {
        }, 1000);
 
        this.setLastNumberToDisplay();
+       this.pasteFromClipboard();
 
     }
 
@@ -271,6 +294,9 @@ class CalcController {
                 case '8':
                 case '9':
                     this.addOperation(parseInt(e.key));
+                    break;
+                case'c':
+                    if (e.ctrlKey) this.copyToclipboard();
                     break;
                 
             }
