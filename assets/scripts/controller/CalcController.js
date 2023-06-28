@@ -2,6 +2,8 @@ class CalcController {
 
     constructor(){
 
+        this._audio = new Audio('assets/sound/click.wav');
+        this._audioOnOff = false;
         this._lastOperator = '';
         this._lastNumber = '';
         this._operation = [];
@@ -124,7 +126,7 @@ class CalcController {
         let lastNumber = this.getLastItem(false);
 
         if (!lastNumber) lastNumber = 0;
-        if (lastNumber.toString().length > 10) lastNumber = lastNumber.toString().substr(0, 10);
+        if (lastNumber.toString().length > 10) lastNumber = lastNumber.toString().substr(0, 15);
 
         this.displayCalc = lastNumber;
 
@@ -256,6 +258,8 @@ class CalcController {
 
         document.addEventListener('keyup', e=>{
 
+            this.playAudio();
+
             console.log();
 
             switch (e.key){
@@ -305,9 +309,56 @@ class CalcController {
 
     }
 
+    InitAudio(){
+
+        this.toggleAudio();
+
+    }
+
+    playAudio(){
+
+        if (this._audioOnOff){
+
+            this._audio.currentTime = 0;
+            this._audio.play();
+
+        }
+
+    }
+
+    toggleAudio(){
+
+        if(this._audioOnOff){
+            
+            this._audioOnOff = false;
+            document.querySelector('#btn-sond > img').src = "assets/img/no_sound.png";
+
+        }else{
+
+            this._audioOnOff = true;
+            document.querySelector('#btn-sond > img').src = "assets/img/sound.png";
+
+        }
+
+    }
+
     execBtn(value){
 
+        this.playAudio();
+
         switch (value){
+            case 'sond':
+                this.InitAudio();
+                break;
+            case 'history':
+                console.log("NO FUNCTIONS IN BUTTON: ", value);
+                break;
+            case 'converter':
+                console.log("NO FUNCTIONS IN BUTTON: ", value);
+                break;
+            case 'backspace':
+                console.log("NO FUNCTIONS IN BUTTON: ", value);
+                break;
             case 'percent':
                 this.addOperation('%');
                 break;
@@ -361,7 +412,7 @@ class CalcController {
 
     initButtonsevents(){
 
-        let buttons = document.querySelectorAll('.wrapper-buttons-queues > button');
+        let buttons = document.querySelectorAll('button');
         buttons.forEach((btn, index)=>{
             
             this.addEventListenerALL(btn,'click drag', e=>{
