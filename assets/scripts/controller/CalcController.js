@@ -126,8 +126,7 @@ class CalcController {
         let lastNumber = this.getLastItem(false);
 
         if (!lastNumber) lastNumber = 0;
-        if (lastNumber.toString().length > 10) lastNumber = lastNumber.toString().substr(0, 15);
-
+    
         this.displayCalc = lastNumber;
 
     }
@@ -151,8 +150,22 @@ class CalcController {
     }
 
     getResult(){
+        let r =''
+        try{
+            r = eval(this._operation.join(""));
+            console.log(r);
 
-        return eval(this._operation.join(""));
+            r = r.toFixed(2); //Stop here...
+
+            return r;
+        }catch(e){
+            setTimeout(()=>{
+
+                this.clearALL();
+                this.setError();
+
+            }, 1);
+        }
 
     }
 
@@ -164,7 +177,7 @@ class CalcController {
 
         if (this._operation.length < 3){
 
-            let fristItem = this._operation[0];
+            let fristItem = this._operation[0].toString();
             this._operation = [fristItem, this._lastOperator,this._lastNumber];
 
 
@@ -461,7 +474,9 @@ class CalcController {
     }
     
     set displayCalc(value){
+
         this._displayCalcEl.value = value;
+
     }
 
     get currentDate(){
