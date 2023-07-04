@@ -111,12 +111,11 @@ class CalcController {
 
         }
 
-        if(!lastItem){
+        if(!lastItem && lastItem != 0){
 
             lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
 
         }
-
         return lastItem;
 
     }
@@ -154,15 +153,12 @@ class CalcController {
         try{
             result = eval(this._operation.join(""));
             if(Number.isInteger(result)){
-                console.log(result);
                 return result;
             }else if (result <= 0.01){
-
                 return result;
 
             }else{
                 result = result.toFixed(2);
-                console.log(result);
                 return result;
             }
             
@@ -280,8 +276,6 @@ class CalcController {
         document.addEventListener('keyup', e=>{
 
             this.playAudio();
-
-            console.log();
 
             switch (e.key){
                 case 'Backspace':
@@ -482,7 +476,18 @@ class CalcController {
     }
     
     set displayCalc(value){
+        value = value.toString();
+        if(value.length > 14){
+            this._displayCalcEl.style.fontSize = "3em";
 
+        }
+        if(value.length > 24){
+            this._displayCalcEl.style.fontSize = "3em";
+            alert("You cannot enter more than 24 characters!");
+            this.clearALL();
+            return false;
+
+        }
         this._displayCalcEl.value = value;
 
     }
