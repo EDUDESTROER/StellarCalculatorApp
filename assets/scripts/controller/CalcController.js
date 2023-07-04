@@ -156,6 +156,10 @@ class CalcController {
             if(Number.isInteger(result)){
                 console.log(result);
                 return result;
+            }else if (result <= 0.01){
+
+                return result;
+
             }else{
                 result = result.toFixed(2);
                 console.log(result);
