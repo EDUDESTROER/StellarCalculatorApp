@@ -150,14 +150,18 @@ class CalcController {
     }
 
     getResult(){
-        let r =''
+        let result =''
         try{
-            r = eval(this._operation.join(""));
-            console.log(r);
-
-            r = r.toFixed(2); //Stop here...
-
-            return r;
+            result = eval(this._operation.join(""));
+            if(Number.isInteger(result)){
+                console.log(result);
+                return result;
+            }else{
+                result = result.toFixed(2);
+                console.log(result);
+                return result;
+            }
+            
         }catch(e){
             setTimeout(()=>{
 
