@@ -6,6 +6,7 @@ class CalcController {
         this._audioOnOff = false;
         this._lastOperator = '';
         this._lastNumber = '';
+        this._maxNumberLast = '';
         this._operation = [];
         this._locale = navigator.language;
         this._displayCalcEl = document.querySelector("#display");
@@ -477,17 +478,21 @@ class CalcController {
     
     set displayCalc(value){
         value = value.toString();
-        if(value.length > 14){
-            this._displayCalcEl.style.fontSize = "3em";
-
+        if(value.length <= 13){
+            this._displayCalcEl.style.fontSize = "5em";
         }
-        if(value.length > 24){
-            this._displayCalcEl.style.fontSize = "3em";
-            alert("You cannot enter more than 24 characters!");
-            this.clearALL();
+        if(value.length > 13){
+            this._displayCalcEl.style.fontSize = "4em";
+        }
+        if(value.length <= 15){
+            this._maxNumberLast = value;
+        }
+        if(value.length > 15){
+            alert("You cannot enter more than 15 characters!");
+            this._operation = [this._maxNumberLast];
             return false;
-
         }
+
         this._displayCalcEl.value = value;
 
     }
