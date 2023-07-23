@@ -476,7 +476,7 @@ class CalcController {
         return this._displayCalcEl;
     }
     
-    set displayCalc(value){
+    set displayCalc(value){ //Error here
         value = value.toString();
         if(value.length <= 13){
             this._displayCalcEl.style.fontSize = "5em";
