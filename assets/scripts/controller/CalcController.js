@@ -125,7 +125,7 @@ class CalcController {
 
         let lastNumber = this.getLastItem(false);
 
-        if (!lastNumber) lastNumber = 0;
+        if (!lastNumber || lastNumber==0) lastNumber = 0;
     
         this.displayCalc = lastNumber;
 
@@ -482,15 +482,18 @@ class CalcController {
             this._displayCalcEl.style.fontSize = "5em";
         }
         if(value.length > 13){
-            this._displayCalcEl.style.fontSize = "4em";
+            this._displayCalcEl.style.fontSize = "3.5em";
         }
         if(value.length <= 15){
             this._maxNumberLast = value;
         }
         if(value.length > 15){
-            alert("You cannot enter more than 15 characters!");
-            this._operation = [this._maxNumberLast];
-            return false;
+            if(this._operation[0] > 0.1){
+                console.log(this._operation[0]);
+                alert("You cannot enter more than 15 characters!");
+                this._operation = [this._maxNumberLast];
+                return false;
+            }
         }
 
         this._displayCalcEl.value = value;
