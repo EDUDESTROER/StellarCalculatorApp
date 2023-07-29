@@ -83,7 +83,7 @@ class CalcController {
     }
 
     getLastOperation(){
-
+        
          return this._operation[this._operation.length-1];
 
     }
@@ -125,7 +125,7 @@ class CalcController {
 
         let lastNumber = this.getLastItem(false);
 
-        if (!lastNumber || lastNumber==0) lastNumber = 0;
+        if (!lastNumber || lastNumber == 0) lastNumber = 0;
     
         this.displayCalc = lastNumber;
 
@@ -179,12 +179,12 @@ class CalcController {
         let last = "";
 
         this._lastOperator = this.getLastItem();
+        console.log(this._operation);
 
         if (this._operation.length < 3){
 
             let fristItem = this._operation[0].toString();
             this._operation = [fristItem, this._lastOperator,this._lastNumber];
-
 
         }
 
@@ -223,7 +223,7 @@ class CalcController {
         if (isNaN(this.getLastOperation())) {
 
             if (this.isOperator(value)){
-
+                
                 this.setLastOperation(value);
 
             }else {
@@ -242,6 +242,11 @@ class CalcController {
             }else{
 
                 let newValue = this.getLastOperation().toString() + value.toString();
+                if(newValue == 0){
+
+                    newValue = 0
+
+                }
                 this.setLastOperation(newValue);
 
                 this.setLastNumberToDisplay();
@@ -495,7 +500,7 @@ class CalcController {
                 return false;
             }
         }
-
+        
         this._displayCalcEl.value = value;
 
     }
