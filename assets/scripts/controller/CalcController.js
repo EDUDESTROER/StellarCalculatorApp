@@ -179,7 +179,6 @@ class CalcController {
         let last = "";
 
         this._lastOperator = this.getLastItem();
-        console.log(this._operation);
 
         if (this._operation.length < 3){
 
@@ -228,7 +227,9 @@ class CalcController {
 
             }else {
 
-                this.pushOperation(value);
+                if(value != 0){
+                    this.pushOperation(value);
+                }
                 this.setLastNumberToDisplay();
 
             }
@@ -244,7 +245,7 @@ class CalcController {
                 let newValue = this.getLastOperation().toString() + value.toString();
                 if(newValue == 0){
 
-                    newValue = 0
+                    newValue = ""
 
                 }
                 this.setLastOperation(newValue);

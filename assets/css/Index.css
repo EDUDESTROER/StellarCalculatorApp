@@ -23,6 +23,7 @@ body{
 main{
     width: 39%;
     height: 96%;
+    min-height:350px;
     display: flex;
     flex-direction: column;
 }
@@ -194,6 +195,11 @@ div[class="wrapper-buttons"]{
         width: 80%;
     }
 }
+@media(max-height: 500px){
+    main {
+        height: 100%;
+    }
+}
 @media(max-width: 660px){
     main {
         width: 100%;
@@ -212,5 +218,15 @@ div[class="wrapper-buttons"]{
     }
     .wrapper-now-information div span{
         font-size: 1em;
+    }
+}
+@media(min-width: 1700px){
+    main {
+        width: 30%;
+    }
+}
+@media(min-width: 2000px){
+    main {
+        width: 25%;
     }
 }
