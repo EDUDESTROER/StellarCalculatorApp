@@ -347,6 +347,33 @@ class CalcController {
         }
 
     }
+    changeSignal(){
+
+        let value;
+        
+        if(this._operation.length < 1){
+            if(!this._operation[0] == true){
+                this._operation[0] = 0;
+            }
+            value = this._operation[0] * -1;
+            console.log(value);
+            this.pushOperation(value);
+            let a = this._operation.pop();
+            this.setLastNumberToDisplay();
+        }else if(this._operation.length > 1){
+            if(this._operation[1] == "+"){
+
+                value = this._operation[1] = "-";
+                this._operation.splice(1, 1, value);
+
+            }else if(this._operation[1] == "-"){
+
+                value = this._operation[1] = "+";
+                this._operation.splice(1, 1, value);
+            }
+        }
+
+    }
 
     toggleAudio(){
 
@@ -403,7 +430,7 @@ class CalcController {
                 this.addOperation('+');
                 break;
             case 'change-signal':
-                this.addChangeSignal();
+                this.changeSignal();
                 break;
             case 'dot':
                 this.addDot();
