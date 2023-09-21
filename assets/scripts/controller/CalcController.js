@@ -374,6 +374,13 @@ class CalcController {
         }
 
     }
+    eraseDigit(){
+
+        let number = this._lastNumber;
+        number = toString(lastNumber);
+        console.log(number)
+
+    }
 
     toggleAudio(){
 
@@ -406,7 +413,7 @@ class CalcController {
                 console.log("NO FUNCTIONS IN BUTTON: ", value);
                 break;
             case 'backspace':
-                console.log("NO FUNCTIONS IN BUTTON: ", value);
+                this.eraseDigit();
                 break;
             case 'percent':
                 this.addOperation('%');
