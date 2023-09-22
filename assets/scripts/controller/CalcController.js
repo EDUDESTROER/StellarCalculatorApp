@@ -129,6 +129,12 @@ class CalcController {
     
         this.displayCalc = lastNumber;
 
+        if(this._operation.length == 2){
+
+            this.displayCalc = 0;
+
+        }
+
     }
 
     isOperator(value){
@@ -376,10 +382,40 @@ class CalcController {
     }
     eraseDigit(){
 
-        let number = this._lastNumber;
-        number = toString(lastNumber);
-        console.log(number)
+        if(this._operation.length <= 0){
 
+
+            this.setLastNumberToDisplay();
+            return;
+        }else if(this._operation.length == 1){
+
+            let number = this._operation[0];
+            number = number.toString();
+            number = number.substring(0, number.length - 1);
+
+            this._operation.pop();
+            this.pushOperation(number);
+
+            this.setLastNumberToDisplay();
+            //console.log(number);
+
+        }else if(this._operation.length == 3){
+
+            let number = this._operation[2];
+            number = number.toString();
+            number = number.substring(0, number.length - 1);
+
+            this._operation.pop();
+
+            if (number != ''){
+
+                this.pushOperation(number);
+
+            }
+            this.setLastNumberToDisplay();
+           //console.log(number);
+
+        }
     }
 
     toggleAudio(){
