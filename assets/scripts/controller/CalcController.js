@@ -8,6 +8,8 @@ class CalcController {
         this._lastNumber = '';
         this._maxNumberLast = '';
         this._operation = [];
+        this._allOperation = [];
+        this._allResults = [];
         this._locale = navigator.language;
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#date");
@@ -137,6 +139,12 @@ class CalcController {
 
     }
 
+    showHistory(){
+
+
+
+    }
+
     isOperator(value){
         
         return (['%', '*','-','+','/'].indexOf(value) > -1);
@@ -154,18 +162,27 @@ class CalcController {
         }
 
     }
+    keepResult(result){
+
+        this._allResults.push(result)
+        console.log(this._allResults)
+
+    }
 
     getResult(){
         let result =''
         try{
             result = eval(this._operation.join(""));
             if(Number.isInteger(result)){
+                this.keepResult(result)
                 return result;
             }else if (result <= 0.01){
+                this.keepResult(result)
                 return result;
 
             }else{
                 result = result.toFixed(2);
+                this.keepResult(result)
                 return result;
             }
             
@@ -199,6 +216,8 @@ class CalcController {
 
         }else if(this._operation.length == 3){
 
+            this._allOperation.push(this._operation);
+            console.log(this._allOperation);
             this._lastNumber = this.getLastItem(false);
 
         }
@@ -443,7 +462,7 @@ class CalcController {
                 this.InitAudio();
                 break;
             case 'history':
-                console.log("NO FUNCTIONS IN BUTTON: ", value);
+                this.showHistory();
                 break;
             case 'converter':
                 console.log("NO FUNCTIONS IN BUTTON: ", value);
