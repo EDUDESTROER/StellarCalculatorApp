@@ -188,6 +188,36 @@ div[class="wrapper-buttons"]{
     transform: scale(0.97);
     background-color: #ebae53;
 }
+.wrapper-history{
+    height: 35vh;
+    width: 50vh;
+    background-color: blueviolet;
+    position:absolute;
+    left: 3.5%;
+    top: 28%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.wrapper-history .history-list{
+    background-color: chartreuse;
+    width: 99%;
+    height: 85%;
+    display: flex;
+    align-items:flex-end;
+    flex-direction: column-reverse;
+    margin-top: 1px;
+    padding-right: 2px;
+    overflow-y: scroll;
+}
+.wrapper-history .history-list::-webkit-scrollbar{
+    display: none
+}
+.wrapper-history .history-list .history-list-item{
+    background-color: chocolate;
+    color: #F1F7FF;
+    font-size: 2.3em;
+}
 
 
 /* MOBILE STYLE BELOW*/

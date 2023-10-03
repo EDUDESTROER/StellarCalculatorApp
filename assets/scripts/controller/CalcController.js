@@ -500,6 +500,9 @@ class CalcController {
             case 'equal':
                 this.calc();
                 break;
+            case 'clearHistory':
+                console.log("No function in button ", value);
+                break;
             case '0':
             case '1':
             case '2':
