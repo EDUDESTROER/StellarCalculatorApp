@@ -195,9 +195,10 @@ div[class="wrapper-buttons"]{
     position:absolute;
     left: 3.5%;
     top: 28%;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
+    /*Note for my self = Inset here display: flex;*/
 }
 .wrapper-history .history-list{
     background: none;
@@ -209,29 +210,40 @@ div[class="wrapper-buttons"]{
     margin-top: 1px;
     padding-right: 2px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 .wrapper-history .history-list::-webkit-scrollbar{
     display: none
 }
 .wrapper-history .history-list .history-calc{
+    transition-duration: 300ms;
     background: none;
     color: #F1F7FF;
     user-select: none;
     font-size: 2.3em;
 }
 .wrapper-history .history-list .history-calc:hover{
+    background-color: #ffffff3e;
+    transform: scale(1.01);
     cursor: pointer;
-    background-color: #ffffff5e;
+}
+.wrapper-history .history-list .history-calc:active{
+    transform: scale(0.97);
 }
 .wrapper-history .history-list .history-result{
+    transition-duration: 300ms;
     background: none;
     color: #F1F7FF;
     user-select: none;
     font-size: 1.8em;
 }
 .wrapper-history .history-list .history-result:hover{
+    background-color: #ffffff3e;
+    transform: scale(1.01);
     cursor: pointer;
-    background-color: #ffffff5e;
+}
+.wrapper-history .history-list .history-result:active{
+    transform: scale(0.97);
 }
 .wrapper-history .wrapper-button-history-list{
     border-top: solid #f1f7ffc3 1px;
@@ -265,9 +277,29 @@ div[class="wrapper-buttons"]{
 
 /* MOBILE STYLE BELOW*/
 
+
+@media(max-width: 1400px){
+    .wrapper-history {
+        height: 45vh;
+        width: 48vh;
+    }
+}
+@media(max-width: 1340px){
+    .wrapper-history {
+        width: 38vh;
+    }
+}
 @media(max-width: 1100px){
     main {
         width: 70%;
+    }
+    .wrapper-history {
+        width: 70vw;
+        left:unset;
+        top: 34%;
+        align-self: center;
+        justify-self: center;
+        background-color: #ffc745;
     }
 }
 @media(max-height: 500px){
@@ -279,6 +311,12 @@ div[class="wrapper-buttons"]{
     main {
         width: 100%;
         height: 100%;
+    }
+    .wrapper-history {
+        width: 100vw;
+        height: 50vh;
+        top: 33%;
+        background-color: #ffc745;
     }
     .wrapper-now-information div{
         width: 33%;
