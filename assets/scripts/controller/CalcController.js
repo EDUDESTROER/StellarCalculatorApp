@@ -14,6 +14,7 @@ class CalcController {
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#date");
         this._hourEl = document.querySelector("#hour");
+        this._historyEl = document.querySelector(".wrapper-history");
         this._currentDate;
         this.initialize();
         this.initButtonsevents();
@@ -141,7 +142,15 @@ class CalcController {
 
     showHistory(){
 
+        if (this._historyEl.style.display ==  "none" || !this._historyEl.style.display){
 
+            this._historyEl.style.display = "flex";
+
+        }else if (this._historyEl.style.display ==  "flex"){
+
+            this._historyEl.style.display = "none";
+
+        }
 
     }
 
