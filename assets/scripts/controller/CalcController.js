@@ -15,6 +15,9 @@ class CalcController {
         this._dateEl = document.querySelector("#date");
         this._hourEl = document.querySelector("#hour");
         this._historyEl = document.querySelector(".wrapper-history");
+        this._historyList = document.querySelector(".history-list");
+        this._historyId = 0;
+        this._resultId = 0;
         this._currentDate;
         this.initialize();
         this.initButtonsevents();
@@ -175,6 +178,13 @@ class CalcController {
 
         this._allResults.push(result)
         console.log(this._allResults)
+        let newSpan = document.createElement("span");
+        let newContent = document.createTextNode(`= ${this._allResults[this._resultId]}`);
+        newSpan.appendChild(newContent)
+        newSpan.id = this._resultId;
+        newSpan.className = 'history-result';
+        this._historyList.appendChild(newSpan);
+        this._resultId = this._resultId + 1;
 
     }
 
@@ -227,6 +237,17 @@ class CalcController {
 
             this._allOperation.push(this._operation);
             console.log(this._allOperation);
+            let newSpan = document.createElement("span");
+            let newContent = document.createTextNode(this._allOperation[this._historyId]);
+            newSpan.appendChild(newContent)
+            newSpan.textContent = newSpan.textContent.replaceAll(',', ' ')
+            newSpan.id = this._historyId;
+            newSpan.className = 'history-calc';
+            this._historyList.appendChild(newSpan);
+            this._historyId = this._historyId + 1;
+            console.log(this._historyId)
+            
+
             this._lastNumber = this.getLastItem(false);
 
         }
