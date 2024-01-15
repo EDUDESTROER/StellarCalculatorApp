@@ -87,6 +87,21 @@ class CalcController {
         this.setLastNumberToDisplay();
 
     }
+    clearHistoryF(){
+
+        this._allOperation = [];
+        this._allResults = [];
+        this._historyId = 0;
+        this._resultId = 0;
+
+        while(this._historyList.firstChild){
+            this._historyList.removeChild(this._historyList.firstChild);
+
+        }
+        console.log(this._allResults);
+        console.log(this._allOperation);
+
+    }
 
     getLastOperation(){
         
@@ -181,7 +196,7 @@ class CalcController {
         let newSpan = document.createElement("span");
         let newContent = document.createTextNode(`= ${this._allResults[this._resultId]}`);
         newSpan.appendChild(newContent)
-        newSpan.id = this._resultId;
+        newSpan.id = `r${this._resultId}`;
         newSpan.className = 'history-result';
         this._historyList.appendChild(newSpan);
         this._resultId = this._resultId + 1;
@@ -531,7 +546,7 @@ class CalcController {
                 this.calc();
                 break;
             case 'clearHistory':
-                console.log("No function in button ", value);
+                this.clearHistoryF();
                 break;
             case '0':
             case '1':
