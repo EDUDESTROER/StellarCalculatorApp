@@ -22,7 +22,6 @@ class CalcController {
         this.initialize();
         this.initButtonsevents();
         this.initKeyboard();
-
     }
 
     copyToClipboard(){
@@ -225,6 +224,7 @@ class CalcController {
 
                 this.clearALL();
                 this.setError();
+                this.clearHistoryF();
 
             }, 1);
         }
@@ -243,12 +243,12 @@ class CalcController {
             this._operation = [fristItem, this._lastOperator,this._lastNumber];
 
         }
-
         if(this._operation.length > 3){
             last = this._operation.pop();
             this._lastNumber = this.getResult();
 
-        }else if(this._operation.length == 3){
+        }
+        if(this._operation.length == 3){
 
             this._allOperation.push(this._operation);
             console.log(this._allOperation);
@@ -256,7 +256,7 @@ class CalcController {
             let newContent = document.createTextNode(this._allOperation[this._historyId]);
             newSpan.appendChild(newContent)
             newSpan.textContent = newSpan.textContent.replaceAll(',', ' ')
-            newSpan.id = this._historyId;
+            newSpan.id = `c${this._historyId}`;
             newSpan.className = 'history-calc';
             this._historyList.appendChild(newSpan);
             this._historyId = this._historyId + 1;
@@ -264,6 +264,7 @@ class CalcController {
             
 
             this._lastNumber = this.getLastItem(false);
+
 
         }
 
@@ -284,6 +285,7 @@ class CalcController {
         }
 
         this.setLastNumberToDisplay();
+        this.initHistoryDivEvents();
 
     }
 
@@ -398,6 +400,44 @@ class CalcController {
             }
 
         });
+
+    }
+
+    initHistoryDivEvents(){
+
+        let divR = document.querySelectorAll('.history-result');
+        let divC = document.querySelectorAll('.history-calc');
+
+        console.log(divR);
+        console.log(divC);
+
+        divR.forEach((div, index)=>{
+
+            div.addEventListener('click', e=>{
+
+                console.dir(div);
+                this.clearALL();
+                let newDiv = div.textContent.replace("= ", "")
+                this.pushOperation(newDiv)
+
+                this.setLastNumberToDisplay();
+            })
+
+        })
+
+        divC.forEach((div, index)=>{
+
+            div.addEventListener('click', e=>{
+
+                console.dir(div);
+                this.clearALL();
+                this.pushOperation(div.textContent)
+                this.calc();
+
+                this.setLastNumberToDisplay();
+            })
+
+        })
 
     }
 
