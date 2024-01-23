@@ -302,11 +302,6 @@ div[class="wrapper-buttons"]{
         background-color: #ffc745;
     }
 }
-@media(max-height: 500px){
-    main {
-        height: 100%;
-    }
-}
 @media(max-width: 660px){
     main {
         width: 100%;
@@ -325,12 +320,20 @@ div[class="wrapper-buttons"]{
         font-size: 1.2em;
     }
 }
-@media(max-width: 375px){
+@media(max-width: 506px){
+    main {
+        height: 100%;
+    }
+    .wrapper-now-information div span{
+        font-size: 1em;
+    }
+}
+@media(max-width: 420px){
     .wrapper-now-information div{
         width: 40%;
     }
     .wrapper-now-information div span{
-        font-size: 1em;
+        font-size: .9em;
     }
 }
 @media(min-width: 1700px){
