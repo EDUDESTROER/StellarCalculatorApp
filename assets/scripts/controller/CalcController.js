@@ -334,7 +334,7 @@ class CalcController {
 
         let lastOperation = this.getLastOperation();
 
-        if ( lastOperation.toString().split('').indexOf('.') > -1) return;
+        if (lastOperation && lastOperation.toString().split('').indexOf('.') > -1) return;
         
         if(this.isOperator(lastOperation) || !lastOperation && lastOperation != 0){ 
 

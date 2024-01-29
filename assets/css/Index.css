@@ -198,7 +198,6 @@ div[class="wrapper-buttons"]{
     display: none;
     flex-direction: column;
     align-items: center;
-    /*Note for my self = Inset here display: flex;*/
 }
 .wrapper-history .history-list{
     background: none;
