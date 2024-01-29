@@ -97,8 +97,6 @@ class CalcController {
             this._historyList.removeChild(this._historyList.firstChild);
 
         }
-        console.log(this._allResults);
-        console.log(this._allOperation);
 
     }
 
@@ -190,15 +188,17 @@ class CalcController {
     }
     keepResult(result){
 
-        this._allResults.push(result)
-        console.log(this._allResults)
-        let newSpan = document.createElement("span");
-        let newContent = document.createTextNode(`= ${this._allResults[this._resultId]}`);
-        newSpan.appendChild(newContent)
-        newSpan.id = `r${this._resultId}`;
-        newSpan.className = 'history-result';
-        this._historyList.appendChild(newSpan);
-        this._resultId = this._resultId + 1;
+        if(!this._allResults.includes(result)){
+            this._allResults.push(result)
+            //console.log(this._allResults)
+            let newSpan = document.createElement("span");
+            let newContent = document.createTextNode(`= ${this._allResults[this._resultId]}`);
+            newSpan.appendChild(newContent)
+            newSpan.id = `r${this._resultId}`;
+            newSpan.className = 'history-result';
+            this._historyList.appendChild(newSpan);
+            this._resultId = this._resultId + 1;
+        }
 
     }
 
@@ -250,17 +250,7 @@ class CalcController {
         }
         if(this._operation.length == 3){
 
-            this._allOperation.push(this._operation);
-            console.log(this._allOperation);
-            let newSpan = document.createElement("span");
-            let newContent = document.createTextNode(this._allOperation[this._historyId]);
-            newSpan.appendChild(newContent)
-            newSpan.textContent = newSpan.textContent.replaceAll(',', ' ')
-            newSpan.id = `c${this._historyId}`;
-            newSpan.className = 'history-calc';
-            this._historyList.appendChild(newSpan);
-            this._historyId = this._historyId + 1;
-            console.log(this._historyId)
+            this.createHistoryElement();
             
 
             this._lastNumber = this.getLastItem(false);
@@ -286,6 +276,29 @@ class CalcController {
 
         this.setLastNumberToDisplay();
         this.initHistoryDivEvents();
+
+    }
+    createHistoryElement(){
+
+        let newCalc = this._operation.toString().replaceAll(',', '')
+
+        if (newCalc.length === 1){
+            newCalc = '';
+        }
+
+        if(!this._allOperation.includes(newCalc)){
+            this._allOperation.push(newCalc);
+            //console.log(this._allOperation);
+            let newSpan = document.createElement("span");
+            let newContent = document.createTextNode(this._allOperation[this._historyId]);
+            newSpan.appendChild(newContent)
+            newSpan.textContent = newSpan.textContent.replaceAll(',', '')
+            newSpan.id = `c${this._historyId}`;
+            newSpan.className = 'history-calc';
+            this._historyList.appendChild(newSpan);
+            this._historyId = this._historyId + 1;
+            //console.log(this._historyId)
+        }
 
     }
 
@@ -408,14 +421,14 @@ class CalcController {
         let divR = document.querySelectorAll('.history-result');
         let divC = document.querySelectorAll('.history-calc');
 
-        console.log(divR);
-        console.log(divC);
+        //console.log(divR);
+        //console.log(divC);
 
         divR.forEach((div, index)=>{
 
             div.addEventListener('click', e=>{
 
-                console.dir(div);
+                //console.dir(div);
                 this.clearALL();
                 let newDiv = div.textContent.replace("= ", "")
                 this.pushOperation(newDiv)
@@ -429,7 +442,7 @@ class CalcController {
 
             div.addEventListener('click', e=>{
 
-                console.dir(div);
+                //console.dir(div);
                 this.clearALL();
                 this.pushOperation(div.textContent)
                 this.calc();
