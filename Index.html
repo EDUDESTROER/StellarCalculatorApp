@@ -43,6 +43,69 @@
                 <button id="btn-clearHistory" type="reset">Clear history</button>
             </div>
         </div>
+        <div class="wrapper-converter">
+            <div class="wrapper-converter-display">
+                <span class="span-converter">Converter</span>
+                <output class="converter-output" id="converter-first">0</output>
+
+                <select name="converter-measures" id="measures-first">
+                    <option value="Nm1">Nanômetros</option>
+                    <option value="μm1">Mícrons</option>
+                    <option value="mm1">Milímetros</option>
+                    <option value="cm1">Centímetros</option>
+                    <option value="m1">Metros</option>
+                    <option value="km1">Quilômetros</option>
+                    <option selected value="in1">Polegadas</option>
+                    <option value="ft1">Pés</option>
+                    <option value="yd1">Jardas</option>
+                    <option value="mi1">Milhas</option>
+                    <option value="mn1">Milhas náuticas</option>
+                </select>
+
+                <output class="converter-output" id="converter-second">0</output>
+
+                <select name="converter-measures" id="measures-second">
+                    <option value="Nm2">Nanômetros</option>
+                    <option value="μm2">Mícrons</option>
+                    <option value="mm2">Milímetros</option>
+                    <option selected value="cm2">Centímetros</option>
+                    <option value="m2">Metros</option>
+                    <option value="km2">Quilômetros</option>
+                    <option value="in2">Polegadas</option>
+                    <option value="ft2">Pés</option>
+                    <option value="yd2">Jardas</option>
+                    <option value="mi2">Milhas</option>
+                    <option value="mn2">Milhas náuticas</option>
+                </select>
+            </div>
+            <div class="wrapper-converter-buttons">
+
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="converter-btn-ce">CE</button>
+                    <button id="converter-btn-backspace"><img draggable="false" src="assets/img/backspace.png" alt="backspace button of converter function"></button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="converter-btn-7">7</button>
+                    <button id="converter-btn-8">8</button>
+                    <button id="converter-btn-9">9</button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="converter-btn-4">4</button>
+                    <button id="converter-btn-5">5</button>
+                    <button id="converter-btn-6">6</button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="converter-btn-1">1</button>
+                    <button id="converter-btn-2">2</button>
+                    <button id="converter-btn-3">3</button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="converter-btn-0">0</button>
+                    <button id="converter-btn-dot">,</button>
+                </div>
+
+            </div>
+        </div>
         <div class="wrapper-buttons">
 
             <div class="wrapper-buttons-queues">

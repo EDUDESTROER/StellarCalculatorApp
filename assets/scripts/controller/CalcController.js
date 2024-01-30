@@ -16,6 +16,7 @@ class CalcController {
         this._hourEl = document.querySelector("#hour");
         this._historyEl = document.querySelector(".wrapper-history");
         this._historyList = document.querySelector(".history-list");
+        this._converterEl = document.querySelector(".wrapper-converter");
         this._historyId = 0;
         this._resultId = 0;
         this._currentDate;
@@ -164,6 +165,19 @@ class CalcController {
         }else if (this._historyEl.style.display ==  "flex"){
 
             this._historyEl.style.display = "none";
+
+        }
+
+    }
+    showConverter(){
+
+        if (this._converterEl.style.display == "none" || !this._converterEl.style.display){
+
+            this._converterEl.style.display = "flex"
+
+        }else if (this._converterEl.style.display == "flex"){
+
+            this._converterEl.style.display = "none"
 
         }
 
@@ -563,7 +577,7 @@ class CalcController {
                 this.showHistory();
                 break;
             case 'converter':
-                console.log("NO FUNCTIONS IN BUTTON: ", value);
+                this.showConverter();
                 break;
             case 'backspace':
                 this.eraseDigit();

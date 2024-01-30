@@ -272,6 +272,88 @@ div[class="wrapper-buttons"]{
     transform: scale(0.97);
     background-color: #ebae53;
 }
+.wrapper-converter{
+    right: 0;
+    top: 15%;
+    background-color: #ffc74596;
+    position: fixed;
+    width: 30vw;
+    height: 70vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+.wrapper-converter > .wrapper-converter-display{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.wrapper-converter > .wrapper-converter-display span.span-converter{
+    user-select: none;
+    width: 30%;
+    font-family: cursive;
+    font-size: 1.8em;
+    position: absolute;
+    top: 0;
+    padding: 2%;
+}
+.wrapper-converter-display > .converter-output{
+    user-select: text;
+    font-size: 4em;
+    color: #F1F7FF;
+    padding-left: 5px;
+}
+.wrapper-converter > .wrapper-converter-display > select{
+    width: 43%;
+    font-family: cursive;
+    background-color: transparent;
+    border: none;
+    outline: transparent;
+    padding-left: 5px;
+}
+.wrapper-converter > .wrapper-converter-display > select > option{
+    font-family: inherit;
+}
+.wrapper-converter .wrapper-converter-buttons{
+    user-select: none;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues{
+    margin: 1px;
+    width: 98%;
+    height: 18%;
+    display: flex;
+    justify-content: flex-end;
+}
+.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button{
+    width: 30%;
+    height: 99%;
+    background-color: #E8A033;
+    color: #F1F7FF;
+    border-radius: 0.20em;
+    border: none;
+    margin: 0 2px 0 2px;
+    transition-duration: 300ms;
+    font-size: 2em;
+}
+.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button:active{
+    background-color: #ebae53;
+    transform: scale(0.97);
+}
+.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button:hover{
+    outline: solid 0.01em #F1F7FF;
+}
+.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button img{
+    width: 50%;
+}
 
 
 /* MOBILE STYLE BELOW*/
