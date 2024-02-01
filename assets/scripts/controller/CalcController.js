@@ -10,6 +10,10 @@ class CalcController {
         this._operation = [];
         this._allOperation = [];
         this._allResults = [];
+        this._converterOperationFirst = [];
+        this._convertedValue = 0;
+        this._firstSelectedMeasure;
+        this._secondSelectedMeasure;
         this._locale = navigator.language;
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#date");
@@ -17,12 +21,17 @@ class CalcController {
         this._historyEl = document.querySelector(".wrapper-history");
         this._historyList = document.querySelector(".history-list");
         this._converterEl = document.querySelector(".wrapper-converter");
+        this._converterFirstEl = document.querySelector("#converter-first");
+        this._converterSecondEl = document.querySelector("#converter-second");
+        this._selectMeasuresFirst = document.querySelector("#measures-first");
+        this._selectMeasuresSecond = document.querySelector("#measures-second");
         this._historyId = 0;
         this._resultId = 0;
         this._currentDate;
         this.initialize();
         this.initButtonsevents();
         this.initKeyboard();
+        this.checkSelectChange();
     }
 
     copyToClipboard(){
@@ -155,7 +164,7 @@ class CalcController {
         }
 
     }
-    ShowElement(elementHtml){
+    showElement(elementHtml){
 
         if (elementHtml.style.display ==  "none" || !elementHtml.style.display){
 
@@ -342,7 +351,548 @@ class CalcController {
         }
 
     }
+    addConverterOp(value){
+        
+        let lastConverter = this._converterOperationFirst[0];
 
+            
+        if(!this._converterOperationFirst[0]){
+
+            this._converterOperationFirst.push(value.replace("converter-", ""));
+        
+        }else if(this._converterOperationFirst && this._converterOperationFirst[0].length < 15){
+        
+            this._converterOperationFirst.pop();
+            this._converterOperationFirst.push(lastConverter + value.replace("converter-", ""));
+        
+        }
+
+        console.log(this._converterOperationFirst);
+
+        this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
+        this.calcMeasures();
+
+    }
+    checkSelectChange(){
+
+        this._selectMeasuresSecond.addEventListener('change', e=>{
+            
+            this._secondSelectedMeasure = this._selectMeasuresSecond[this._selectMeasuresSecond.selectedIndex].value;
+            //console.log(this._secondSelectedMeasure);
+            this.calcMeasures();
+
+        });
+
+        this._selectMeasuresFirst.addEventListener('change', e=>{
+
+            this._firstSelectedMeasure =  this._selectMeasuresFirst[this._selectMeasuresFirst.selectedIndex].value;
+            //console.log(this._firstSelectedMeasure);
+            this.calcMeasures();
+
+        });
+
+    }
+
+    setConverterTodisplay(value, element){
+
+        element.value = value;
+
+    }
+
+    calcMeasures(){
+
+        this._firstSelectedMeasure =  this._selectMeasuresFirst[this._selectMeasuresFirst.selectedIndex].value;
+        this._secondSelectedMeasure = this._selectMeasuresSecond[this._selectMeasuresSecond.selectedIndex].value;
+
+        console.log(this._firstSelectedMeasure);
+        console.log(this._secondSelectedMeasure);
+
+        if(this._firstSelectedMeasure == 'nm'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.001;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000001;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.0000001;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000001;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000000001;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000039370079;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.00000000328084;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000001093613;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000000000621;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.00000000000054;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'μm'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.001;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.0001;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000001;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000001;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000039;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000003;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000001;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000000621371;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000000539957;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'mm'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.1;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.001;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000001;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.03937;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.003281;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.001094;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000621371192;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000000539956803;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'cm'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 10000000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 10000;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 10;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.01;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.00001;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.393701;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.032808;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.010936;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000006;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000005;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+        if(this._firstSelectedMeasure == 'm'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000000000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000000;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 100;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.001;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 39.37008;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 3.28084;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 1.093613;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000621;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.00054;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'km'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000000000000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000000000;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000000;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 100000;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1000;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 39370.08;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 3280.84;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 1093.61;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.621371;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.539957;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'in'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 25400000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 25400;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 25.4;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 2.54;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.0254;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.0000254;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.0833333;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.0277778;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000016;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000014;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'ft'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 304800000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 304.800;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 304.8;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 30.48;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.3048;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000305;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 12;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.333333;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000189;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000165;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'yd'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 914400000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 914400;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 914.4;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 91.44;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.9144;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000914;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 36;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 3;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000568;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.000494;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'mi'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1609344000000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1609344000;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1609344;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 160934.4;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1609.344;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 1.609344;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 63360;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 5280;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 1760;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 0.868976;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+
+        if(this._firstSelectedMeasure == 'mn'){
+            switch(this._secondSelectedMeasure){
+
+                case 'nm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1852000000000;
+                    break;
+                case 'μm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1852000000;
+                    break;
+                case 'mm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1852000;
+                    break;
+                case 'cm':
+                    this._convertedValue = this._converterOperationFirst[0] * 185200;
+                    break;
+                case 'm':
+                    this._convertedValue = this._converterOperationFirst[0] * 1852;
+                    break;
+                case 'km':
+                    this._convertedValue = this._converterOperationFirst[0] * 1.852;
+                    break;
+                case 'in':
+                    this._convertedValue = this._converterOperationFirst[0] * 72913.39;
+                    break;
+                case 'ft':
+                    this._convertedValue = this._converterOperationFirst[0] * 6076.115;
+                    break;
+                case 'yd':
+                    this._convertedValue = this._converterOperationFirst[0] * 2025.372;
+                    break;
+                case 'mi':
+                    this._convertedValue = this._converterOperationFirst[0] * 1.150779;
+                    break;
+                case 'mn':
+                    this._convertedValue = this._converterOperationFirst[0] * 1;
+                    break;
+                default:
+                    this.clearnMeasures();
+                    break;
+
+            }
+        }
+        
+
+        if(this._convertedValue){
+            this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
+        }
+
+    }
+    clearnMeasures(){
+
+        this._converterOperationFirst = [];
+        this._convertedValue = 0;
+        this.setConverterTodisplay(0, this._converterFirstEl);
+        this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
+
+    }
     addDot(){
 
         let lastOperation = this.getLastOperation();
@@ -454,7 +1004,7 @@ class CalcController {
 
     }
 
-    InitAudio(){
+    initAudio(){
 
         this.toggleAudio();
 
@@ -557,13 +1107,13 @@ class CalcController {
 
         switch (value){
             case 'sond':
-                this.InitAudio();
+                this.initAudio();
                 break;
             case 'history':
-                this.ShowElement(this._historyEl);
+                this.showElement(this._historyEl);
                 break;
             case 'converter':
-                this.ShowElement(this._converterEl);
+                this.showElement(this._converterEl);
                 break;
             case 'backspace':
                 this.eraseDigit();
@@ -612,6 +1162,27 @@ class CalcController {
             case '8':
             case '9':
                 this.addOperation(parseInt(value));
+                break;
+            case 'converter-0':
+            case 'converter-1':
+            case 'converter-2':
+            case 'converter-3':
+            case 'converter-4':
+            case 'converter-5':
+            case 'converter-6':
+            case 'converter-7':
+            case 'converter-8':
+            case 'converter-9':
+                this.addConverterOp(value);
+                break;
+            case 'converter-dot':
+                console.log('No functions in button: ',value);
+                break;
+            case 'converter-ce':
+                this.clearnMeasures();
+                break;
+            case 'converter-backspace':
+                console.log('No functions in button: ',value);
                 break;
             
             default:
