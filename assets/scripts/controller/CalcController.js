@@ -155,29 +155,15 @@ class CalcController {
         }
 
     }
+    ShowElement(elementHtml){
 
-    showHistory(){
+        if (elementHtml.style.display ==  "none" || !elementHtml.style.display){
 
-        if (this._historyEl.style.display ==  "none" || !this._historyEl.style.display){
+            elementHtml.style.display = "flex";
 
-            this._historyEl.style.display = "flex";
+        }else if (elementHtml.style.display ==  "flex"){
 
-        }else if (this._historyEl.style.display ==  "flex"){
-
-            this._historyEl.style.display = "none";
-
-        }
-
-    }
-    showConverter(){
-
-        if (this._converterEl.style.display == "none" || !this._converterEl.style.display){
-
-            this._converterEl.style.display = "flex"
-
-        }else if (this._converterEl.style.display == "flex"){
-
-            this._converterEl.style.display = "none"
+            elementHtml.style.display = "none";
 
         }
 
@@ -574,10 +560,10 @@ class CalcController {
                 this.InitAudio();
                 break;
             case 'history':
-                this.showHistory();
+                this.ShowElement(this._historyEl);
                 break;
             case 'converter':
-                this.showConverter();
+                this.ShowElement(this._converterEl);
                 break;
             case 'backspace':
                 this.eraseDigit();
