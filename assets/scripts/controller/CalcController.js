@@ -353,17 +353,23 @@ class CalcController {
     }
     addConverterOp(value){
         
+        console.log(value);
         let lastConverter = this._converterOperationFirst[0];
-
+        let valueReplace = value.replace("converter-", "");
+        console.log(valueReplace);
             
         if(!this._converterOperationFirst[0]){
 
-            this._converterOperationFirst.push(value.replace("converter-", ""));
+            this._converterOperationFirst.push(valueReplace);
         
-        }else if(this._converterOperationFirst && this._converterOperationFirst[0].length < 15){
+        }else if(this._converterOperationFirst[0] && this._converterOperationFirst[0].length < 15){
         
-            this._converterOperationFirst.pop();
-            this._converterOperationFirst.push(lastConverter + value.replace("converter-", ""));
+            if(value != 0 && lastConverter != 0){
+                this._converterOperationFirst.pop();
+                this._converterOperationFirst.push(lastConverter + valueReplace);
+            }else if(value != 0){
+                this._converterOperationFirst[0] = valueReplace;
+            }
         
         }
 
