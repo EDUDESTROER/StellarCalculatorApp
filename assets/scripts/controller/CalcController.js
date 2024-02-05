@@ -377,6 +377,7 @@ class CalcController {
         }
 
         console.log(this._converterOperationFirst);
+
         this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
         this.calcMeasures();
 
@@ -404,16 +405,63 @@ class CalcController {
     setConverterTodisplay(value, element){
 
         element.value = value;
-        if(this._converterOperationFirst[0].length <= 8 || this._convertedValue.toString().length <= 8){
+        
+        if(window.innerWidth > 460){
 
-            this._converterFirstEl.style.fontSize = '4em';
-            this._converterSecondEl.style.fontSize = '4em';
+            if(!this._converterOperationFirst[0] || this._converterOperationFirst[0].length <= 8){
 
-        } else if(this._converterOperationFirst[0].length > 8 || this._convertedValue.toString().length > 8){
+                this._converterFirstEl.style.fontSize = '4em';
+                this._converterSecondEl.style.fontSize = '4em';
+    
+            } else if(this._converterOperationFirst[0].length >= 8){
+    
+                this._converterFirstEl.style.fontSize = '2.8em';
+                this._converterSecondEl.style.fontSize = '2.8em';
+    
+            }
+            if(this._converterOperationFirst[0] && this._converterOperationFirst[0].length >= 11){
+    
+                this._converterFirstEl.style.fontSize = '1.8em';
+                this._converterSecondEl.style.fontSize = '1.8em';
+    
+            }
+            if(!this._convertedValue || this._convertedValue.toString().length <= 8){
+    
+                this._converterFirstEl.style.fontSize = '4em';
+                this._converterSecondEl.style.fontSize = '4em';
+    
+            } else if(this._convertedValue.toString().length >= 8){
+    
+                this._converterFirstEl.style.fontSize = '2.8em';
+                this._converterSecondEl.style.fontSize = '2.8em';
+    
+            }
+            if(this._convertedValue && this._convertedValue.toString().length >= 11){
+    
+                this._converterFirstEl.style.fontSize = '1.8em';
+                this._converterSecondEl.style.fontSize = '1.8em';
+    
+            }
+            if(this._convertedValue && this._convertedValue.toString().length >= 15){
+    
+                this._converterFirstEl.style.fontSize = '1.8em';
+                this._converterSecondEl.style.fontSize = '1.6em';
+    
+            }
 
-            this._converterFirstEl.style.fontSize = '1em';
-            this._converterSecondEl.style.fontSize = '1em';
-
+        }else{
+            if(this._convertedValue && this._convertedValue.toString().length >= 11){
+    
+                this._converterFirstEl.style.fontSize = '1em';
+                this._converterSecondEl.style.fontSize = '1em';
+    
+            }
+            if(this._convertedValue && this._convertedValue.toString().length <= 11){
+    
+                this._converterFirstEl.style.fontSize = '1.8em';
+                this._converterSecondEl.style.fontSize = '1.6em';
+    
+            }
         }
 
     }
@@ -937,7 +985,7 @@ class CalcController {
     clearnMeasures(){
 
         this._converterOperationFirst = [];
-        this._convertedValue = '0';
+        this._convertedValue = 0;
         this.setConverterTodisplay(0, this._converterFirstEl);
         this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
 
