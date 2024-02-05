@@ -372,6 +372,9 @@ class CalcController {
             }
         
         }
+        if(lastConverter == '0.'){
+            this._converterOperationFirst[0] = '0.' + valueReplace
+        }
 
         console.log(this._converterOperationFirst);
 
@@ -899,6 +902,27 @@ class CalcController {
         }
 
     }
+    addDotMeasures(){
+
+        let lastOperation = this._converterOperationFirst[this._converterOperationFirst.length-1];
+
+        console.log(lastOperation);
+        if (lastOperation && lastOperation.toString().split('').indexOf('.') > -1) return;
+        
+        if(!lastOperation || lastOperation == 0){ 
+
+            this._converterOperationFirst[0] = '0.';
+
+        }else{
+
+            this._converterOperationFirst.pop();
+            this.addConverterOp(lastOperation.toString() + '.');
+
+        }
+
+        this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
+
+    }
     clearnMeasures(){
 
         this._converterOperationFirst = [];
@@ -1234,7 +1258,7 @@ class CalcController {
                 this.addConverterOp(value);
                 break;
             case 'converter-dot':
-                console.log('No functions in button: ',value);
+                this.addDotMeasures();
                 break;
             case 'converter-ce':
                 this.clearnMeasures();
