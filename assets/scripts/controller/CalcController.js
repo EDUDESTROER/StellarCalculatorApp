@@ -377,7 +377,6 @@ class CalcController {
         }
 
         console.log(this._converterOperationFirst);
-
         this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
         this.calcMeasures();
 
@@ -405,6 +404,17 @@ class CalcController {
     setConverterTodisplay(value, element){
 
         element.value = value;
+        if(this._converterOperationFirst[0].length <= 8 || this._convertedValue.toString().length <= 8){
+
+            this._converterFirstEl.style.fontSize = '4em';
+            this._converterSecondEl.style.fontSize = '4em';
+
+        } else if(this._converterOperationFirst[0].length > 8 || this._convertedValue.toString().length > 8){
+
+            this._converterFirstEl.style.fontSize = '1em';
+            this._converterSecondEl.style.fontSize = '1em';
+
+        }
 
     }
 
@@ -900,6 +910,7 @@ class CalcController {
             this.setConverterTodisplay(this._convertedValue = '0', this._converterSecondEl);
 
         }
+        
 
     }
     addDotMeasures(){
