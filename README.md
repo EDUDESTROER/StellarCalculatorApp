@@ -23,9 +23,7 @@ Next tasks:
 - [ ] Create a volume unit converter. 
 - [ ] Create a currency converter.
 - [ ] Create a weight and mass converter.
-## 📫 Contribuindo para <nome_do_projeto>
-
-Contributing to the StellarCalculatorApp, Follow the next steps:
+# 📫Contributing to the StellarCalculatorApp, Follow the next steps:
 
 1. fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
