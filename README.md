@@ -33,7 +33,5 @@ Next tasks:
 
 visit this link to learn more [wow create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-# Technologies used
-- HTML
-- CSS
-- JavaScript
+# 📝 License
+- This project is under license. See the [LICENSE](LICENSE.md) file for more details.
