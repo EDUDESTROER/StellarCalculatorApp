@@ -1,6 +1,6 @@
 # ⭐ StellarCalculatorApp
 
-![IMG](https://media.licdn.com/dms/image/D4D2DAQHJX5fHpOiLuQ/profile-treasury-image-shrink_800_800/0/1705582091041?e=1707174000&v=beta&t=cJIjzB2OPTa0gORU9AL54fLzNwBTx2GbvvBqCHHXvLs)
+![IMG](https://media.licdn.com/dms/image/D4D2DAQGlesSc0qSdxg/profile-treasury-image-shrink_800_800/0/1707237561238?e=1707843600&v=beta&t=61buoPDpi2EGa9HkX8VwsauYfhpiyXs_drfLH7lT124)
 
 ## ⚠️ In developing
 # About the project:
