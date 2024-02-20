@@ -353,10 +353,10 @@ class CalcController {
     }
     addConverterOp(value){
         
-        console.log(value);
+        //console.log(value);
         let lastConverter = this._converterOperationFirst[0];
         let valueReplace = value.replace("converter-", "");
-        console.log(valueReplace);
+        //console.log(valueReplace);
             
         if(!this._converterOperationFirst[0]){
 
@@ -376,7 +376,7 @@ class CalcController {
             this._converterOperationFirst[0] = '0.' + valueReplace
         }
 
-        console.log(this._converterOperationFirst);
+        //console.log(this._converterOperationFirst);
 
         this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
         this.calcMeasures();
@@ -471,8 +471,8 @@ class CalcController {
         this._firstSelectedMeasure =  this._selectMeasuresFirst[this._selectMeasuresFirst.selectedIndex].value;
         this._secondSelectedMeasure = this._selectMeasuresSecond[this._selectMeasuresSecond.selectedIndex].value;
 
-        console.log(this._firstSelectedMeasure);
-        console.log(this._secondSelectedMeasure);
+        //console.log(this._firstSelectedMeasure);
+        //console.log(this._secondSelectedMeasure);
 
         if(this._converterOperationFirst[0] > 0){
             if(this._firstSelectedMeasure == 'nm'){
@@ -1386,18 +1386,33 @@ class CalcController {
     
     set displayCalc(value){ //Error here
         value = value.toString();
-        if(value.length <= 13){
-            this._displayCalcEl.style.fontSize = "5em";
-        }
-        if(value.length > 13){
-            this._displayCalcEl.style.fontSize = "3.5em";
+        if(window.innerWidth > 430){
+            if(value.length <= 13){
+                this._displayCalcEl.style.fontSize = "5em";
+            }
+            if(value.length > 13){
+                this._displayCalcEl.style.fontSize = "3.5em";
+            }
+        }else if(window.innerWidth < 430){
+            if(value.length <= 6){
+                this._displayCalcEl.style.fontSize = "5em";
+            }
+            if(value.length > 6){
+                this._displayCalcEl.style.fontSize = "4em";
+            }
+            if(value.length >= 10){
+                this._displayCalcEl.style.fontSize = "3em";
+            }
+            if(value.length >= 13){
+                this._displayCalcEl.style.fontSize = "2.5em";
+            }
         }
         if(value.length <= 15){
             this._maxNumberLast = value;
         }
         if(value.length > 15){
             if(this._operation[0] > 0.1){
-                console.log(this._operation[0]);
+                //console.log(this._operation[0]);
                 alert("You cannot enter more than 15 characters!");
                 this._operation = [this._maxNumberLast];
                 return false;

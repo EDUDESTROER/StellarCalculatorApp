@@ -7,6 +7,23 @@
     margin: 0;
     padding: 0;
     font-family: 'digital-7';
+    scrollbar-width: thin;
+    scrollbar-color: #1d1f21 #ffc74596;
+    scroll-behavior: smooth;
+    
+}
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: .3em;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffc74596;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #1d1f21;
+    border-radius: 20px;;
 }
 body{
     height: 100vh;
@@ -210,11 +227,9 @@ div[class="wrapper-buttons"]{
     flex-direction: column;
     margin-top: 1px;
     padding-right: 2px;
-    overflow-x: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
     scroll-behavior: smooth;
-}
-.wrapper-history .history-list::-webkit-scrollbar{
-    display: none
 }
 .wrapper-history .history-list .history-calc{
     transition-duration: 300ms;
