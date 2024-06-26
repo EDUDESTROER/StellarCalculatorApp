@@ -1286,6 +1286,9 @@ class CalcController {
             case 'dot':
                 this.addDot();
                 break;
+            case 'angle':
+                console.log('No functions in button', value);
+                break;
             case 'equal':
                 this.calc();
                 break;
