@@ -21,6 +21,7 @@ class CalcController {
         this._historyEl = document.querySelector(".wrapper-history");
         this._historyList = document.querySelector(".history-list");
         this._converterEl = document.querySelector(".wrapper-converter");
+        this._angleConverterEl = document.querySelector(".wrapper-angle-converter")
         this._converterFirstEl = document.querySelector("#converter-first");
         this._converterSecondEl = document.querySelector("#converter-second");
         this._selectMeasuresFirst = document.querySelector("#measures-first");
@@ -1287,7 +1288,7 @@ class CalcController {
                 this.addDot();
                 break;
             case 'angle':
-                console.log('No functions in button', value);
+                this.showElement(this._angleConverterEl);
                 break;
             case 'equal':
                 this.calc();
