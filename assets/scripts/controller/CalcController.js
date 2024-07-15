@@ -11,6 +11,8 @@ class CalcController {
         this._allOperation = [];
         this._allResults = [];
         this._converterOperationFirst = [];
+        this._angleConverterOperationFirst = [];
+        this._angleConvertedValue = 0;
         this._convertedValue = 0;
         this._firstSelectedMeasure;
         this._secondSelectedMeasure;
@@ -22,6 +24,10 @@ class CalcController {
         this._historyList = document.querySelector(".history-list");
         this._converterEl = document.querySelector(".wrapper-converter");
         this._angleConverterEl = document.querySelector(".wrapper-angle-converter")
+        this._angleConverterFirstEl = document.querySelector("#angle-converter-first");
+        this._angleConverterSecondEl = document.querySelector("#angle-converter-second");
+        this._angleSelectMeasuresFirst = document.querySelector("#angle-measures-first");
+        this._angleSelectMeasuresSecond = document.querySelector("#angle-measures-second");
         this._converterFirstEl = document.querySelector("#converter-first");
         this._converterSecondEl = document.querySelector("#converter-second");
         this._selectMeasuresFirst = document.querySelector("#measures-first");
@@ -379,7 +385,7 @@ class CalcController {
 
         //console.log(this._converterOperationFirst);
 
-        this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
+        this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
         this.calcMeasures();
 
     }
@@ -403,64 +409,64 @@ class CalcController {
 
     }
 
-    setConverterTodisplay(value, element){
+    setConverterTodisplay(value, element, firstDisplay, secondDisplay, valueConverted){
 
         element.value = value;
         
         if(window.innerWidth > 460){
 
-            if(!this._converterOperationFirst[0] || this._converterOperationFirst[0].length <= 8){
+            if(!value || value.length <= 8){
 
-                this._converterFirstEl.style.fontSize = '4em';
-                this._converterSecondEl.style.fontSize = '4em';
+                firstDisplay.style.fontSize = '4em';
+                secondDisplay.style.fontSize = '4em';
     
-            } else if(this._converterOperationFirst[0].length >= 8){
+            } else if(value.length >= 8){
     
-                this._converterFirstEl.style.fontSize = '2.8em';
-                this._converterSecondEl.style.fontSize = '2.8em';
-    
-            }
-            if(this._converterOperationFirst[0] && this._converterOperationFirst[0].length >= 11){
-    
-                this._converterFirstEl.style.fontSize = '1.8em';
-                this._converterSecondEl.style.fontSize = '1.8em';
+                firstDisplay.style.fontSize = '2.8em';
+                secondDisplay.style.fontSize = '2.8em';
     
             }
-            if(!this._convertedValue || this._convertedValue.toString().length <= 8){
+            if(value && value.length >= 11){
     
-                this._converterFirstEl.style.fontSize = '4em';
-                this._converterSecondEl.style.fontSize = '4em';
-    
-            } else if(this._convertedValue.toString().length >= 8){
-    
-                this._converterFirstEl.style.fontSize = '2.8em';
-                this._converterSecondEl.style.fontSize = '2.8em';
+                firstDisplay.style.fontSize = '1.8em';
+                secondDisplay.style.fontSize = '1.8em';
     
             }
-            if(this._convertedValue && this._convertedValue.toString().length >= 11){
+            if(!valueConverted || valueConverted.toString().length <= 8){
     
-                this._converterFirstEl.style.fontSize = '1.8em';
-                this._converterSecondEl.style.fontSize = '1.8em';
+                firstDisplay.style.fontSize = '4em';
+                secondDisplay.style.fontSize = '4em';
+    
+            } else if(valueConverted.toString().length >= 8){
+    
+                firstDisplay.style.fontSize = '2.8em';
+                secondDisplay.style.fontSize = '2.8em';
     
             }
-            if(this._convertedValue && this._convertedValue.toString().length >= 15){
+            if(valueConverted && valueConverted.toString().length >= 11){
     
-                this._converterFirstEl.style.fontSize = '1.8em';
-                this._converterSecondEl.style.fontSize = '1.6em';
+                firstDisplay.style.fontSize = '1.8em';
+                secondDisplay.style.fontSize = '1.8em';
+    
+            }
+            if(valueConverted && valueConverted.toString().length >= 15){
+    
+                firstDisplay.style.fontSize = '1.8em';
+                secondDisplay.style.fontSize = '1.6em';
     
             }
 
         }else{
-            if(this._convertedValue && this._convertedValue.toString().length >= 11){
+            if(valueConverted && valueConverted.toString().length >= 11){
     
-                this._converterFirstEl.style.fontSize = '1em';
-                this._converterSecondEl.style.fontSize = '1em';
+                firstDisplay.style.fontSize = '1em';
+                secondDisplay.style.fontSize = '1em';
     
             }
-            if(this._convertedValue && this._convertedValue.toString().length <= 11){
+            if(valueConverted && valueConverted.toString().length <= 11){
     
-                this._converterFirstEl.style.fontSize = '1.8em';
-                this._converterSecondEl.style.fontSize = '1.6em';
+                firstDisplay.style.fontSize = '1.8em';
+                secondDisplay.style.fontSize = '1.6em';
     
             }
         }
@@ -1329,12 +1335,62 @@ class CalcController {
             case 'converter-backspace':
                 this.eraseDigit(this._converterOperationFirst);
                 break;
+            case 'angle-converter-0':
+            case 'angle-converter-1':
+            case 'angle-converter-2':
+            case 'angle-converter-3':
+            case 'angle-converter-4':
+            case 'angle-converter-5':
+            case 'angle-converter-6':
+            case 'angle-converter-7':
+            case 'angle-converter-8':
+            case 'angle-converter-9':
+                this.addAngleConverterOp(value);
+                console.error('in developing...');
+                break;
+            case 'angle-converter-dot':
+                console.error('no functions yet');
+                break;
+            case 'angle-converter-ce':
+                console.error('no functions yet');
+                break;
+            case 'angle-converter-backspace':
+                console.error('no functions yet');
+                break;
             
             default:
                 this.setError();  
                 break;
             
         }
+
+    }
+
+    addAngleConverterOp(value){
+
+        let lastValueConverter = this._angleConverterOperationFirst[0];
+        let valueReplace = value.replace('angle-converter-', '');
+
+        if(!this._angleConverterOperationFirst[0]){
+
+            this._angleConverterOperationFirst.push(valueReplace);
+
+        }else if(this._angleConverterOperationFirst[0] && this._angleConverterOperationFirst[0].length < 15){
+
+            if(value != 0 && lastValueConverter != 0){
+
+                this._angleConverterOperationFirst.pop();
+                this._angleConverterOperationFirst.push(lastValueConverter + valueReplace);
+
+            }else if( value != 0){
+
+                this._angleConverterOperationFirst[0] = valueReplace;
+
+            }
+
+        }
+
+        this.setConverterTodisplay(this._angleConverterOperationFirst[0], this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
 
     }
 
