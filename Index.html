@@ -29,6 +29,7 @@
             <div class="wrapper-function-buttons">
                 <button id="btn-history"><img draggable="false" src="assets/img/history.png" alt="history button"></button>
                 <button id="btn-converter"><img draggable="false" src="assets/img/measures.png" alt="measures button"></button>
+                <button id="btn-angle"><img draggable="false" src="assets/img/angle.png" alt="angle button"></button>
                 <button id="btn-sond"><img draggable="false" src="assets/img/no_sound.png" alt="sond button"></button>
             </div>
             <div class="wrapper-backspace-button">
@@ -43,9 +44,56 @@
                 <button id="btn-clearHistory" type="reset">Clear history</button>
             </div>
         </div>
+        <div class="wrapper-angle-converter">
+            <div class="wrapper-converter-display">
+                <span class="span-converter">Angle Converter</span>
+                <output class="converter-output" id="angle-converter-first">0</output>
+
+                <select name="converter-measures" id="angle-measures-first">
+                    <option value="gon">Grados</option>
+                    <option value="rad">Radianos</option>
+                    <option value="°">Graus</option>
+                </select>
+
+                <output class="converter-output" id="angle-converter-second">0</output>
+
+                <select name="angle-converter-measures" id="angle-measures-second">
+                    <option value="gon">Grados</option>
+                    <option value="rad">Radianos</option>
+                    <option value="°">Graus</option>
+                </select>
+            </div>
+            <div class="wrapper-converter-buttons">
+
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="angle-converter-btn-ce">CE</button>
+                    <button id="angle-converter-btn-backspace"><img draggable="false" src="assets/img/backspace.png" alt="backspace button of converter function"></button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="angle-converter-btn-7">7</button>
+                    <button id="angle-converter-btn-8">8</button>
+                    <button id="angle-converter-btn-9">9</button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="angle-converter-btn-4">4</button>
+                    <button id="angle-converter-btn-5">5</button>
+                    <button id="angle-converter-btn-6">6</button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="angle-converter-btn-1">1</button>
+                    <button id="angle-converter-btn-2">2</button>
+                    <button id="angle-converter-btn-3">3</button>
+                </div>
+                <div class="wrapper-converter-buttons-queues">
+                    <button id="angle-converter-btn-0">0</button>
+                    <button id="angle-converter-btn-dot">,</button>
+                </div>
+
+            </div>
+        </div>
         <div class="wrapper-converter">
             <div class="wrapper-converter-display">
-                <span class="span-converter">Converter</span>
+                <span class="span-converter">Measures Converter</span>
                 <output class="converter-output" id="converter-first">0</output>
 
                 <select name="converter-measures" id="measures-first">

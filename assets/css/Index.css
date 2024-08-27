@@ -113,7 +113,7 @@ main .wrapper-functions{
     justify-content: space-between;
 }
 main .wrapper-functions .wrapper-function-buttons{
-    width: 30%;
+    width: 35%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -289,7 +289,7 @@ div[class="wrapper-buttons"]{
     transform: scale(0.97);
     background-color: #ebae53;
 }
-.wrapper-converter{
+.wrapper-converter, .wrapper-angle-converter{
     right: 0;
     top: 15%;
     background-color: #ffc74596;
@@ -302,14 +302,14 @@ div[class="wrapper-buttons"]{
     align-self: center;
     animation: emerge .3s ease-in-out 1;
 }
-.wrapper-converter > .wrapper-converter-display{
+.wrapper-converter-display{
     width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.wrapper-converter > .wrapper-converter-display span.span-converter{
+.wrapper-converter-display span.span-converter{
     user-select: none;
     width: 30%;
     font-family: cursive;
@@ -325,7 +325,7 @@ div[class="wrapper-buttons"]{
     color: #F1F7FF;
     padding-left: 5px;
 }
-.wrapper-converter > .wrapper-converter-display > select{
+.wrapper-converter-display > select{
     width: 43%;
     font-family: cursive;
     background-color: transparent;
@@ -333,10 +333,10 @@ div[class="wrapper-buttons"]{
     outline: transparent;
     padding-left: 5px;
 }
-.wrapper-converter > .wrapper-converter-display > select > option{
+.wrapper-converter-display > select > option{
     font-family: inherit;
 }
-.wrapper-converter .wrapper-converter-buttons{
+.wrapper-converter-buttons{
     user-select: none;
     width: 50%;
     height: 100%;
@@ -345,14 +345,14 @@ div[class="wrapper-buttons"]{
     align-items: flex-end;
     justify-content: center;
 }
-.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues{
+.wrapper-converter-buttons .wrapper-converter-buttons-queues{
     margin: 1px;
     width: 98%;
     height: 18%;
     display: flex;
     justify-content: flex-end;
 }
-.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button{
+.wrapper-converter-buttons .wrapper-converter-buttons-queues > button{
     width: 30%;
     height: 99%;
     background-color: #E8A033;
@@ -363,14 +363,14 @@ div[class="wrapper-buttons"]{
     transition-duration: 300ms;
     font-size: 2em;
 }
-.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button:active{
+.wrapper-converter-buttons .wrapper-converter-buttons-queues > button:active{
     background-color: #ebae53;
     transform: scale(0.97);
 }
-.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button:hover{
+.wrapper-converter-buttons .wrapper-converter-buttons-queues > button:hover{
     outline: solid 0.01em #F1F7FF;
 }
-.wrapper-converter .wrapper-converter-buttons .wrapper-converter-buttons-queues > button img{
+.wrapper-converter-buttons .wrapper-converter-buttons-queues > button img{
     width: 50%;
 }
 
