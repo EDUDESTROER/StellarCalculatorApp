@@ -20,6 +20,7 @@ Next tasks:
 - [x] Create a simpli and resposive calculator.
 - [x] Create a measure converter.
 - [x] Create a history for the calculator.
+- [x] Create a angle converter.
 - [ ] Create a volume unit converter. 
 - [ ] Create a currency converter.
 - [ ] Create a weight and mass converter.
