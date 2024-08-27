@@ -16,6 +16,8 @@ class CalcController {
         this._convertedValue = 0;
         this._firstSelectedMeasure;
         this._secondSelectedMeasure;
+        this._firstSelectedAngle;
+        this._secondSelectedAngle;
         this._locale = navigator.language;
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#date");
@@ -380,7 +382,7 @@ class CalcController {
         
         }
         if(lastConverter == '0.'){
-            this._converterOperationFirst[0] = '0.' + valueReplace
+            this._converterOperationFirst[0] = '0.' + valueReplace;
         }
 
         //console.log(this._converterOperationFirst);
@@ -404,6 +406,21 @@ class CalcController {
             this._firstSelectedMeasure =  this._selectMeasuresFirst[this._selectMeasuresFirst.selectedIndex].value;
             //console.log(this._firstSelectedMeasure);
             this.calcMeasures();
+
+        });
+        this._angleSelectMeasuresSecond.addEventListener('change', e=>{
+            
+            this._secondSelectedAngle = this._angleSelectMeasuresSecond[this._angleSelectMeasuresSecond.selectedIndex].value;
+            //console.log(this._secondSelectedMeasure);
+            this.calcAngle();
+
+        });
+
+        this._angleSelectMeasuresFirst.addEventListener('change', e=>{
+
+            this._firstSelectedAngle =  this._angleSelectMeasuresFirst[this._angleSelectMeasuresFirst.selectedIndex].value;
+            //console.log(this._firstSelectedMeasure);
+            this.calcAngle();
 
         });
 
@@ -519,7 +536,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.00000000000054;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -562,7 +579,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.000000000539957;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -605,7 +622,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.000000539956803;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -648,7 +665,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.000005;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -690,7 +707,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.00054;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -733,7 +750,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.539957;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -776,7 +793,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.000014;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -819,7 +836,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.000165;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -862,7 +879,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.000494;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -905,7 +922,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 0.868976;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -948,7 +965,7 @@ class CalcController {
                         this._convertedValue = this._converterOperationFirst[0] * 1;
                         break;
                     default:
-                        this.clearnMeasures();
+                        this.clearnMeasures('length');
                         break;
     
                 }
@@ -956,45 +973,77 @@ class CalcController {
             
     
             if(this._convertedValue){
-                this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
+                this.setConverterTodisplay(this._convertedValue, this._converterSecondEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
             }
         }else if(this._converterOperationFirst[0] == ''){
 
             this._converterOperationFirst[0] = '0';
-            this.setConverterTodisplay(this._converterOperationFirst[0] = '0', this._converterFirstEl);
-            this.setConverterTodisplay(this._convertedValue = '0', this._converterSecondEl);
+            this.setConverterTodisplay(this._converterOperationFirst[0] = '0', this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+            this.setConverterTodisplay(this._convertedValue = '0', this._converterSecondEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
 
         }
         
 
     }
-    addDotMeasures(){
+    addDotMeasures(arrayName, origin){
 
-        let lastOperation = this._converterOperationFirst[this._converterOperationFirst.length-1];
+        let lastOperation = arrayName[arrayName.length-1];
 
         console.log(lastOperation);
         if (lastOperation && lastOperation.toString().split('').indexOf('.') > -1) return;
         
         if(!lastOperation || lastOperation == 0){ 
 
-            this._converterOperationFirst[0] = '0.';
+            arrayName[0] = '0.';
 
         }else{
 
-            this._converterOperationFirst.pop();
-            this.addConverterOp(lastOperation.toString() + '.');
+            arrayName.pop();
+
+            if(origin === 'length'){
+
+                this.addConverterOp(lastOperation.toString() + '.');
+
+            }
+
+            if(origin = 'angle'){
+
+                this.addAngleConverterOp(lastOperation.toString() + '.');
+
+            }
 
         }
 
-        this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
+        if(origin === 'length'){
+
+            this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+
+        }
+        if(origin = 'angle'){
+
+            this.setConverterTodisplay(this._angleConverterOperationFirst[0], this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+
+        }
 
     }
-    clearnMeasures(){
+    clearnMeasures(name){
 
-        this._converterOperationFirst = [];
-        this._convertedValue = 0;
-        this.setConverterTodisplay(0, this._converterFirstEl);
-        this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
+        if(name === 'length'){
+
+            this._converterOperationFirst = [];
+            this._convertedValue = 0;
+            this.setConverterTodisplay(0, this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+            this.setConverterTodisplay(this._convertedValue, this._converterSecondEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+
+        }
+        if(name === 'angle'){
+
+            this._angleConverterOperationFirst = [];
+            this._angleConvertedValue = 0;
+            this.setConverterTodisplay(0, this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+            this.setConverterTodisplay(this._angleConvertedValue, this._angleConverterSecondEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+
+        }
 
     }
     addDot(){
@@ -1163,8 +1212,14 @@ class CalcController {
             }else if(arrayName == this._converterOperationFirst){
 
                 this.calcMeasures();
-                this.setConverterTodisplay(this._converterOperationFirst[0] = '0', this._converterFirstEl);
-                this.setConverterTodisplay(this._convertedValue = '0', this._converterSecondEl);
+                this.setConverterTodisplay(this._converterOperationFirst[0] = '0', this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+                this.setConverterTodisplay(this._convertedValue = '0', this._converterSecondEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+
+            }else if(arrayName == this._angleConverterOperationFirst){
+
+                this.calcAngle();
+                this.setConverterTodisplay(this._angleConverterOperationFirst[0] = '0', this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+                this.setConverterTodisplay(this._angleConvertedValue = '0', this._angleConverterSecondEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
 
             }
             return;
@@ -1179,7 +1234,7 @@ class CalcController {
 
                 this.pushOperation(number);
 
-            }else if(arrayName == this._converterOperationFirst){
+            }else if(arrayName == this._converterOperationFirst || arrayName == this._angleConverterOperationFirst){
 
                 arrayName.push(number);
 
@@ -1190,10 +1245,17 @@ class CalcController {
                 this.setLastNumberToDisplay();
 
             }else if(arrayName == this._converterOperationFirst){
-                this.calcMeasures();
-                this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
-                this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
 
+                this.calcMeasures();
+                this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+                this.setConverterTodisplay(this._convertedValue, this._converterSecondEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+
+            }else if(arrayName == this._angleConverterOperationFirst){
+
+                this.calcAngle();
+                this.setConverterTodisplay(this._angleConverterOperationFirst[0], this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+                this.setConverterTodisplay(this._angleConvertedValue, this._angleConverterSecondEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+                
             }
             //console.log(number);
 
@@ -1211,7 +1273,7 @@ class CalcController {
 
                     this.pushOperation(number);
     
-                }else if(arrayName == this._converterOperationFirst){
+                }else if(arrayName == this._converterOperationFirst || arrayName == this._angleConverterOperationFirst){
     
                     arrayName.push(number);
     
@@ -1224,9 +1286,15 @@ class CalcController {
 
             }else if(arrayName == this._converterOperationFirst){
                 this.calcMeasures();
-                this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl);
-                this.setConverterTodisplay(this._convertedValue, this._converterSecondEl);
+                this.setConverterTodisplay(this._converterOperationFirst[0], this._converterFirstEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
+                this.setConverterTodisplay(this._convertedValue, this._converterSecondEl, this._converterFirstEl, this._converterSecondEl, this._convertedValue);
 
+            }else if(arrayName == this._angleConverterOperationFirst){
+
+                this.calcAngle();
+                this.setConverterTodisplay(this._angleConverterOperationFirst[0], this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+                this.setConverterTodisplay(this._angleConvertedValue, this._angleConverterSecondEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+                
             }
            //console.log(number);
 
@@ -1327,10 +1395,10 @@ class CalcController {
                 this.addConverterOp(value);
                 break;
             case 'converter-dot':
-                this.addDotMeasures();
+                this.addDotMeasures(this._converterOperationFirst, 'length');
                 break;
             case 'converter-ce':
-                this.clearnMeasures();
+                this.clearnMeasures('length');
                 break;
             case 'converter-backspace':
                 this.eraseDigit(this._converterOperationFirst);
@@ -1346,16 +1414,15 @@ class CalcController {
             case 'angle-converter-8':
             case 'angle-converter-9':
                 this.addAngleConverterOp(value);
-                console.error('in developing...');
                 break;
             case 'angle-converter-dot':
-                console.error('no functions yet');
+                this.addDotMeasures(this._angleConverterOperationFirst, 'angle');
                 break;
             case 'angle-converter-ce':
-                console.error('no functions yet');
+                this.clearnMeasures('angle');
                 break;
             case 'angle-converter-backspace':
-                console.error('no functions yet');
+                this.eraseDigit(this._angleConverterOperationFirst);
                 break;
             
             default:
@@ -1389,8 +1456,87 @@ class CalcController {
             }
 
         }
+        if(lastValueConverter == '0.'){
 
+            this._angleConverterOperationFirst[0] = '0.' + valueReplace;
+
+        }
+
+        this.calcAngle();
         this.setConverterTodisplay(this._angleConverterOperationFirst[0], this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+
+    }
+
+    calcAngle(){
+
+        this._firstSelectedAngle = this._angleSelectMeasuresFirst[this._angleSelectMeasuresFirst.selectedIndex].value;
+        this._secondSelectedAngle = this._angleSelectMeasuresSecond[this._angleSelectMeasuresSecond.selectedIndex].value;
+
+        if(this._angleConverterOperationFirst[0] > 0){
+
+            if(this._firstSelectedAngle === 'rad'){
+                switch(this._secondSelectedAngle){
+
+                    case 'rad':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 1;
+                    break;
+                    case 'gon':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 63.66198;
+                    break;
+                    case '°':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 57.29578;
+                    break;
+
+                }
+
+            }
+            if(this._firstSelectedAngle === 'gon'){
+                switch(this._secondSelectedAngle){
+
+                    case 'rad':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 0.015708;
+                    break;
+                    case 'gon':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 1;
+                    break;
+                    case '°':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 0.9;
+                    break;
+
+                }
+
+            }
+            if(this._firstSelectedAngle === '°'){
+                switch(this._secondSelectedAngle){
+
+                    case 'rad':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 0.017453;
+                    break;
+                    case 'gon':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 1.111111;
+                    break;
+                    case '°':
+                        this._angleConvertedValue = this._angleConverterOperationFirst[0] * 1;
+                    break;
+
+                }
+
+            }
+
+            if(this._angleConvertedValue){
+                this.setConverterTodisplay(this._angleConvertedValue, this._angleConverterSecondEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+            }
+
+
+            console.log(this._angleConvertedValue);
+
+        }else if(this._angleConverterOperationFirst[0] == ''){
+
+            this._angleConverterOperationFirst[0] = '0';
+            this.setConverterTodisplay(this._angleConverterOperationFirst[0] = '0', this._angleConverterFirstEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+            this.setConverterTodisplay(this._angleConvertedValue = '0', this._angleConverterSecondEl, this._angleConverterFirstEl, this._angleConverterSecondEl, this._angleConvertedValue);
+
+        }
 
     }
 
