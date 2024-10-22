@@ -7,192 +7,118 @@
     <meta name="author" content="EDUDESTROER">
     <meta name="description" content="Perform any methematical operation from your browser">
     <title>Stellar Calculator</title>
-    <link rel="icon" href="assets/img/calculator_icon.png">
+    <link rel="icon" href="assets/icons/calculator_icon.png">
     <link rel="stylesheet" href="assets/css/Index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
-    <main>
+    <header class="wrapper-menu-info">
 
-        <div class="wrapper-top">
+        <div class="wrapper-functions-buttons">
 
-            <div class="wrapper-now-information">
-                <div><span id="date"></span></div>
-                <div><span id="hour"></span></div>
-            </div>
-            <div class="wrapper-input">
-                <input type="text" id="display">
-            </div>
-        </div>
-        <div class="wrapper-functions">
-
-            <div class="wrapper-function-buttons">
-                <button id="btn-history"><img draggable="false" src="assets/img/history.png" alt="history button"></button>
-                <button id="btn-converter"><img draggable="false" src="assets/img/measures.png" alt="measures button"></button>
-                <button id="btn-angle"><img draggable="false" src="assets/img/angle.png" alt="angle button"></button>
-                <button id="btn-sond"><img draggable="false" src="assets/img/no_sound.png" alt="sond button"></button>
-            </div>
-            <div class="wrapper-backspace-button">
-                <button id="btn-backspace"><img draggable="false" src="assets/img/backspace.png" alt="backspace button"></button>
-            </div>
+            <button id="btn-open-side-menu" title="Menu button" class="buttons-effect-up-size"><img width="64px" src="assets/icons/menu.png" alt="side menu bar icon"></button>
+            <span id="mode-name" title="calculator type">Standard</span>
 
         </div>
-        <div class="wrapper-history">
-            <div class="history-list">
-            </div>
-            <div class="wrapper-button-history-list">
-                <button id="btn-clearHistory" type="reset">Clear history</button>
-            </div>
+
+        <aside class="wrapper-status-output" style="display: none;">
+            
+
+    
+        </aside>
+
+        <div class="wrapper-functions-buttons">
+
+            <button id="button-history" class="buttons-effect-up-size" title="History">
+                <img src="assets/icons/history.png" alt="history button icon" >
+            </button>
+    
+            <button id="button-sound" class="buttons-effect-up-size" title="Audio">
+                <img src="assets/icons/no_sound.png" alt="Sound button icon">
+            </button>
+    
         </div>
-        <div class="wrapper-angle-converter">
-            <div class="wrapper-converter-display">
-                <span class="span-converter">Angle Converter</span>
-                <output class="converter-output" id="angle-converter-first">0</output>
 
-                <select name="converter-measures" id="angle-measures-first">
-                    <option value="gon">Grados</option>
-                    <option value="rad">Radianos</option>
-                    <option value="°">Graus</option>
-                </select>
+    </header>
 
-                <output class="converter-output" id="angle-converter-second">0</output>
+    <aside class="float-menu" style="display: none;">
 
-                <select name="angle-converter-measures" id="angle-measures-second">
-                    <option value="gon">Grados</option>
-                    <option value="rad">Radianos</option>
-                    <option value="°">Graus</option>
-                </select>
-            </div>
-            <div class="wrapper-converter-buttons">
+        <button id="btn-close-side-menu" title="Menu button" class="buttons-effect-up-size"><img width="64px" src="assets/icons/menu.png" alt="side menu bar icon"></button>
 
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="angle-converter-btn-ce">CE</button>
-                    <button id="angle-converter-btn-backspace"><img draggable="false" src="assets/img/backspace.png" alt="backspace button of converter function"></button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="angle-converter-btn-7">7</button>
-                    <button id="angle-converter-btn-8">8</button>
-                    <button id="angle-converter-btn-9">9</button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="angle-converter-btn-4">4</button>
-                    <button id="angle-converter-btn-5">5</button>
-                    <button id="angle-converter-btn-6">6</button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="angle-converter-btn-1">1</button>
-                    <button id="angle-converter-btn-2">2</button>
-                    <button id="angle-converter-btn-3">3</button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="angle-converter-btn-0">0</button>
-                    <button id="angle-converter-btn-dot">,</button>
-                </div>
+        <ul>
 
-            </div>
-        </div>
-        <div class="wrapper-converter">
-            <div class="wrapper-converter-display">
-                <span class="span-converter">Measures Converter</span>
-                <output class="converter-output" id="converter-first">0</output>
+            <span>Calculadora</span>
 
-                <select name="converter-measures" id="measures-first">
-                    <option value="nm">Nanômetros</option>
-                    <option value="μm">Mícrons</option>
-                    <option value="mm">Milímetros</option>
-                    <option value="cm">Centímetros</option>
-                    <option value="m">Metros</option>
-                    <option value="km">Quilômetros</option>
-                    <option selected value="in">Polegadas</option>
-                    <option value="ft">Pés</option>
-                    <option value="yd">Jardas</option>
-                    <option value="mi">Milhas</option>
-                    <option value="mn">Milhas náuticas</option>
-                </select>
+            <li class="calculator-mode active-calculator-mode" title="Standard Mode">
 
-                <output class="converter-output" id="converter-second">0</output>
+                <img src="assets/icons/calculator_icon.png" draggable="false" alt="Standard icon">
+                <span>Standard</span>
 
-                <select name="converter-measures" id="measures-second">
-                    <option value="nm">Nanômetros</option>
-                    <option value="μm">Mícrons</option>
-                    <option value="mm">Milímetros</option>
-                    <option selected value="cm">Centímetros</option>
-                    <option value="m">Metros</option>
-                    <option value="km">Quilômetros</option>
-                    <option value="in">Polegadas</option>
-                    <option value="ft">Pés</option>
-                    <option value="yd">Jardas</option>
-                    <option value="mi">Milhas</option>
-                    <option value="mn">Milhas náuticas</option>
-                </select>
-            </div>
-            <div class="wrapper-converter-buttons">
+            </li>
 
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="converter-btn-ce">CE</button>
-                    <button id="converter-btn-backspace"><img draggable="false" src="assets/img/backspace.png" alt="backspace button of converter function"></button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="converter-btn-7">7</button>
-                    <button id="converter-btn-8">8</button>
-                    <button id="converter-btn-9">9</button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="converter-btn-4">4</button>
-                    <button id="converter-btn-5">5</button>
-                    <button id="converter-btn-6">6</button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="converter-btn-1">1</button>
-                    <button id="converter-btn-2">2</button>
-                    <button id="converter-btn-3">3</button>
-                </div>
-                <div class="wrapper-converter-buttons-queues">
-                    <button id="converter-btn-0">0</button>
-                    <button id="converter-btn-dot">,</button>
-                </div>
+        </ul>
+        <ul>
 
-            </div>
-        </div>
-        <div class="wrapper-buttons">
+            <span>Conversor</span>
+            
+            <li class="calculator-mode" title="Length Conversor">
 
-            <div class="wrapper-buttons-queues">
-                <button id="btn-percent">%</button>
-                <button id="btn-ce">CE</button>
-                <button id="btn-c">C</button>
-                <button id="btn-division">÷</button>
-            </div>
-            <div class="wrapper-buttons-queues">
-                <button id="btn-7">7</button>
-                <button id="btn-8">8</button>
-                <button id="btn-9">9</button>
-                <button id="btn-multiplication">X</button>
-            </div>
-            <div class="wrapper-buttons-queues">
-                <button id="btn-4">4</button>
-                <button id="btn-5">5</button>
-                <button id="btn-6">6</button>
-                <button id="btn-subtraction">-</button>
-            </div>
-            <div class="wrapper-buttons-queues">
-                <button id="btn-1">1</button>
-                <button id="btn-2">2</button>
-                <button id="btn-3">3</button>
-                <button id="btn-sum">+</button>
-            </div>
-            <div class="wrapper-buttons-queues">
-                <button id="btn-change-signal">+/-</button>
-                <button id="btn-0">0</button>
-                <button id="btn-dot">,</button>
-                <button id="btn-equal">=</button>
-            </div>
+                <img src="assets/icons/measures.png" draggable="false" alt="Length icon">
+                <span>Length</span>
 
-        </div>
+            </li>
+            <li class="calculator-mode" title="Angle Conversor">
+
+                <img src="assets/icons/angle.png" draggable="false" alt="angle icon">
+                <span>Angle</span>
+
+            </li>
+
+        </ul>
+
+
+    </aside>
+
+    <aside class="float-history" style="display: none;">
+
+        <div class="exit-float-history"></div>
+
+        <ul class="wrapper-calc-and-results">
+            
+            
+            
+        </ul>
+
+        <button id="button-trash-history" class="buttons-base-effects">
+            Clear History
+        </button>
         
+    </aside>
+
+    <main class="wrapper-calculator">
+
+        <!-- Inner with JS -->
 
     </main>
-    
-    <script src="assets/scripts/controller/CalcController.js"></script>
-    <script src="assets/scripts/Calculator.js"></script>
+
+    <footer class="wrapper-footer-info">
+
+        <p>Create by <a href="https://github.com/EDUDESTROER" target="_blank">Eduardo Salvador</a></p>
+        <p>Background image by <a href="https://unsplash.com/@nasa" target="_blank">NASA</a> on <a href="https://unsplash.com" target="_blank">Unsplash</a></p>
+
+    </footer>
+    <script src="assets/scripts/class/History.js"></script>
+    <script src="assets/scripts/class/Length.js"></script>
+    <script src="assets/scripts/class/Angle.js"></script>
+    <script src="assets/scripts/class/StandardMode.js"></script>
+    <script src="assets/scripts/class/ConverterMode.js"></script>
+    <script src="assets/scripts/views/StellarViews.js"></script>
+    <script src="assets/scripts/controller/StellarController.js"></script>
+    <script src="assets/scripts/StellarCalculator.js"></script>
 </body>
 </html>

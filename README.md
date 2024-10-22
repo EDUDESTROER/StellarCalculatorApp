@@ -7,8 +7,8 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
 
 # About the project:
-- the basis of the script was taken from a Hcode course.
-- The application consists of a **beautiful calculator** with histort and measurement converter.
+
+- The application consists of a **beautiful calculator** with histort and two type of converter.
 
 https://github.com/EDUDESTROER/StellarCalculatorApp/assets/71973968/54fed29a-6a2b-4ae3-ad8e-478aec199798
 
@@ -17,13 +17,14 @@ https://github.com/EDUDESTROER/StellarCalculatorApp/assets/71973968/54fed29a-6a2
 
 Next tasks:
 
-- [x] Create a simpli and resposive calculator.
-- [x] Create a measure converter.
-- [x] Create a history for the calculator.
-- [x] Create a angle converter.
-- [ ] Create a volume unit converter. 
-- [ ] Create a currency converter.
-- [ ] Create a weight and mass converter.
+- [x] Develop a user-friendly, responsive calculator designed to ensure compatibility across all devices.
+- [x] Develop a measure converter.
+- [x] Develop a history for the calculator.
+- [x] Develop a angle converter.
+- [ ] Develop a volume unit converter. 
+- [ ] Develop a currency converter.
+- [ ] Develop a weight and mass converter.
+
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:
 
 1. fork this repository.
