@@ -27,7 +27,7 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'standard'/* || !this._selectedCalculatorMode*/){
 
             let standardEl = window.viewsCalculator.returnStandard();
 
@@ -48,12 +48,14 @@ class StellarControler {
 
             window.calculatorConverterMode.start('length');
 
+            window.calculatorConverterMode.clearConverter();
+
             window.viewsCalculator.displaySucess('Length select');
 
             this._historyButtonEl.disabled = true; //Make it's Work in the next update!
 
         }
-        if(this._selectedCalculatorMode === 'angle'){ //Change the or option after the developing
+        if(this._selectedCalculatorMode === 'angle'){
 
             let angleEl = window.viewsCalculator.returnConversor('angle');
 
@@ -61,7 +63,24 @@ class StellarControler {
 
             window.calculatorConverterMode.start('angle');
 
+            window.calculatorConverterMode.clearConverter();
+
             window.viewsCalculator.displaySucess('Angle select');
+
+            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+
+        }
+        if(this._selectedCalculatorMode === 'volume' || !this._selectedCalculatorMode){ //Change the or option after the developing
+
+            let angleEl = window.viewsCalculator.returnConversor('volume');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorConverterMode.start('volume');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Volume select');
 
             this._historyButtonEl.disabled = true; //Make it's Work in the next update!
 

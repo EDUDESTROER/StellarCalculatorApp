@@ -173,18 +173,6 @@ class ConverterMode {
 
         window.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
 
-        this.verifySizeOutput('first-converter-output');
-
-        if(this.converterType == 'length'){
-
-            window.length.storeFirstValue(this.firstOutputValue);
-        
-        }else if(this.converterType == 'angle'){
-
-            window.angleConverter.storeFirstValue(this.firstOutputValue);
-
-        }
-
         this.checkConverterType();
 
     }
@@ -195,11 +183,16 @@ class ConverterMode {
 
         if(this.converterType == 'length'){
 
-            result = window.length.calcLengthConverter(this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = window.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
         
         }else if(this.converterType == 'angle'){
 
-            result = window.angleConverter.calcAngleConverter(this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = window.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }else if(this.converterType == 'volume'){
+
+            result = window.volumeConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
 
         }
 
@@ -228,17 +221,6 @@ class ConverterMode {
     }
 
     clearConverter(){
-
-        if(this.converterType == 'length'){
-
-            window.length.clearLenght();
-
-        }
-        if(this.converterType == 'angle'){
-
-            window.angleConverter.clearAngle();
-
-        }
 
         this.firstOutputValue = '';
 
