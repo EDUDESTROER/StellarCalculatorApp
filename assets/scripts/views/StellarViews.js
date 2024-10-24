@@ -164,6 +164,13 @@ class StellarViews{
 
         }
 
+        if(type === 'volume'){
+
+            liNumber = 20;
+            nameList = ['Milliliters', 'Cubic centimeters', 'Liters', 'Cubic meters', 'Teaspoon (USA)', 'Tablespoons (USA)', 'Fluid ounces (USA)', 'Cups (USA)', 'Pint (USA)', 'Quart (USA)', 'Gallons (USA)', 'Cubic inches', 'Cubic feet', 'Cubic yards', 'Teaspoon (United Kingdom)', 'Tablespoons (United Kingdom)', 'Fluid ounces (United Kingdom)', 'Pint (United Kingdom)', 'Quart (United Kingdom)', 'Gallons (United Kingdom)'];
+
+        }
+
         let outAndSelect = `
 
                 <span id="${position}-converter-output">0</span>

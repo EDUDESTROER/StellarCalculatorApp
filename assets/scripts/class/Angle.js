@@ -1,69 +1,30 @@
 class Angle{
 
-    constructor(){
+    constructor(){}
 
-        this.firstValue = 0;
+    calcAngleConverter(value, lengthToConvert, lengthResult){
 
-    }
-
-    storeFirstValue(value){
-
-        console.log(value);
-
-        this.firstValue = value;
-
-        console.log(this.firstValue);
-
-    }
-
-    calcAngleConverter(lengthToConvert, lengthResult){
-
-        if(lengthToConvert == 'Grados'){
-
-            switch(lengthResult){
-
-                case 'Grados':
-                    return this.firstValue;
-                case 'Degree':
-                    return this.firstValue * 0.9;
-                case 'Radians':
-                    return this.firstValue * 0.015708;
-
-            }
-
-        }else if(lengthToConvert == 'Degree'){
-
-            switch(lengthResult){
-
-                case 'Grados':
-                    return this.firstValue * 1.111111;
-                case 'Degree':
-                    return this.firstValue;
-                case 'Radians':
-                    return this.firstValue * 0.017453;
-
-            }
-
-        }else if(lengthToConvert == 'Radians'){
-
-            switch(lengthResult){
-
-                case 'Grados':
-                    return this.firstValue * 63.66198;
-                case 'Degree':
-                    return this.firstValue * 57.29578;
-                case 'Radians':
-                    return this.firstValue;
-
-            }
-
+        let convertList = {
+            'Grados': {
+                'Grados': 1,
+                'Degree': 0.9,
+                'Radians':0.015708
+            },
+            'Degree': {
+                'Grados': 1.111111,
+                'Degree': 1,
+                'Radians': 0.017453
+            },
+            'Radians': {
+                'Grados': 63.66198,
+                'Degree': 57.29578,
+                'Radians': 1
+            },
         }
 
-    }
+        let toConvert = convertList[lengthToConvert];
 
-    clearAngle(){
-
-        this.firstValue = 0;
+        return value * toConvert[lengthResult];
 
     }
 

@@ -538,6 +538,7 @@ body{
 }
 .menu-converter{
 
+    max-height: 43vh;
     list-style: none;
     padding: 0.2em 0.5em;
     background-color: #ce4f25;
@@ -547,6 +548,7 @@ body{
     position: absolute;
     display: none;
     transition: 0.2s;
+    overflow-x: auto;
     z-index: 1;
 
 }
