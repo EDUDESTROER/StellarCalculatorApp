@@ -10,7 +10,11 @@
 
 - The application consists of a **beautiful calculator** with histort and two type of converter.
 
-https://github.com/EDUDESTROER/StellarCalculatorApp/assets/71973968/54fed29a-6a2b-4ae3-ad8e-478aec199798
+
+
+https://github.com/user-attachments/assets/8abc40a4-474b-45e1-8f56-829850561248
+
+
 
 
 ## ⚠️ In developing
@@ -21,9 +25,10 @@ Next tasks:
 - [x] Develop a measure converter.
 - [x] Develop a history for the calculator.
 - [x] Develop a angle converter.
-- [x] Develop a volume unit converter. 
-- [x] Develop a currency converter.
-- [ ] Develop a weight and mass converter.
+- [x] Develop a volume unit converter.
+- [x] Develop a weight and mass converter. 
+- [ ] Develop a currency converter.
+
 
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:
 
