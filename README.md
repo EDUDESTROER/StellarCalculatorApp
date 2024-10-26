@@ -27,7 +27,7 @@ Next tasks:
 - [x] Develop a angle converter.
 - [x] Develop a volume unit converter.
 - [x] Develop a weight and mass converter.
-- [ ] Develop a temperature converter. 
+- [x] Develop a temperature converter. 
 - [ ] Develop a currency converter.
 
 
