@@ -199,6 +199,11 @@ class ConverterMode {
             result = window.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
 
+        }else if(this.converterType == 'temperature'){
+
+            result = window.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+
         }
 
         if(result === false){
@@ -234,6 +239,12 @@ class ConverterMode {
 
         this.verifySizeOutput('first-converter-output');
         this.verifySizeOutput('second-converter-output');
+
+        if(this.converterType == 'temperature'){
+
+            this.addValueToOutputFirst(0);
+
+        }
 
     }
 

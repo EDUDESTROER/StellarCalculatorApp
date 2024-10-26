@@ -3,6 +3,7 @@ window.length = new Length();
 window.angleConverter = new Angle();
 window.volumeConverter = new Volume();
 window.weigthAndMassConverter = new WeigthAndMass();
+window.temperatureConverter = new Temperature();
 window.calculatorStandardMode = new StellarStandardMode();
 window.calculatorConverterMode = new ConverterMode();
 window.viewsCalculator = new StellarViews();

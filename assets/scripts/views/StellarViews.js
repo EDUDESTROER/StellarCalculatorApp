@@ -178,6 +178,13 @@ class StellarViews{
 
         }
 
+        if(type === 'temperature'){
+
+            liNumber = 3;
+            nameList = ['Celsius', 'Fahrenheit', 'Kelvin'];
+
+        }
+
         let outAndSelect = `
 
                 <span id="${position}-converter-output">0</span>
