@@ -70,7 +70,7 @@ class StellarControler {
             this._historyButtonEl.disabled = true; //Make it's Work in the next update!
 
         }
-        if(this._selectedCalculatorMode === 'volume' || !this._selectedCalculatorMode){ //Change the or option after the developing
+        if(this._selectedCalculatorMode === 'volume'){ //Change the or option after the developing
 
             let angleEl = window.viewsCalculator.returnConversor('volume');
 
@@ -81,6 +81,21 @@ class StellarControler {
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Volume select');
+
+            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+
+        }
+        if(this._selectedCalculatorMode === 'weigth and mass' || !this._selectedCalculatorMode){ //Change the or option after the developing
+
+            let angleEl = window.viewsCalculator.returnConversor('weigthAndMass');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorConverterMode.start('weigthAndMass');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Weigth And Mass select');
 
             this._historyButtonEl.disabled = true; //Make it's Work in the next update!
 

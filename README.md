@@ -21,7 +21,7 @@ Next tasks:
 - [x] Develop a measure converter.
 - [x] Develop a history for the calculator.
 - [x] Develop a angle converter.
-- [ ] Develop a volume unit converter. 
+- [x] Develop a volume unit converter. 
 - [ ] Develop a currency converter.
 - [ ] Develop a weight and mass converter.
 

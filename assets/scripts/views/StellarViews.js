@@ -171,6 +171,13 @@ class StellarViews{
 
         }
 
+        if(type === 'weigthAndMass'){
+
+            liNumber = 14;
+            nameList = ['Carats', 'Miligrams', 'Centigrams', 'Decigrams', 'Gram', 'Decagrams', 'Hectograms', 'Kilograms', 'Metric Tons', 'Ounce', 'Pounds', 'Stone', 'Short Tons (USA)', 'Long Tons (United Kingdom)'];
+
+        }
+
         let outAndSelect = `
 
                 <span id="${position}-converter-output">0</span>
