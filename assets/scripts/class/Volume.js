@@ -2,7 +2,7 @@ class Volume{
 
     constructor(){}
 
-    calcAngleConverter(value, lengthToConvert, lengthResult){
+    calcVolumeConverter(value, lengthToConvert, lengthResult){
 
         let convertList = {
             'Milliliters': {

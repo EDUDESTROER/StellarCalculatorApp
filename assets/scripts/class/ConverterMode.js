@@ -191,7 +191,12 @@ class ConverterMode {
 
         }else if(this.converterType == 'volume'){
 
-            result = window.volumeConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = window.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+
+        }else if(this.converterType == 'weigthAndMass'){
+
+            result = window.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
 
         }
