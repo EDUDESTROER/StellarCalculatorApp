@@ -22,7 +22,7 @@ Next tasks:
 - [x] Develop a history for the calculator.
 - [x] Develop a angle converter.
 - [x] Develop a volume unit converter. 
-- [ ] Develop a currency converter.
+- [x] Develop a currency converter.
 - [ ] Develop a weight and mass converter.
 
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:
