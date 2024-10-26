@@ -85,7 +85,7 @@ class StellarControler {
             this._historyButtonEl.disabled = true; //Make it's Work in the next update!
 
         }
-        if(this._selectedCalculatorMode === 'weigth and mass' || !this._selectedCalculatorMode){ //Change the or option after the developing
+        if(this._selectedCalculatorMode === 'weigth and mass'){ //Change the or option after the developing
 
             let angleEl = window.viewsCalculator.returnConversor('weigthAndMass');
 
@@ -96,6 +96,21 @@ class StellarControler {
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Weigth And Mass select');
+
+            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+
+        }
+        if(this._selectedCalculatorMode === 'temperature' || !this._selectedCalculatorMode){ //Change the or option after the developing
+
+            let angleEl = window.viewsCalculator.returnConversor('temperature');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorConverterMode.start('temperature');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Temperature select');
 
             this._historyButtonEl.disabled = true; //Make it's Work in the next update!
 
