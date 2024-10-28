@@ -5,12 +5,21 @@ class History{
         this.calcList = [];
         this.calcResult = [];
         this.lastListPosition;
+        this.historyType = 'standard';
 
         this.addEventToClearnHistory();
         
     }
 
-    addToHistory(calculation, result){
+    changeHistoryType(type){
+
+        this.historyType = type;
+
+        this.clearHistory();
+
+    }
+
+    addToHistory(calculation, result, valueToSave = ''){
 
         this.calcList.push(calculation);
         this.calcResult.push(result);
@@ -20,11 +29,19 @@ class History{
         calculation = calculation.replace('/','÷');
         calculation = calculation.replace('*','x');
 
-        this.assemblerHistoric(calculation, result, this.lastListPosition)
+        if(valueToSave != ''){
+
+            this.assemblerHistoric(calculation, result, this.lastListPosition, valueToSave);
+
+        }else{
+
+            this.assemblerHistoric(calculation, result, this.lastListPosition);
+
+        }
 
     }
 
-    assemblerHistoric(calculation, result, position){
+    assemblerHistoric(calculation, result, position, valueToSave = ''){
 
         let spanCalculation = window.viewsCalculator.returnSpan(calculation);
 
@@ -38,9 +55,15 @@ class History{
 
         li.dataset.positon = position.toString();
 
+        if(valueToSave != ''){
+
+            li.dataset.value = valueToSave;
+
+        }
+
         li.addEventListener('click', ()=>{
 
-            this.sentToDisplay(li.dataset.positon);
+            this.sentToDisplay(li.dataset.positon, li.dataset.value);
 
         });
 
@@ -68,9 +91,19 @@ class History{
 
     }
 
-    sentToDisplay(position){
+    sentToDisplay(position, savedValue){
 
-        window.calculatorStandardMode.historyRequest( this.calcList[parseInt(position)], this.calcResult[parseInt(position)])
+        if(this.historyType == 'standard'){
+
+            window.calculatorStandardMode.historyRequest( this.calcList[parseInt(position)], this.calcResult[parseInt(position)]);
+
+        }
+        if(this.historyType == 'converter'){
+
+            window.calculatorConverterMode.historyRequest(savedValue);
+
+        }
+
 
     }
 

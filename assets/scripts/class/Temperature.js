@@ -26,7 +26,23 @@ class Temperature{
 
         let toConvert = convertList[lengthToConvert];
 
-        return toConvert[lengthResult];
+        let result = toConvert[lengthResult];
+
+        this.sendToHistory(value, result, lengthToConvert, lengthResult);
+
+        return result;
+
+    }
+
+    sendToHistory(value, result, lengthToConvert, lengthResult){
+
+        let convertAbreviation = {
+            'Celsius': '°C',
+            'Fahrenheit': '°F',
+            'Kelvin': '°K'
+        }
+
+        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 
