@@ -153,35 +153,91 @@ class StellarViews{
         if(type === 'length'){
 
             liNumber = 11;
-            nameList = ['nanometers', 'microns', 'millimeters','centimeter', 'meters', 'kilometers', 'inches', 'Feet', 'Yards', 'miles', 'nautical miles'];
+            nameList = [
+                'nanometers', 
+                'microns', 
+                'millimeters',
+                'centimeter', 
+                'meters', 
+                'kilometers', 
+                'inches', 
+                'Feet', 
+                'Yards', 
+                'miles', 
+                'nautical miles'
+            ];
 
         }
 
         if(type === 'angle'){
 
             liNumber = 3;
-            nameList = ['Grados', 'Degree', 'Radians'];
+            nameList = [
+                'Grados', 
+                'Degree', 
+                'Radians'
+            ];
 
         }
 
         if(type === 'volume'){
 
             liNumber = 20;
-            nameList = ['Milliliters', 'Cubic centimeters', 'Liters', 'Cubic meters', 'Teaspoon (USA)', 'Tablespoons (USA)', 'Fluid ounces (USA)', 'Cups (USA)', 'Pint (USA)', 'Quart (USA)', 'Gallons (USA)', 'Cubic inches', 'Cubic feet', 'Cubic yards', 'Teaspoon (United Kingdom)', 'Tablespoons (United Kingdom)', 'Fluid ounces (United Kingdom)', 'Pint (United Kingdom)', 'Quart (United Kingdom)', 'Gallons (United Kingdom)'];
+            nameList = [
+                'Milliliters', 
+                'Cubic centimeters', 
+                'Liters', 
+                'Cubic meters', 
+                'Teaspoon(USA)', 
+                'Tablespoons(USA)', 
+                'Fluid ounces(USA)', 
+                'Cups(USA)', 
+                'Pint(USA)', 
+                'Quart(USA)', 
+                'Gallons(USA)', 
+                'Cubic inches', 
+                'Cubic feet', 
+                'Cubic yards', 
+                'Teaspoon(UK)', 
+                'Tablespoons(UK)', 
+                'Fluid ounces(UK)', 
+                'Pint(UK)', 
+                'Quart(UK)', 
+                'Gallons(UK)'
+            ];
 
         }
 
         if(type === 'weigthAndMass'){
 
             liNumber = 14;
-            nameList = ['Carats', 'Miligrams', 'Centigrams', 'Decigrams', 'Gram', 'Decagrams', 'Hectograms', 'Kilograms', 'Metric Tons', 'Ounce', 'Pounds', 'Stone', 'Short Tons (USA)', 'Long Tons (United Kingdom)'];
+            nameList = [
+                'Carats', 
+                'Miligrams', 
+                'Centigrams', 
+                'Decigrams', 
+                'Gram', 
+                'Decagrams', 
+                'Hectograms', 
+                'Kilograms', 
+                'Metric Tons', 
+                'Ounce', 
+                'Pounds', 
+                'Stone', 
+                'Short Tons(USA)', 
+                'Long Tons(UK)'
+            ];
 
         }
 
         if(type === 'temperature'){
 
             liNumber = 3;
-            nameList = ['Celsius', 'Fahrenheit', 'Kelvin'];
+            nameList = [
+                'Celsius', 
+                'Fahrenheit', 
+                'Kelvin'
+            ];
 
         }
 
@@ -290,6 +346,34 @@ class StellarViews{
         }
 
         return span;
+
+    }
+
+    returnChildNodeWithThisText(text, childNodes){
+
+        let promise = new Promise((resolve, reject) => {
+            
+            if(childNodes){
+
+                childNodes.forEach(child=>{
+
+                    if(child.textContent == text){
+        
+                        resolve(child);
+        
+                    }
+        
+                });
+
+            }else{
+
+                reject('Nothing was found')
+
+            }
+
+        });
+
+        return promise;
 
     }
 

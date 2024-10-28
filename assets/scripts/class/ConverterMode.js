@@ -50,11 +50,11 @@ class ConverterMode {
 
                     selectionBtnEl.children[0].children[0].textContent = li.textContent;
 
+                    this.checkConverterType();
+
                 });
                 
             });
-
-            this.checkConverterType();
 
             if(selectionListEl.dataset.open == 'no' || !selectionListEl.dataset.open){
 
@@ -147,7 +147,7 @@ class ConverterMode {
 
     addValueToOutputFirst(value){
 
-        if(value == '0'){
+        if(value == '0' && this.firstOutputValue == '0'){
 
             this.firstOutputValue = 0;
 
@@ -227,6 +227,116 @@ class ConverterMode {
             this.verifySizeOutput('second-converter-output');
 
         }
+
+    }
+
+    historyRequest(value){
+
+        this.clearConverter();
+
+        value = value.split(' ');
+
+        let abreviations = {
+            "nm": "nanometers",
+            "µm": "microns",
+            "mm": "millimeters",
+            "cm": "centimeter",
+            "m": "meters",
+            "km": "kilometers",
+            "in": "inches",
+            "ft": "Feet",
+            "yd": "Yards",
+            "mi": "miles",
+            "NM": "nautical miles",
+            "ml": "Milliliters",
+            "cc": "Cubic centimeters",
+            "l": "Liters",
+            "m<sup>3": "Cubic meters",
+            "tsp(USA)": "Teaspoon(USA)",
+            "tbsp(USA)": "Tablespoons(USA)",
+            "flOz(USA)": "Fluid ounces(USA)",
+            "c(USA)": "Cups(USA)",
+            "pt(USA)": "Pint(USA)",
+            "qt(USA)": "Quart(USA)",
+            "gal(USA)": "Gallons(USA)",
+            "in<sup>3": "Cubic inches",
+            "ft<sup>3": "Cubic feet",
+            "yd<sup>3": "Cubic yards",
+            "tsp(UK)": "Teaspoon(UK)",
+            "tbsp(UK)": "Tablespoons(UK)",
+            "flOz(UK)": "Fluid ounces(UK)",
+            "pt(UK)": "Pint(UK)",
+            "qt(UK)": "Quart(UK)",
+            "gal(UK)": "Gallons(UK)",
+            "gon": "Grados",
+            "°": "Degree",
+            "rad": "Radians",
+            "ct": "Carats",
+            "mg": "Miligrams",
+            "cg": "Centigrams",
+            "dg": "Decigrams",
+            "g": "Gram",
+            "dag": "Decagrams",
+            "hg": "Hectograms",
+            "kg": "Kilograms",
+            "t": "Metric Tons",
+            "oz": "Ounce",
+            "lb": "Pounds",
+            "st": "Stone",
+            "ton(USA)": "Short Tons(USA)",
+            "L/T(UK)": "Long Tons(UK)",
+            "°C": "Celsius",
+            "°F": "Fahrenheit",
+            "°K": "Kelvin"
+        }
+
+        let firstConverterName = abreviations[value[1]];
+        let secondConverterName = abreviations[value[2]];;
+
+        window.viewsCalculator.removeClassFromListOfEl(this.firstConversorListEl.childNodes, 'active-converter');
+        window.viewsCalculator.removeClassFromListOfEl(this.secondConversorListEl.childNodes, 'active-converter');
+
+        let firstLi = window.viewsCalculator.returnChildNodeWithThisText(firstConverterName, this.firstConversorListEl.childNodes);
+        let secondLi = window.viewsCalculator.returnChildNodeWithThisText(secondConverterName, this.secondConversorListEl.childNodes);
+
+        
+
+        //console.log(this.firstConversorListEl.childNodes);
+        //console.log(secondLi);
+
+        firstLi.then(li=>{
+            
+            li.classList.add('active-converter');
+
+        }).catch(err=>{
+
+            console.error(err);
+
+        });
+
+        secondLi.then(li=>{
+            
+            li.classList.add('active-converter');
+
+        }).catch(err=>{
+
+            console.error(err);
+
+        });
+
+        this.btnSelectionFirst.children[0].children[0].textContent = firstConverterName;
+        this.btnSelectionSecond.children[0].children[0].textContent = secondConverterName;
+
+        
+
+        this.firstSelectedEl = this.btnSelectionFirst.children[0].children[0]
+        this.secondSelectedEl = this.btnSelectionSecond.children[0].children[0]
+
+        this.firstOutputValue = value[0];
+
+        window.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
+
+        this.checkConverterType();
 
     }
 

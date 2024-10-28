@@ -18,8 +18,8 @@ class WeigthAndMass{
                 'Ounce': 0.007055, 
                 'Pounds': 0.000441, 
                 'Stone': 0.000031, 
-                'Short Tons (USA)': 0.000000220462262, 
-                'Long Tons (United Kingdom)': 0.000000196841306
+                'Short Tons(USA)': 0.000000220462262, 
+                'Long Tons(UK)': 0.000000196841306
             },
             'Miligrams':{
                 'Carats': 0.005, 
@@ -34,8 +34,8 @@ class WeigthAndMass{
                 'Ounce': 0.000035, 
                 'Pounds': 0.000002, 
                 'Stone': 0.000000157473044, 
-                'Short Tons (USA)': 0.000000001102311, 
-                'Long Tons (United Kingdom)': 0.000000000984207
+                'Short Tons(USA)': 0.000000001102311, 
+                'Long Tons(UK)': 0.000000000984207
             }, 
             'Centigrams':{
                 'Carats': 0.05, 
@@ -50,8 +50,8 @@ class WeigthAndMass{
                 'Ounce': 0.000353, 
                 'Pounds': 0.000022, 
                 'Stone':0.000002, 
-                'Short Tons (USA)': 0.000000011023113, 
-                'Long Tons (United Kingdom)': 0.000000009842065
+                'Short Tons(USA)': 0.000000011023113, 
+                'Long Tons(UK)': 0.000000009842065
             }, 
             'Decigrams':{
                 'Carats': 0.5, 
@@ -66,8 +66,8 @@ class WeigthAndMass{
                 'Ounce': 0.003527, 
                 'Pounds': 0.00022, 
                 'Stone': 0.000016, 
-                'Short Tons (USA)': 0.000000110231131, 
-                'Long Tons (United Kingdom)': 0.000000098420653
+                'Short Tons(USA)': 0.000000110231131, 
+                'Long Tons(UK)': 0.000000098420653
             },  
             'Gram':{
                 'Carats': 5, 
@@ -82,8 +82,8 @@ class WeigthAndMass{
                 'Ounce': 0.035274, 
                 'Pounds': 0.002205, 
                 'Stone': 0.000157, 
-                'Short Tons (USA)': 0.000001, 
-                'Long Tons (United Kingdom)': 0.000000984206528
+                'Short Tons(USA)': 0.000001, 
+                'Long Tons(UK)': 0.000000984206528
             }, 
             'Decagrams':{
                 'Carats': 50, 
@@ -98,8 +98,8 @@ class WeigthAndMass{
                 'Ounce': 0.35274, 
                 'Pounds': 0.022046, 
                 'Stone': 0.001575, 
-                'Short Tons (USA)': 0.000011, 
-                'Long Tons (United Kingdom)': 0.00001
+                'Short Tons(USA)': 0.000011, 
+                'Long Tons(UK)': 0.00001
             }, 
             'Hectograms':{
                 'Carats': 500, 
@@ -114,8 +114,8 @@ class WeigthAndMass{
                 'Ounce': 3.527396, 
                 'Pounds': 0.220462, 
                 'Stone': 0.015747, 
-                'Short Tons (USA)': 0.00011, 
-                'Long Tons (United Kingdom)': 0.000098
+                'Short Tons(USA)': 0.00011, 
+                'Long Tons(UK)': 0.000098
             },  
             'Kilograms':{
                 'Carats': 5000, 
@@ -130,8 +130,8 @@ class WeigthAndMass{
                 'Ounce': 35.27396, 
                 'Pounds': 2.204623, 
                 'Stone': 0.157473, 
-                'Short Tons (USA)': 0.001102, 
-                'Long Tons (United Kingdom)': 0.000984
+                'Short Tons(USA)': 0.001102, 
+                'Long Tons(UK)': 0.000984
             }, 
             'Metric Tons':{
                 'Carats': 5000000, 
@@ -146,8 +146,8 @@ class WeigthAndMass{
                 'Ounce': 35273.96, 
                 'Pounds': 2204.623, 
                 'Stone': 157.473, 
-                'Short Tons (USA)': 1.102311, 
-                'Long Tons (United Kingdom)': 0.984207
+                'Short Tons(USA)': 1.102311, 
+                'Long Tons(UK)': 0.984207
             },  
             'Ounce':{
                 'Carats': 141.7476, 
@@ -162,8 +162,8 @@ class WeigthAndMass{
                 'Ounce': 1, 
                 'Pounds': 0.0625, 
                 'Stone': 0.004464, 
-                'Short Tons (USA)': 0.000031, 
-                'Long Tons (United Kingdom)': 0.000028
+                'Short Tons(USA)': 0.000031, 
+                'Long Tons(UK)': 0.000028
             }, 
             'Pounds':{
                 'Carats': 2267.962, 
@@ -178,8 +178,8 @@ class WeigthAndMass{
                 'Ounce': 16, 
                 'Pounds': 1, 
                 'Stone': 0.071429, 
-                'Short Tons (USA)': 0.0005, 
-                'Long Tons (United Kingdom)': 0.000446
+                'Short Tons(USA)': 0.0005, 
+                'Long Tons(UK)': 0.000446
             }, 
             'Stone':{
                 'Carats': 31751.47, 
@@ -194,10 +194,10 @@ class WeigthAndMass{
                 'Ounce': 224, 
                 'Pounds': 14, 
                 'Stone': 1, 
-                'Short Tons (USA)': 0.007, 
-                'Long Tons (United Kingdom)': 0.00625
+                'Short Tons(USA)': 0.007, 
+                'Long Tons(UK)': 0.00625
             },  
-            'Short Tons (USA)':{
+            'Short Tons(USA)':{
                 'Carats': 4535924, 
                 'Miligrams': 907184740, 
                 'Centigrams': 90718474, 
@@ -210,10 +210,10 @@ class WeigthAndMass{
                 'Ounce': 32000, 
                 'Pounds': 2000, 
                 'Stone': 142.8571, 
-                'Short Tons (USA)': 1, 
-                'Long Tons (United Kingdom)': 0.892857
+                'Short Tons(USA)': 1, 
+                'Long Tons(UK)': 0.892857
             },  
-            'Long Tons (United Kingdom)':{
+            'Long Tons(UK)':{
                 'Carats': 5080235, 
                 'Miligrams': 1016046909, 
                 'Centigrams': 101604691, 
@@ -226,14 +226,41 @@ class WeigthAndMass{
                 'Ounce': 35840, 
                 'Pounds': 2240, 
                 'Stone': 160, 
-                'Short Tons (USA)': 1.12, 
-                'Long Tons (United Kingdom)': 1
+                'Short Tons(USA)': 1.12, 
+                'Long Tons(UK)': 1
             }, 
         }
 
         let toConvert = convertList[lengthToConvert];
 
-        return value * toConvert[lengthResult];
+        let result = value * toConvert[lengthResult];
+
+        this.sendToHistory(value, result, lengthToConvert, lengthResult);
+
+        return result;
+
+    }
+
+    sendToHistory(value, result, lengthToConvert, lengthResult){
+
+        let convertAbreviation = {
+            'Carats': 'ct', 
+            'Miligrams': 'mg', 
+            'Centigrams': 'cg', 
+            'Decigrams': 'dg', 
+            'Gram': 'g', 
+            'Decagrams': 'dag', 
+            'Hectograms': 'hg', 
+            'Kilograms': 'kg', 
+            'Metric Tons': 't', 
+            'Ounce': 'oz', 
+            'Pounds': 'lb', 
+            'Stone': 'st', 
+            'Short Tons(USA)': 'ton(USA)', 
+            'Long Tons(UK)': 'L/T(UK)'
+        }
+
+        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 

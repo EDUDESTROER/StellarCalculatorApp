@@ -27,11 +27,13 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard'/* || !this._selectedCalculatorMode*/){
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             let standardEl = window.viewsCalculator.returnStandard();
 
             this._calculatorParentEl.innerHTML = standardEl;
+
+            window.calculatorHistory.changeHistoryType('standard');
 
             window.calculatorStandardMode.start();
 
@@ -46,13 +48,15 @@ class StellarControler {
 
             this._calculatorParentEl.innerHTML = lengthEl;
 
+            window.calculatorHistory.changeHistoryType('converter');
+
             window.calculatorConverterMode.start('length');
 
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Length select');
 
-            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+            this._historyButtonEl.disabled = false;
 
         }
         if(this._selectedCalculatorMode === 'angle'){
@@ -61,20 +65,24 @@ class StellarControler {
 
             this._calculatorParentEl.innerHTML = angleEl;
 
+            window.calculatorHistory.changeHistoryType('converter');
+
             window.calculatorConverterMode.start('angle');
 
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Angle select');
 
-            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+            this._historyButtonEl.disabled = false;
 
         }
-        if(this._selectedCalculatorMode === 'volume'){ //Change the or option after the developing
+        if(this._selectedCalculatorMode === 'volume'){
 
             let angleEl = window.viewsCalculator.returnConversor('volume');
 
             this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('volume');
 
@@ -82,14 +90,16 @@ class StellarControler {
 
             window.viewsCalculator.displaySucess('Volume select');
 
-            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+            this._historyButtonEl.disabled = false;
 
         }
-        if(this._selectedCalculatorMode === 'weigth and mass'){ //Change the or option after the developing
+        if(this._selectedCalculatorMode === 'weigth and mass'){
 
             let angleEl = window.viewsCalculator.returnConversor('weigthAndMass');
 
             this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('weigthAndMass');
 
@@ -97,14 +107,16 @@ class StellarControler {
 
             window.viewsCalculator.displaySucess('Weigth And Mass select');
 
-            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+            this._historyButtonEl.disabled = false;
 
         }
-        if(this._selectedCalculatorMode === 'temperature' || !this._selectedCalculatorMode){ //Change the or option after the developing
+        if(this._selectedCalculatorMode === 'temperature'){
 
             let angleEl = window.viewsCalculator.returnConversor('temperature');
 
             this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('temperature');
 
@@ -112,7 +124,7 @@ class StellarControler {
 
             window.viewsCalculator.displaySucess('Temperature select');
 
-            this._historyButtonEl.disabled = true; //Make it's Work in the next update!
+            this._historyButtonEl.disabled = false;
 
         }
 
