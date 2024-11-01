@@ -27,7 +27,7 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'standard' /*|| !this._selectedCalculatorMode*/){
 
             let standardEl = window.viewsCalculator.returnStandard();
 
@@ -123,6 +123,23 @@ class StellarControler {
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Temperature select');
+
+            this._historyButtonEl.disabled = false;
+
+        }
+        if(this._selectedCalculatorMode === 'energy' || !this._selectedCalculatorMode){
+
+            let angleEl = window.viewsCalculator.returnConversor('energy');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('energy');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Energy select');
 
             this._historyButtonEl.disabled = false;
 

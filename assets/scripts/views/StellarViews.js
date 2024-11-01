@@ -240,6 +240,21 @@ class StellarViews{
             ];
 
         }
+        if(type === 'energy'){
+
+            liNumber = 8;
+            nameList = [
+                'Electron volts', 
+                'Joules', 
+                'Kilojoules',
+                'Thermic calories', 
+                'Food calories', 
+                'Pound-feet',
+                'British thermal units', 
+                'Kilowatt-hour'
+            ];
+
+        }
 
         let outAndSelect = `
 
@@ -377,9 +392,20 @@ class StellarViews{
 
     }
 
-    changeElementFontSize(typeOfChange, percent, elementId, standardSize = '', unit = 'px'){
+    changeElementFontSize(typeOfChange, percent, elementId, standardSize = '', unit = 'px', element = ''){
 
-            let refElement = document.getElementById(elementId)
+        let refElement
+
+            if(elementId){
+
+                refElement = document.getElementById(elementId);
+
+            }else if (!elementId && element){
+
+                refElement = element;
+
+            }
+
             let fontSize = window.getComputedStyle(refElement).getPropertyValue('font-size').replace(unit, '');
 
         if(!standardSize){
@@ -407,6 +433,95 @@ class StellarViews{
             }else if(typeOfChange === 'decrease'){
 
                 refElement.style.fontSize = `${(parseFloat(standardSize) - (parseFloat(standardSize) * parseFloat(percent)))}${unit}`;
+                //console.log( refElement, elementId, refElement.style.fontSize);
+
+            }
+
+        }
+
+    }
+
+    changeElementSize(typeOfChange, percent, element = '',  basewidth= '', basedHeight= '', unit = 'px', elementId = '', elementClass = ''){
+
+        let refElement;
+
+        if(elementClass !== ''){
+
+            refElement = document.querySelector(`.${elementClass}`);
+
+        }else if (elementId !== ''){
+
+            refElement = document.getElementById(elementId);
+
+        }else if(element !== ''){
+
+            refElement = element
+
+        }
+
+        let sizeWidth = window.getComputedStyle(refElement).getPropertyValue('width').replace(unit, '');
+        let sizeHeight = window.getComputedStyle(refElement).getPropertyValue('height').replace(unit, '');
+
+        if(!basewidth && !basedHeight){ 
+
+            refElement.style.height = `0${unit}`;
+            refElement.style.width = `0${unit}`;
+
+            if(typeOfChange === 'increase'){
+
+                refElement.style.height = `${((parseFloat(sizeHeight) * parseFloat(percent)) + parseFloat(sizeHeight))}${unit}`;
+                refElement.style.width = `${((parseFloat(sizeWidth) * parseFloat(percent)) + parseFloat(sizeWidth))}${unit}`;
+
+            }else if(typeOfChange === 'decrease'){
+
+                refElement.style.height = `${(parseFloat(sizeHeight) - (parseFloat(sizeHeight) * parseFloat(percent)))}${unit}`;
+                refElement.style.width = `${(parseFloat(sizeWidth) - (parseFloat(sizeWidth) * parseFloat(percent)))}${unit}`;
+
+            }
+
+        }else if(basewidth && basedHeight){
+            
+            refElement.style.height = `0${unit}`;
+            refElement.style.width = `0${unit}`;
+
+            if(typeOfChange === 'increase'){
+
+                refElement.style.height = `${((parseFloat(basedHeight) * parseFloat(basedHeight)) + parseFloat(basedHeight))}${unit}`;
+                refElement.style.width = `${((parseFloat(basewidth) * parseFloat(percent)) + parseFloat(basewidth))}${unit}`;
+
+            }else if(typeOfChange === 'decrease'){
+
+                refElement.style.height = `${(parseFloat(basedHeight) - (parseFloat(basedHeight) * parseFloat(percent)))}${unit}`;
+                refElement.style.width = `${(parseFloat(basewidth) - (parseFloat(basewidth) * parseFloat(percent)))}${unit}`;
+
+            }
+
+
+        }else if(basewidth && !basedHeight){
+            
+            refElement.style.width = `0${unit}`;
+
+            if(typeOfChange === 'increase'){
+
+                refElement.style.width = `${((parseFloat(basewidth) * parseFloat(percent)) + parseFloat(basewidth))}${unit}`;
+
+            }else if(typeOfChange === 'decrease'){
+
+                refElement.style.width = `${(parseFloat(basewidth) - (parseFloat(basewidth) * parseFloat(percent)))}${unit}`;
+
+            }
+
+        }else if(basedHeight && basewidth == ''){
+            
+            refElement.style.height = `0${unit}`;
+
+            if(typeOfChange === 'increase'){
+
+                refElement.style.height = `${((parseFloat(basedHeight) * parseFloat(percent)) + parseFloat(basedHeight))}${unit}`;
+
+            }else if(typeOfChange === 'decrease'){
+
+                refElement.style.height = `${(parseFloat(basedHeight) - (parseFloat(basedHeight) * parseFloat(percent)))}${unit}`;
 
             }
 

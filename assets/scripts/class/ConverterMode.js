@@ -203,6 +203,9 @@ class ConverterMode {
 
             result = window.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
+        }else if(this.converterType == 'energy'){
+
+            result = window.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
 
@@ -287,7 +290,15 @@ class ConverterMode {
             "L/T(UK)": "Long Tons(UK)",
             "°C": "Celsius",
             "°F": "Fahrenheit",
-            "°K": "Kelvin"
+            "°K": "Kelvin",
+            "eV": "electron volts",
+            "J": "Joules",
+            "kJ": "Kilojoules",
+            "cal": "Thermic calories",
+            "kcal": "Food calories",
+            "lbf-ft": "Pound-feet",
+            "BTU": "British thermal units",
+            "kWh": "Kilowatt-hour"
         }
 
         let firstConverterName = abreviations[value[1]];
