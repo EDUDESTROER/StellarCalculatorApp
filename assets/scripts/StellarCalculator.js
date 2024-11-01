@@ -2,6 +2,7 @@ window.calculatorHistory = new History();
 window.length = new Length();
 window.angleConverter = new Angle();
 window.volumeConverter = new Volume();
+window.energyConverter = new Energy();
 window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
 window.calculatorStandardMode = new StellarStandardMode();

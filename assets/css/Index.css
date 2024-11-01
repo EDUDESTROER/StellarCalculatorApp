@@ -488,6 +488,7 @@ body{
 
     font-size: 6rem;
     color: #F1F7FF;
+    animation: flick 2s ease infinite;
 
 }
 .conversor-selects{
