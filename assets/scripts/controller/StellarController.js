@@ -127,7 +127,7 @@ class StellarControler {
             this._historyButtonEl.disabled = false;
 
         }
-        if(this._selectedCalculatorMode === 'energy' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'energy'){
 
             let angleEl = window.viewsCalculator.returnConversor('energy');
 
@@ -140,6 +140,23 @@ class StellarControler {
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Energy select');
+
+            this._historyButtonEl.disabled = false;
+
+        }
+        if(this._selectedCalculatorMode === 'area' || !this._selectedCalculatorMode){
+
+            let angleEl = window.viewsCalculator.returnConversor('area');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('area');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Area select');
 
             this._historyButtonEl.disabled = false;
 

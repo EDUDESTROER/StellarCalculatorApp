@@ -208,6 +208,11 @@ class ConverterMode {
             result = window.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
+        else if(this.converterType == 'area'){
+
+            result = window.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }
 
         if(result === false){
 
@@ -298,7 +303,17 @@ class ConverterMode {
             "kcal": "Food calories",
             "lbf-ft": "Pound-feet",
             "BTU": "British thermal units",
-            "kWh": "Kilowatt-hour"
+            "kWh": "Kilowatt-hour",
+            "mm²": "Square Millimeters",
+            "cm²": "Square Centimeters",
+            "m²": "Square Meters",
+            "ha": "Hectares",
+            "km²": "Square Kilometers",
+            "in²": "Square Inches",
+            "ft²": "Square Feet",
+            "yd²": "Square Yards",
+            "ac": "Acres",
+            "mi²": "Square Miles"
         }
 
         let firstConverterName = abreviations[value[1]];

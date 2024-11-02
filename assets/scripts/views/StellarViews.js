@@ -255,6 +255,23 @@ class StellarViews{
             ];
 
         }
+        if(type === 'area'){
+
+            liNumber = 10;
+            nameList = [
+                'Square Millimeters', 
+                'Square Centimeters',
+                'Square Meters', 
+                'Hectares',
+                'Square Kilometers', 
+                'Square Inches', 
+                'Square Feet',
+                'Square Yards', 
+                'Acres',
+                'Square Miles'
+            ];
+
+        }
 
         let outAndSelect = `
 
