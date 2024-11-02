@@ -28,7 +28,8 @@ Next tasks:
 - [x] Develop a volume unit converter.
 - [x] Develop a weight and mass converter.
 - [x] Develop a temperature converter.
-- [x] Develop a energy converter.  
+- [x] Develop a energy converter.
+- [x] Develop a area converter.    
 - [ ] Develop a currency converter.
 
 
