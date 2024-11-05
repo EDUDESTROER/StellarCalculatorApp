@@ -29,7 +29,8 @@ Next tasks:
 - [x] Develop a weight and mass converter.
 - [x] Develop a temperature converter.
 - [x] Develop a energy converter.
-- [x] Develop a area converter.    
+- [x] Develop a area converter. 
+- [x] Develop a speed converter.   
 - [ ] Develop a currency converter.
 
 

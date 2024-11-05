@@ -3,6 +3,7 @@ window.length = new Length();
 window.angleConverter = new Angle();
 window.volumeConverter = new Volume();
 window.energyConverter = new Energy();
+window.speedConverter = new Speed();
 window.areaConverter = new Area();
 window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
