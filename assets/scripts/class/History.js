@@ -26,8 +26,10 @@ class History{
 
         this.lastListPosition = this.createNewPosition();
 
-        calculation = calculation.replace('/','÷');
-        calculation = calculation.replace('*','x');
+        if(this.historyType == 'standard'){
+            calculation = calculation.replace('/','÷');
+            calculation = calculation.replace('*','x');
+        }
 
         if(valueToSave != ''){
 

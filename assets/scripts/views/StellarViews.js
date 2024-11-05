@@ -272,6 +272,20 @@ class StellarViews{
             ];
 
         }
+        if(type === 'speed'){
+
+            liNumber = 7;
+            nameList = [
+                'Centimeters per second', 
+                'Meters per second',
+                'Kilometers per hour', 
+                'Feet per second',
+                'Miles per hour', 
+                'Knots', 
+                'Mach'
+            ];
+
+        }
 
         let outAndSelect = `
 

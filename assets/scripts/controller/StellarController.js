@@ -27,7 +27,7 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard' /*|| !this._selectedCalculatorMode*/){
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             let standardEl = window.viewsCalculator.returnStandard();
 
@@ -144,7 +144,7 @@ class StellarControler {
             this._historyButtonEl.disabled = false;
 
         }
-        if(this._selectedCalculatorMode === 'area' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'area'){
 
             let angleEl = window.viewsCalculator.returnConversor('area');
 
@@ -157,6 +157,23 @@ class StellarControler {
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Area select');
+
+            this._historyButtonEl.disabled = false;
+
+        }
+        if(this._selectedCalculatorMode === 'speed'){
+
+            let angleEl = window.viewsCalculator.returnConversor('speed');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('speed');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Speed select');
 
             this._historyButtonEl.disabled = false;
 

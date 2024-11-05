@@ -213,6 +213,11 @@ class ConverterMode {
             result = window.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
+        else if(this.converterType == 'speed'){
+
+            result = window.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }
 
         if(result === false){
 
@@ -313,7 +318,14 @@ class ConverterMode {
             "ft²": "Square Feet",
             "yd²": "Square Yards",
             "ac": "Acres",
-            "mi²": "Square Miles"
+            "mi²": "Square Miles",
+            "cm/s": "Centimeters per second",
+            "m/s": "Meters per second",
+            "km/h": "Kilometers per hour",
+            "ft/s": "Feet per second",
+            "mph": "Miles per hour",
+            "kn": "Knots",
+            "Mach": "Mach"
         }
 
         let firstConverterName = abreviations[value[1]];
