@@ -1,0 +1,23 @@
+{
+  "name": "calculatorapp",
+  "version": "1.0.1",
+  "description": "A user-friendly, responsive calculator designed to ensure compatibility across all devices.",
+  "main": "StellarCalculator.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EDUDESTROER/StellarCalculatorApp.git"
+  },
+  "author": "Eduardo Salvador",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EDUDESTROER/StellarCalculatorApp/issues"
+  },
+  "homepage": "https://github.com/EDUDESTROER/StellarCalculatorApp#readme",
+  "dependencies": {
+    "axios": "^1.7.7"
+  }
+}

@@ -218,6 +218,13 @@ class ConverterMode {
             result = window.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
+        else if(this.converterType == 'currency'){
+
+            window.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = 'calculando...';
+
+        }
 
         if(result === false){
 
@@ -226,20 +233,26 @@ class ConverterMode {
 
         }else{
 
-            if(result == ''){
-
-                window.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
-
-            }else{
-
-                window.viewsCalculator.setInnerHtmlToElement(result, 'second-converter-output');
-
-            }
-
-            this.verifySizeOutput('first-converter-output');
-            this.verifySizeOutput('second-converter-output');
+            this.setToDisplay(result);
 
         }
+
+    }
+
+    setToDisplay(result){
+
+        if(result == '' || result == undefined){
+
+            window.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
+
+        }else{
+
+            window.viewsCalculator.setInnerHtmlToElement(result, 'second-converter-output');
+
+        }
+
+        this.verifySizeOutput('first-converter-output');
+        this.verifySizeOutput('second-converter-output');
 
     }
 
