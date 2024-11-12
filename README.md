@@ -31,7 +31,7 @@ Next tasks:
 - [x] Develop a energy converter.
 - [x] Develop a area converter. 
 - [x] Develop a speed converter.   
-- [ ] Develop a currency converter.
+- [x] Develop a currency converter.
 
 
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:
