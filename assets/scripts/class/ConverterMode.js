@@ -225,6 +225,11 @@ class ConverterMode {
             result = 'calculando...';
 
         }
+        else if(this.converterType == 'time'){
+
+            result = window.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }
 
         if(result === false){
 
@@ -257,8 +262,6 @@ class ConverterMode {
     }
 
     historyRequest(value){
-
-        console.log(value)
 
         this.clearConverter();
 
@@ -491,7 +494,15 @@ class ConverterMode {
             "VND": "Vietnamese Đồng",
             "XOF": "West African CFA Franc",
             "YER": "Yemeni Rial",
-            "ZMW": "Zambian Kwacha"
+            "ZMW": "Zambian Kwacha",
+            'µs': 'Microseconds',
+            'ms': 'Milliseconds',
+            's': 'Seconds',
+            'min': 'Minutes',
+            'h': 'Hours',
+            'd': 'Days',
+            'w': 'Weeks',
+            'y': 'Years'
         }
 
         let firstConverterName = abreviations[value[1]];

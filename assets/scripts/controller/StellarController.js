@@ -195,6 +195,23 @@ class StellarControler {
             this._historyButtonEl.disabled = false;
 
         }
+        if(this._selectedCalculatorMode === 'time'){ 
+
+            let angleEl = window.viewsCalculator.returnConversor('time');
+
+            this._calculatorParentEl.innerHTML = angleEl;
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('time');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Time select');
+
+            this._historyButtonEl.disabled = false;
+
+        }
 
 
     }
