@@ -192,7 +192,7 @@ class StellarControler {
 
             window.viewsCalculator.displaySucess('Currency select');
 
-            this._historyButtonEl.disabled = true;
+            this._historyButtonEl.disabled = false;
 
         }
 

@@ -1,5 +1,11 @@
 class Currency{
 
+    constructor(){
+
+        this.convertedCurrenciesToValue = {};
+
+    }
+
     calcCurrencyConverter(value, currencyToConvert, currencyResult){
 
         let currencyToAbreviation = {
@@ -156,9 +162,48 @@ class Currency{
             "Zambian Kwacha": "ZMW"
         };
 
+        if(!value) value = 0;
+
         let currencyToConvertAbreviation = currencyToAbreviation[currencyToConvert];
         let currencyResultAbreviation = currencyToAbreviation[currencyResult];
         let combination = `${currencyToConvertAbreviation}${currencyResultAbreviation}`;
+
+        this.tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation).then(result=>{
+
+            window.calculatorConverterMode.setToDisplay(result);
+
+        })
+        .catch(()=>{
+
+            this.tryAesomeApi(value, currencyToConvertAbreviation, currencyResultAbreviation, combination);
+
+        });
+
+    }
+
+    tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation){
+
+        return new Promise((resolve, reject) => {
+            
+            let quotation = this.convertedCurrenciesToValue[`${currencyToConvertAbreviation}-${currencyResultAbreviation}`];
+
+            if(quotation){
+
+                let result = value * quotation;
+
+                this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
+
+                resolve(result);
+
+            }else{
+                reject();
+            }
+
+        })
+
+    }
+
+    tryAesomeApi(value, currencyToConvertAbreviation, currencyResultAbreviation, combination){
 
         let quotation;
         let result;
@@ -169,56 +214,53 @@ class Currency{
 
             quotation = response.data[combination].bid;
 
-            console.log(quotation)
+            this.convertedCurrenciesToValue[`${currencyToConvertAbreviation}-${currencyResultAbreviation}`] = quotation;
 
             result = value * quotation;
 
-            console.log(result);
+            this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
+
             window.calculatorConverterMode.setToDisplay(result);
 
         }).catch(error=>{
 
-           let exchangePromise = this.tryExchangeRateApi(currencyToConvertAbreviation, currencyResultAbreviation);
-
-            exchangePromise.then(response=>{
-
-                quotation = response;
-                console.log(quotation);
-
-                result = value * quotation;
-
-                console.log(result);
-
-                window.calculatorConverterMode.setToDisplay(result);
-
-            });
-    
+           this.tryExchangeRateApi(value, currencyToConvertAbreviation, currencyResultAbreviation);
 
         });
 
     }
 
-    tryExchangeRateApi(firstCotation, cotationResult){
+    tryExchangeRateApi(value, firstCotation, cotationResult){
 
         let quotationList;
         let quotation;
 
-        let promise = axios.get(`https://v6.exchangerate-api.com/v6/93582931df6ea3627463f7fc/latest/${firstCotation}`)
-        return promise.then(response=>{
-            quotationList = response.data.conversion_rates;
+        let promise = axios.get(`https://v6.exchangerate-api.com/v6/93582931df6ea3627463f7fc/latest/${firstCotation}`);
 
-            console.log(quotationList);
+        promise.then(response=>{
+
+            quotationList = response.data.conversion_rates;
 
             quotation = quotationList[cotationResult];
 
-            console.log(quotation)
+            this.convertedCurrenciesToValue[`${firstCotation}-${cotationResult}`] = quotation;
 
-            return quotation;
+            let result = value * quotation;
+
+            this.sendToHistory(value, result, firstCotation, cotationResult);
+
+            window.calculatorConverterMode.setToDisplay(result);
             
         })
         .catch(error=>{
             this.inError(error);
         });
+
+    }
+
+    sendToHistory(value, result, firstCotation, cotationResult){
+
+        window.calculatorHistory.addToHistory(`${value} ${firstCotation} =`, `${result} ${cotationResult}`, `${value} ${firstCotation} ${cotationResult}`);
 
     }
 
