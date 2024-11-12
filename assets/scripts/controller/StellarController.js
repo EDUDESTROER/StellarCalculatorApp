@@ -27,7 +27,7 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard'/* || !this._selectedCalculatorMode*/){
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             let standardEl = window.viewsCalculator.returnStandard();
 
@@ -178,7 +178,7 @@ class StellarControler {
             this._historyButtonEl.disabled = false;
 
         }
-        if(this._selectedCalculatorMode === 'currency' || !this._selectedCalculatorMode){ 
+        if(this._selectedCalculatorMode === 'currency'){ 
 
             let angleEl = window.viewsCalculator.returnConversor('currency');
 
