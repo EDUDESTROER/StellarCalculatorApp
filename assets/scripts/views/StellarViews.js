@@ -448,7 +448,22 @@ class StellarViews{
             ];
 
         }
+        if(type === 'time'){
 
+            liNumber = 8;
+            nameList = [
+                'Microseconds', 
+                'Milliseconds',
+                'Seconds', 
+                'Minutes',
+                'Hours', 
+                'Days', 
+                'Weeks',
+                'Years'
+            ];
+
+        }
+        
         let outAndSelect = `
 
                 <span id="${position}-converter-output">0</span>
