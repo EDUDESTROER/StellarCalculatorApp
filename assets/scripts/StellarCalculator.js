@@ -5,6 +5,7 @@ window.volumeConverter = new Volume();
 window.energyConverter = new Energy();
 window.speedConverter = new Speed();
 window.areaConverter = new Area();
+window.currencyConverter = new Currency();
 window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
 window.calculatorStandardMode = new StellarStandardMode();
