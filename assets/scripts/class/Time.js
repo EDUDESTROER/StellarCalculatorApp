@@ -38,8 +38,8 @@ class Time{
                 'Milliseconds': 60000,
                 'Seconds': 60, 
                 'Minutes': 1,
-                'Hours': 0.000694, 
-                'Days': 0.000012, 
+                'Hours': 0.016667, 
+                'Days': 0.000694, 
                 'Weeks': 0.000099,
                 'Years': 0.000002
             },
