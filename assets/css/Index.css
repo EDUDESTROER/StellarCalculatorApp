@@ -121,6 +121,12 @@ body{
     color: #F1F7FF;
 
 }
+.wrapper-calculator-output-programmer{
+
+    margin-top: .2rem;
+    border-top: 1em #ffc74596 solid;
+
+}
 .outputs{
     
     width: 98%;
@@ -129,6 +135,46 @@ body{
     padding-right: .2rem;
     user-select: none;
     animation: flick 2s ease infinite;
+
+}
+.wrapper-number-system{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+
+
+}
+.disabled-btn{
+
+    background-color: #2e2e2e99;
+
+}
+.wrapper-number-system li{
+
+    transition-duration: 200ms;
+    border-radius: .3rem;
+
+}
+.wrapper-number-system li:hover{
+
+    background-color: #f1f7ff30;
+    cursor: pointer;
+
+}
+.wrapper-number-system li span{
+
+    color: #F1F7FF;
+    font-size: 0.9rem;
+    user-select: none;
+
+}
+.wrapper-number-system li span:first-child{
+
+    margin-left: .8rem;
+    margin-right: .3rem;
+    font-weight: bolder;
 
 }
 .wrapper-calculator-output .previous-output{
@@ -154,6 +200,80 @@ body{
     align-items: center;
     justify-content: center;
     background-color: #ffc74596;
+
+}
+.wrapper-calculator-output .output-programmer{
+
+    font-size: 1rem;
+
+}
+.wrapper-calculator-output .output-programmer-second{
+
+    font-size: 2rem;
+
+}
+.wrapper-programmer-functions{
+
+    width: 100%;
+    height: 8%;
+    margin-bottom: .1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.wrapper-programmer-functions button{
+
+    width: 10%;
+    height: 98%;
+    border: none;
+    background: none;
+    margin-top: .3rem;
+    margin-right: .1rem;
+    transition-duration: 500ms;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    color: #D95B30;
+
+}
+.wrapper-programmer-functions button:hover{
+
+    background-color: #f1f7ff76;
+    cursor: pointer;
+
+}
+.wrapper-programmer-functions button:last-of-type{
+
+    width: 25%;
+
+}
+.wrapper-programmer-functions > div{
+
+    width: 25%;
+    height: 98%;
+    margin: .2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    transition-duration: 300ms;
+
+}
+.wrapper-programmer-functions > div:hover{
+
+    background-color: #f1f7ff76;
+    cursor: pointer;
+
+}
+.wrapper-programmer-functions > div >div.caret{
+
+    border-top: 6px solid #D95B30;
+
+}
+.wrapper-programmer-functions > div >span{
+
+    font-size: 1.1rem;
+    font-weight: bolder;
+    color: #D95B30;
 
 }
 .wrapper-buttons-queues{

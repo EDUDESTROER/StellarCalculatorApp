@@ -9,72 +9,292 @@ class StellarViews{
 
     }
 
-    returnStandard(){
+    returnCalculator(type){
 
-        let standard = `
-        
-                <div class="wrapper-calculator-output">
+        let calculator;
+        let programmerClass = '';
 
-                    <div class="outputs previous-output" id="previous-output"></div>
-                    <div class="outputs current-output" id="current-output">0</div>
+        if(type === 'programmer'){
 
-                </div>
-                <div class="wrapper-buttons">
+            programmerClass = 'wrapper-calculator-output-programmer';
 
-                    <div class="wrapper-buttons-queues">
+        }
 
-                        <button id="button-percent" class="buttons-base-effects buttons-color-darker">%</button>
-                        <button id="button-ce" class="buttons-base-effects buttons-color-darker">CE</button>
-                        <button id="button-c" class="buttons-base-effects buttons-color-darker">C</button>
-                        <button id="button-backspace" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/backspace.png" alt="backspace button icon"></button>
+        let outputs = this.returnCalculatorOutputs(type);
+        let buttons = this.returnCalculatorQueues(type);
 
-                    </div>
-                    <div class="wrapper-buttons-queues">
+        calculator = `
 
-                        <button id="button-one-divide-per" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/1 divide by.png" alt="mathematical symbol of one divided by X"></button>
-                        <button id="button-squared" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/X squared.png" alt="mathematical symbol of X squared"></button>
-                        <button id="button-square-root" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/square-root.png" alt="mathematical symbol of square root"></button>
-                        <button id="button-divide" class="buttons-base-effects buttons-color-darker">÷</button>
+            <div class="wrapper-calculator-output ${programmerClass}">
 
-                    </div>
-                    <div class="wrapper-buttons-queues">
+                ${outputs.innerHTML}
+                
+            </div>
+            <div class="wrapper-buttons">
 
-                        <button id="button-7" class="buttons-base-effects buttons-color-main">7</button>
-                        <button id="button-8" class="buttons-base-effects buttons-color-main">8</button>
-                        <button id="button-9" class="buttons-base-effects buttons-color-main">9</button>
-                        <button id="button-multiplication" class="buttons-base-effects buttons-color-darker">x</button>
+                ${buttons.innerHTML}
 
-                    </div>
-                    <div class="wrapper-buttons-queues">
-
-                        <button id="button-4" class="buttons-base-effects buttons-color-main">4</button>
-                        <button id="button-5" class="buttons-base-effects buttons-color-main">5</button>
-                        <button id="button-6" class="buttons-base-effects buttons-color-main">6</button>
-                        <button id="button-subtraction" class="buttons-base-effects buttons-color-darker">-</button>
-
-                    </div>
-                    <div class="wrapper-buttons-queues">
-
-                        <button id="button-1" class="buttons-base-effects buttons-color-main">1</button>
-                        <button id="button-2" class="buttons-base-effects buttons-color-main">2</button>
-                        <button id="button-3" class="buttons-base-effects buttons-color-main">3</button>
-                        <button id="button-sum" class="buttons-base-effects buttons-color-darker">+</button>
-
-                    </div>
-                    <div class="wrapper-buttons-queues">
-
-                        <button id="button-change-signal" class="buttons-base-effects buttons-color-main">+/-</button>
-                        <button id="button-0" class="buttons-base-effects buttons-color-main">0</button>
-                        <button id="button-dot" class="buttons-base-effects buttons-color-main">,</button>
-                        <button id="button-equal" class="buttons-base-effects buttons-color-bright">=</button>
-
-                    </div>
-
-                </div>
+            </div>
 
         `;
 
-        return standard;
+        return calculator;
+
+    }
+
+    returnCalculatorOutputs(type){
+
+        let outputs;
+        let programmerClass = '';
+
+        let complexOutputs = `
+        
+            <ul class="wrapper-number-system">
+
+                <li id="HEX-select"><span>HEX</span><span id="HEX-result">55</span></li>
+                <li id="DEC-select"><span>DEC</span><span id="DEC-result">85</span></li>
+                <li id="OCT-select"><span>OCT</span><span id="OCT-result">125</span></li>
+                <li id="BIN-select"><span>BIN</span><span id="BIN-result">0101 0101</span></li>
+
+            </ul>
+
+        `;
+
+        if(type === 'programmer'){
+            
+            programmerClass = 'output-programmer';
+
+        }
+
+        let basicsOutputs = `
+        
+            <div class="outputs previous-output ${programmerClass}" id="previous-output"></div>
+            <div class="outputs current-output ${programmerClass}-second" id="current-output">0</div>
+
+        `;
+
+        outputs = new DOMParser().parseFromString(basicsOutputs, "text/html");
+
+        outputs = outputs.firstChild.lastChild;
+
+        if(type === 'programmer'){
+
+            complexOutputs = new DOMParser().parseFromString(complexOutputs, "text/html");
+
+            complexOutputs = complexOutputs.firstChild.lastChild.children[0];
+
+            outputs.appendChild(complexOutputs);
+
+        }
+
+        return outputs;
+
+    }
+
+    returnCalculatorQueues(type){
+
+        let standardButtonsList = [
+            'percent',
+            'ce', 
+            'c', 
+            'backspace', 
+            'one-divide-per', 
+            'squared', 
+            'square-root', 
+            'divide',
+            '7',
+            '8',
+            '9',
+            'multiplication',
+            '4',
+            '5',
+            '6',
+            'subtraction',
+            '1',
+            '2',
+            '3',
+            'sum',
+            'change-signal',
+            '0',
+            'dot',
+            'equal'
+            
+        ];
+        let programmerButtonsList = [
+            'A',
+            'logical-shift-left',
+            'arithmetic-shift-right', 
+            'c', 
+            'backspace',
+            'B',
+            'open-parentheses', 
+            'close-parentheses', 
+            'percent', 
+            'divide',
+            'C',
+            '7',
+            '8',
+            '9',
+            'multiplication',
+            'D',
+            '4',
+            '5',
+            '6',
+            'subtraction',
+            'E',
+            '1',
+            '2',
+            '3',
+            'sum',
+            'F',
+            'change-signal',
+            '0',
+            'dot',
+            'equal'
+            
+        ];
+
+        let buttons = [];
+        let oneQueue;
+        let twoQueue;
+        let threeQueue;
+        let fourQueue;
+        let fiveQueue;
+        let sixQueue;
+
+        if(type === 'standard'){
+
+            standardButtonsList.forEach(buttonName=>{
+
+                buttons.push(this.returnCalculatorButtons(buttonName));
+
+            });
+
+            oneQueue = `${buttons[0]} ${buttons[1]} ${buttons[2]} ${buttons[3]}`;
+            twoQueue = `${buttons[4]} ${buttons[5]} ${buttons[6]} ${buttons[7]}`;
+            threeQueue = `${buttons[8]} ${buttons[9]} ${buttons[10]} ${buttons[11]}`;
+            fourQueue = `${buttons[12]} ${buttons[13]} ${buttons[14]} ${buttons[15]}`;
+            fiveQueue = `${buttons[16]} ${buttons[17]} ${buttons[18]} ${buttons[19]}`;
+            sixQueue = `${buttons[20]} ${buttons[21]} ${buttons[22]} ${buttons[23]}`;
+
+        }
+        if(type === 'programmer'){
+
+            programmerButtonsList.forEach(buttonName=>{
+
+                buttons.push(this.returnCalculatorButtons(buttonName));
+
+            });
+
+            oneQueue = `${buttons[0]} ${buttons[1]} ${buttons[2]} ${buttons[3]} ${buttons[4]}`;
+            twoQueue = `${buttons[5]} ${buttons[6]} ${buttons[7]} ${buttons[8]} ${buttons[9]}`;
+            threeQueue = `${buttons[10]} ${buttons[11]} ${buttons[12]} ${buttons[13]} ${buttons[14]}`;
+            fourQueue = `${buttons[15]} ${buttons[16]} ${buttons[17]} ${buttons[18]} ${buttons[19]}`;
+            fiveQueue = `${buttons[20]} ${buttons[21]} ${buttons[22]} ${buttons[23]} ${buttons[24]}`;
+            sixQueue = `${buttons[25]} ${buttons[26]} ${buttons[27]} ${buttons[28]} ${buttons[29]}`;
+
+        }
+
+        let wrapperQueuesBasic = `
+        
+            <div class="wrapper-buttons-queues">
+                ${oneQueue}   
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${twoQueue} 
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${threeQueue}        
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${fourQueue} 
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${fiveQueue} 
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${sixQueue} 
+            </div>
+
+        `;
+
+        let queues = new DOMParser().parseFromString(wrapperQueuesBasic, "text/html");
+
+        queues = queues.firstChild.lastChild;
+
+        if(type === 'standard'){
+
+            return queues;
+
+        }
+
+        let programmerFunctionsBtn = `
+            <div class="wrapper-programmer-functions">
+
+                <button id="button-keyboard" class=""><img width="24px" src="assets/icons/keyboard-icon.png" alt=""></button>
+                <button id="button-word-size" class=""><img width="24px" src="assets/icons/word-size-icon.png" alt="word-size-icon"></button>
+                <button id="button-word" class="">BYTE</button>
+                <div id="button-bit-by-bit"><img width="34px" src="assets/icons/logic-gates.png" alt="logic gates icon"> <span>Bit by bit</span> <div class="caret"></div></div>
+                <div id="button-bit-shift"><img width="24px" src="assets/icons/bit-shift.png" alt="bit shift icon"><span>Bit shift </span><div class="caret"></div></div>
+
+            </div>
+        `;
+
+        programmerFunctionsBtn = new DOMParser().parseFromString(programmerFunctionsBtn, "text/html");
+
+        programmerFunctionsBtn = programmerFunctionsBtn.firstChild.lastChild;
+
+        queues.insertBefore(programmerFunctionsBtn.firstChild, queues.firstChild);
+
+        return queues;
+
+    }
+
+    returnCalculatorButtons(name){
+
+        let buttonsList ={
+            'percent': '<button id="button-percent" class="buttons-base-effects buttons-color-darker">%</button>',
+            'ce': '<button id="button-ce" class="buttons-base-effects buttons-color-darker">CE</button>', 
+            'c': '<button id="button-c" class="buttons-base-effects buttons-color-darker">C</button>', 
+            'backspace': '<button id="button-backspace" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/backspace.png" alt="backspace button icon"></img></button>', 
+            'one-divide-per': '<button id="button-one-divide-per" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/1 divide by.png" alt="mathematical symbol of one divided by X"></img></button>', 
+            'squared': '<button id="button-squared" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/X squared.png" alt="mathematical symbol of X squared"></img></button>', 
+            'square-root': '<button id="button-square-root" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/square-root.png" alt="mathematical symbol of square root"></img></button>', 
+            'divide': '<button id="button-divide" class="buttons-base-effects buttons-color-darker">÷</button>',
+            '7': '<button id="button-7" class="buttons-base-effects buttons-color-main">7</button>',
+            '8': '<button id="button-8" class="buttons-base-effects buttons-color-main">8</button>',
+            '9': '<button id="button-9" class="buttons-base-effects buttons-color-main">9</button>',
+            'multiplication': '<button id="button-multiplication" class="buttons-base-effects buttons-color-darker">x</button>',
+            '4': '<button id="button-4" class="buttons-base-effects buttons-color-main">4</button>',
+            '5': '<button id="button-5" class="buttons-base-effects buttons-color-main">5</button>',
+            '6': '<button id="button-6" class="buttons-base-effects buttons-color-main">6</button>',
+            'subtraction': '<button id="button-subtraction" class="buttons-base-effects buttons-color-darker">-</button>',
+            '1': '<button id="button-1" class="buttons-base-effects buttons-color-main">1</button>',
+            '2': '<button id="button-2" class="buttons-base-effects buttons-color-main">2</button>',
+            '3': '<button id="button-3" class="buttons-base-effects buttons-color-main">3</button>',
+            'sum': '<button id="button-sum" class="buttons-base-effects buttons-color-darker">+</button>',
+            'change-signal': '<button id="button-change-signal" class="buttons-base-effects buttons-color-main">+/-</button>',
+            '0': '<button id="button-0" class="buttons-base-effects buttons-color-main">0</button>',
+            'dot': '<button id="button-dot" class="buttons-base-effects buttons-color-main">,</button>',
+            'equal': '<button id="button-equal" class="buttons-base-effects buttons-color-bright">=</button>',
+            'A': '<button id="button-A" class="buttons-base-effects buttons-color-main">A</button>',
+            'logical-shift-left': '<button id="button-logical-shift-left" class="buttons-base-effects buttons-color-darker"><<</button>',
+            'arithmetic-shift-right': '<button id="button-arithmetic-shift-right" class="buttons-base-effects buttons-color-darker">>></button>',
+            'B': '<button id="button-B" class="buttons-base-effects buttons-color-main">B</button>',
+            'open-parentheses': '<button id="button-open-parentheses" class="buttons-base-effects buttons-color-darker">(</button>',
+            'close-parentheses': '<button id="button-close-parentheses" class="buttons-base-effects buttons-color-darker">)</button>',
+            'C': '<button id="button-C" class="buttons-base-effects buttons-color-main">C</button>',
+            'D': '<button id="button-D" class="buttons-base-effects buttons-color-main">D</button>',
+            'E': '<button id="button-E" class="buttons-base-effects buttons-color-main">E</button>',
+            'F': '<button id="button-F" class="buttons-base-effects buttons-color-main">F</button>',
+        };
+
+        return buttonsList[name];
 
     }
 
