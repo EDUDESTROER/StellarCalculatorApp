@@ -54,7 +54,8 @@ class StellarControler {
 
             window.viewsCalculator.displaySucess('Programmer select');
 
-            this._historyButtonEl.disabled = false;
+            this._historyButtonEl.disabled = true;
+            this._historyButtonEl.classList.add('disabled-btn')
             
         }
         if(this._selectedCalculatorMode === 'length'){ 
@@ -324,6 +325,7 @@ class StellarControler {
             this._soundButtonEl.firstElementChild.src = 'assets/icons/sound.png';
 
             window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
+            window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
 
             window.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
 
@@ -332,6 +334,7 @@ class StellarControler {
             this._soundButtonEl.firstElementChild.src = 'assets/icons/no_sound.png';
 
             window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
+            window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
 
             window.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
 

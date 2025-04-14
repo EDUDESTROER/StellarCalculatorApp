@@ -10,6 +10,7 @@ window.timeConverter = new Time();
 window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
 window.calculatorStandardMode = new StellarStandardMode();
+window.calculatorProgrammerMode = new ProgrammerMode();
 window.calculatorConverterMode = new ConverterMode();
 window.viewsCalculator = new StellarViews();
 window.calculator = new StellarControler();

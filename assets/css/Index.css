@@ -144,11 +144,24 @@ body{
     flex-direction: column;
     list-style: none;
 
+}
+.wrapper-number-system li.selected-numeric-base{
+
+    background-color: #f1f7ff00;
+    position: relative;
 
 }
-.disabled-btn{
+.wrapper-number-system li.selected-numeric-base::after{
 
-    background-color: #2e2e2e99;
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    left: 0;
+    width: .2em;
+    height: 60%;
+    background-color: #00E6FF;
+    border-radius: 50rem;
+    transition: width 0.3s ease;
 
 }
 .wrapper-number-system li{
@@ -160,6 +173,7 @@ body{
 .wrapper-number-system li:hover{
 
     background-color: #f1f7ff30;
+    transform: scale(1.003);
     cursor: pointer;
 
 }
@@ -220,6 +234,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: .1rem solid rgba(255, 255, 255, 0.307);
 
 }
 .wrapper-programmer-functions button{
@@ -236,19 +251,44 @@ body{
     color: #D95B30;
 
 }
+.wrapper-programmer-functions button.selected-function{
+
+    position: relative;
+
+}
+.wrapper-programmer-functions button.selected-function::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    height: 4px;
+    width: 50%;
+    background-color: #00E6FF;
+    border-radius: 50rem;
+    animation: linegrow 500ms ease-in-out 1;
+    
+  }
 .wrapper-programmer-functions button:hover{
 
     background-color: #f1f7ff76;
     cursor: pointer;
 
 }
+.wrapper-programmer-functions button.selected-function:hover{
+
+    background-color: #00000000;
+    cursor: default
+
+}
 .wrapper-programmer-functions button:last-of-type{
 
     width: 25%;
+    
 
 }
 .wrapper-programmer-functions > div{
 
+    user-select: none;
     width: 25%;
     height: 98%;
     margin: .2rem;
@@ -274,6 +314,105 @@ body{
     font-size: 1.1rem;
     font-weight: bolder;
     color: #D95B30;
+
+}
+.wrapper-programmer-functions > div#button-bit-by-bit{
+
+    position: relative;
+    
+}
+.wrapper-programmer-functions > div#button-bit-by-bit > ul.bit-by-bit-menu{
+
+    background-color: #E8A033;
+    position: absolute;
+    width: 120%;
+    height: 400%;
+    padding: .2rem;
+    border: .1rem solid black;
+    transition-duration: 300ms;
+    border-radius: .3rem;
+    top: 100%;
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+}
+.wrapper-programmer-functions > div#button-bit-by-bit > ul.bit-by-bit-menu:hover{
+
+    box-shadow: 10px 10px 8px 3px rgba(0,0,0,0.75);
+
+}
+.wrapper-programmer-functions > div#button-bit-by-bit > ul.bit-by-bit-menu button{
+
+    color: #F1F7FF;
+    background-color: #D95B30;
+    border-radius: .2rem;
+    width: 32%;
+    height: 30%;
+
+}
+.wrapper-programmer-functions > div#button-bit-by-bit > ul.bit-by-bit-menu button:hover{
+
+    transform: scale(1.05);
+
+}
+.wrapper-programmer-functions > div#button-bit-shift{
+
+    position: relative;
+    
+}
+.wrapper-programmer-functions > div#button-bit-shift ul{
+
+    background-color: #E8A033;
+    position: absolute;
+    width: 120%;
+    height: 400%;
+    padding: .2rem;
+    border: .1rem solid black;
+    transition-duration: 300ms;
+    border-radius: .3rem;
+    top: 100%;
+    display: none;
+    flex-direction: column;
+
+}
+.wrapper-programmer-functions > div#button-bit-shift ul:hover{
+    
+    box-shadow: 10px 10px 8px 3px rgba(0,0,0,0.75);
+
+}
+.wrapper-programmer-functions > div#button-bit-shift ul li{
+
+    list-style: none;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    transition-duration:  300ms;
+    color: #F1F7FF;
+    font-size: 1rem;
+
+}
+.wrapper-programmer-functions > div#button-bit-shift ul li:hover{
+
+    background-color: #f1f7ff3a;
+    transform: scale(1.01);
+
+}
+.shift-radio-input{
+
+    margin-right: .5rem;
+    border: .1rem solid white;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+
+}
+.shift-radio-select{
+
+    background-color: #b7451f;
+    outline: .1rem solid white;
 
 }
 .wrapper-buttons-queues{
@@ -306,6 +445,84 @@ body{
     width: 2rem;
 
 }
+.wrapper-buttons-queues button#button-open-parentheses{
+
+    position: relative;
+
+}
+.wrapper-buttons-queues button .parentheses-sub{
+
+    position: absolute;
+    bottom: 0;
+    right: 3%;
+    font-size: 1.3rem;
+    animation: flick 2s ease infinite;
+
+}
+.toggle-queues{
+
+    width: 99%;
+    height: 99%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+.toggle-queues .toggle-queues-division{
+
+    width: calc((100% / 4) - .1em);
+    height: 99%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.toggle-queues .toggle-queues-division .wrapper-toggle-queues-buttons{
+
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+.wrapper-toggle-queues-buttons button{
+    
+    background: none;
+    border: none;
+    width: calc((100% / 4) - .1em);
+    height: 80%;
+    font-size: 1.8rem;
+    font-weight: bolder;
+    color: #F1F7FF;
+    transition: ease-in 150ms all;
+
+}
+.wrapper-toggle-queues-buttons button:hover{
+
+    color: #b5bbc2;
+    cursor: pointer;
+
+}
+.wrapper-toggle-queues-buttons button:active{
+
+    color: #B90B75;
+
+}
+.wrapper-toggle-queues-buttons button.color-pink{
+
+    color: #B90B75;
+
+}
+.toggle-queues .toggle-queues-division span{
+
+    font-size: 1.2rem;
+    margin-right: .5rem;
+    align-self: flex-end;
+    color: #F1F7FF;
+    user-select: none;
+
+}   
 #button-square-root img{
 
     width: 2.5rem;
@@ -382,9 +599,12 @@ body{
     background-color: rgba(0, 0, 0, 0.653);
     backdrop-filter: blur(2em);
     -webkit-backdrop-filter: blur(10px);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
     display: flex;
     flex-direction: column;
+    padding-bottom: 11vh;
 
 }
 .float-menu button{
@@ -707,7 +927,28 @@ body{
     height: 19%;
 
 }
+header .disabled-btn, header .disabled-btn img, body .disabled-btn{
 
+    cursor: not-allowed;
+
+}
+body main button.disabled-btn{
+
+    background-color: #2222221c;
+    cursor: default;
+
+}
+body main button.disabled-btn-bit-toggle{
+
+    color: #f1f7ff7b;
+
+}
+body main button.disabled-btn-bit-toggle:hover{
+
+    color: #f1f7ff7b;
+    cursor: default;
+
+}
 @media(min-height: 667px){
 
     .wrapper-calculator-output .current-output{
@@ -1022,6 +1263,18 @@ body{
     }
     100%{
         margin-right: 0;
+    }
+
+}
+@keyframes linegrow{
+
+    0%{
+        width: 0;
+        left: 50%;
+    }
+    100%{
+        left: 25%;
+        width: 50%;
     }
 
 }
