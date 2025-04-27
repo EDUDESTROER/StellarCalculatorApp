@@ -18,14 +18,47 @@ class ProgrammerMode {
 
     }
 
+    cangeCalculatorType(type){
+
+        this.numericBase = type;
+
+        let newNumberToDisplay = document.querySelector(`#${type}-result`).innerHTML === '0' ? '': document.querySelector('#BIN-result').innerHTML;
+
+        this.clearnAll();
+
+        this._operationList.push(newNumberToDisplay);
+
+        window.viewsCalculator.baseMenuControll(this.numericBase);
+
+        this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
+
+        this.updateDisplay();
+
+        this.checkBaseAndDisabled();
+
+    }
     checkBaseAndDisabled(){
 
         window.viewsCalculator.disabledBtn('button-dot');
         window.viewsCalculator.removeClass('button-dot', 'buttons-base-effects');
 
-        if(this.numericBase === 'DEC'){
+        if(this.numericBase === 'HEX'){
+
+            let hexEnabled = ['A', 'B', 'C', 'D', 'E', 'F','7','8','9','4','5','6','2','3'];
+
+            hexEnabled.forEach(buttonName=>{
+
+                //console.log(buttonName);
+
+                window.viewsCalculator.enableBtn(`button-${buttonName}`);
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+        }else if(this.numericBase === 'DEC'){
 
             let decDisabled = ['A', 'B', 'C', 'D', 'E', 'F'];
+            let decEnabled = ['7','8','9','4','5','6','2','3'];
 
             decDisabled.forEach(buttonName=>{
 
@@ -33,6 +66,69 @@ class ProgrammerMode {
                 window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
 
             });
+
+            decEnabled.forEach(buttonName=>{
+
+                //console.log(buttonName);
+
+                window.viewsCalculator.enableBtn(`button-${buttonName}`);
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+        }else if(this.numericBase === 'OCT'){
+
+            let octDisabled = ['A', 'B', 'C', 'D', 'E', 'F','8','9'];
+            let octEnabled = ['7','4','5','6','2','3'];
+
+            octDisabled.forEach(buttonName=>{
+
+                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+            octEnabled.forEach(buttonName=>{
+
+                //console.log(buttonName);
+
+                window.viewsCalculator.enableBtn(`button-${buttonName}`);
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+        }else if(this.numericBase === 'BIN'){
+
+            let binDisabled = ['A', 'B', 'C', 'D', 'E', 'F','7','8','9','4','5','6','2','3'];
+
+            binDisabled.forEach(buttonName=>{
+
+                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+        }
+
+    }
+    checkNumericBase(){
+
+        if(this.numericBase === 'DEC'){
+
+            this.cangeCalculatorType('DEC'); 
+
+        }else if(this.numericBase === 'BIN'){
+
+            this.cangeCalculatorType('BIN');
+
+        }else if(this.numericBase === 'OCT'){
+
+            this.cangeCalculatorType('OCT');
+
+        }
+        else if(this.numericBase === 'HEX'){
+
+            this.cangeCalculatorType('HEX');
 
         }
 
@@ -62,7 +158,22 @@ class ProgrammerMode {
 
         //console.log('Binary Number = ', numResult.join(''));
 
-        let decNum = this.getBinToOtherBase(numResult.join(''), 10);
+        let numBase;
+
+        if(this.numericBase === 'DEC'){
+
+            numBase = this.getBinToOtherBase(numResult.join(''), 10);
+
+        }else if(this.numericBase === 'OCT'){
+
+            numBase = this.getBinToOtherBase(numResult.join(''), 8);
+
+        }else if(this.numericBase === 'BIN'){
+
+            numBase = this.getBinToOtherBase(numResult.join(''), 2);
+
+        }
+
 
         //console.log('Decimal Number = ', decNum);
 
@@ -70,13 +181,13 @@ class ProgrammerMode {
 
             if(!this.isOperator(this._operationList[this._operationList.length - 1])){
 
-                this._operationList[this._operationList.length - 1] = decNum;
+                this._operationList[this._operationList.length - 1] = numBase;
     
                 this.updateDisplay();
     
             }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
 
-                this._operationList.push(decNum);
+                this._operationList.push(numBase);
 
                 this.updateDisplay();
 
@@ -84,7 +195,7 @@ class ProgrammerMode {
 
         }else{
 
-            this._operationList[this._operationList.length - 1] = decNum;
+            this._operationList[this._operationList.length - 1] = numBase;
     
             this.updateDisplay();
 
@@ -93,7 +204,7 @@ class ProgrammerMode {
     }
     start(){
 
-        this.checkBaseAndDisabled();
+        this.checkNumericBase();
 
         window.viewsCalculator.bitToggleMenu();
         window.viewsCalculator.showKeyboardMenu();
@@ -213,6 +324,18 @@ class ProgrammerMode {
                         break;
                         case 'bit-shift-through-carry':
                             this.changeBitShiftType('throughCarry');
+                        break;
+                        case 'BIN-select':
+                            this.cangeCalculatorType('BIN');
+                        break;
+                        case 'DEC-select':
+                            this.cangeCalculatorType('DEC');
+                        break;
+                        case 'OCT-select':
+                            this.cangeCalculatorType('OCT');
+                        break;
+                        case 'HEX-select':
+                            this.cangeCalculatorType('HEX');
                         break;
                         default:
                             console.error('In devoloping... ' + buttonName);
@@ -476,49 +599,74 @@ class ProgrammerMode {
 
         if(this._operationList[this._operationList.length - 1]){
 
-            if(this.numericBase === 'DEC'){
+            
 
-                if(!this.isOperator(this._operationList[this._operationList.length - 1])){
+            if(!this.isOperator(this._operationList[this._operationList.length - 1])){
     
-                    this._operationList[this._operationList.length - 1] = this._operationList[this._operationList.length - 1].slice(0, -1).toString();
+                this._operationList[this._operationList.length - 1] = this._operationList[this._operationList.length - 1].slice(0, -1).toString();
     
-                    if(!this._operationList[this._operationList.length - 1]) {
+                if(!this._operationList[this._operationList.length - 1]) {
 
-                        this._operationList.pop();
-                        
-                        this.displayResult('0');
-
-                    }
-
-                    this.updateDisplay();
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                    this.convertBinaryFromBtn();
-    
-                }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
-
-                    if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])) this.closeParenthesesNum = this.closeParenthesesNum - 1;
-                    if(this.isOpenParentheses(this._operationList[this._operationList.length - 1])) this.openParenthesesNum = this.openParenthesesNum - 1;
-
-                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-    
                     this._operationList.pop();
-    
-                    this.updateDisplay();
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
+                        
+                    this.displayResult('0');
 
-                    this.convertBinaryFromBtn();
-    
                 }
+
+                this.updateDisplay();
+                this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                this.convertBinaryFromBtn();
+    
+            }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
+
+                if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])) this.closeParenthesesNum = this.closeParenthesesNum - 1;
+                if(this.isOpenParentheses(this._operationList[this._operationList.length - 1])) this.openParenthesesNum = this.openParenthesesNum - 1;
+
+                window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+    
+                this._operationList.pop();
+    
+                this.updateDisplay();
+                this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                this.convertBinaryFromBtn();
     
             }
+
+            if(this._operationList[this._operationList.length - 1]){
+
+                this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
+
+            }else{
+
+                this.convertToAllNumericBases('0');
+
+            }
+
+    
+            
 
         }
 
     }
     checkCalcType(value){
 
-        if(this.numericBase === 'DEC'){
+        if(this.numericBase === 'HEX'){
+
+            let listOfAllowedValue = ['A', 'B', 'C', 'D', 'E', 'F','0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '-', '+', '%', '(', ')', '>>', '<<', '&', '|', '^', 'NAND', 'NOR'];
+
+            if(listOfAllowedValue.indexOf(value) < 0){
+
+                this.errorDetect('Not allowed caractere! In hexadecimal.');
+
+            }else{
+
+                this.addDigits(value);
+
+            }
+
+        }else if(this.numericBase === 'DEC'){
 
             let listOfAllowedValue = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '/', '-', '+', '%', '(', ')', '>>', '<<', '&', '|', '^', 'NAND', 'NOR'];
 
@@ -528,7 +676,35 @@ class ProgrammerMode {
 
             }else{
 
-                this.addDec(value);
+                this.addDigits(value);
+
+            }
+
+        }else if(this.numericBase === 'BIN'){
+
+            let listOfAllowedValue = ['0', '1', '*', '/', '-', '+', '%', '(', ')', '>>', '<<', '&', '|', '^', 'NAND', 'NOR'];
+
+            if(listOfAllowedValue.indexOf(value) < 0){
+
+                this.errorDetect('Not allowed caractere! In binary.');
+
+            }else{
+
+                this.addDigits(value);
+
+            }
+
+        }else if(this.numericBase === 'OCT'){
+
+            let listOfAllowedValue = ['0', '1', '2', '3', '4', '5', '6', '7', '*', '/', '-', '+', '%', '(', ')', '>>', '<<', '&', '|', '^', 'NAND', 'NOR'];
+
+            if(listOfAllowedValue.indexOf(value) < 0){
+
+                this.errorDetect('Not allowed caractere! In octal.');
+
+            }else{
+
+                this.addDigits(value);
 
             }
 
@@ -539,58 +715,82 @@ class ProgrammerMode {
 
         if(this._operationList.length >= 3){
 
-            if(this.numericBase === 'DEC'){
-
-                if(this.isOperator(this._operationList[this._operationList.length - 1]) && (this._operationList[this._operationList.length - 1] !== '(' && this._operationList[this._operationList.length - 1] !== ')')){
+            if(this.isOperator(this._operationList[this._operationList.length - 1]) && (this._operationList[this._operationList.length - 1] !== '(' && this._operationList[this._operationList.length - 1] !== ')')){
         
-                    if(this.parenthesesToClose() = 0){
+                if(this.parenthesesToClose() = 0){
 
-                        this._operationList.push(this.tempResult);
+                    this._operationList.push(this.tempResult);
 
-                    }
-            
                 }
-
-                this.calcDec();
-    
-                let expresion =  `${this._operationList.join(' ')} =`;
-                let result = this.tempResult;
-    
-                this.clearnAll();
-    
-                this._operationList.push(result);
-
-                this.convertToAllNumericBases(result);
-    
-                this.displayResult(result);
-                this.displayExpresion(expresion);
-    
+        
             }
+
+            if(this.numericBase === 'HEX'){
+
+                this.calcOtherBases(16);  
+    
+            }else if(this.numericBase === 'DEC'){
+
+                this.calcDec();  
+    
+            }else if(this.numericBase === 'OCT'){
+
+                this.calcOtherBases(8);
+
+            }else if(this.numericBase === 'BIN'){
+
+                this.calcOtherBases(2);
+
+            }
+
+            let expresion =  `${this._operationList.join(' ')} =`;
+            let result = this.tempResult;
+    
+            this.clearnAll();
+    
+            this._operationList.push(result);
+
+            this.convertToAllNumericBases(result);
+    
+            this.displayResult(result);
+            this.displayExpresion(expresion);
 
         }else if(this.lastCalc && this._operationList.length === 1){
 
-            if(this.numericBase === 'DEC'){
+            let calcList = this.lastCalc.split(' ');
 
-                let calcList = this.lastCalc.split(' ');
+            this._operationList.push(calcList[0]);
+            this._operationList.push(calcList[1]);
 
-                this._operationList.push(calcList[0]);
-                this._operationList.push(calcList[1]);
+            if(calcList[0] === 'NAND' || calcList[0] === 'NOR') this.bitByBitNorNand = true;
 
-                if(calcList[0] === 'NAND' || calcList[0] === 'NOR') this.bitByBitNorNand = true;
+            if(this.numericBase === 'HEX'){
+
+                this.calcOtherBases(16);  
+    
+            }else if(this.numericBase === 'DEC'){
 
                 this.calcDec();
 
-                let expresion =  `${this._operationList.join(' ')} =`;
-                let result = this.tempResult;
-    
-                this.clearnAll();
-    
-                this._operationList.push(result);
-    
-                this.displayResult(result);
-                this.displayExpresion(expresion);
+            }else if(this.numericBase === 'OCT'){
+
+                this.calcOtherBases(8);
+
+            }else if(this.numericBase === 'BIN'){
+
+                this.calcOtherBases(2);
 
             }
+
+            let expresion =  `${this._operationList.join(' ')} =`;
+            let result = this.tempResult;
+    
+            this.clearnAll();
+    
+            this._operationList.push(result);
+    
+            this.displayResult(result);
+            this.displayExpresion(expresion);
 
         }
 
@@ -609,7 +809,28 @@ class ProgrammerMode {
             octNumber = this.getDecToOtherBase(numberToConvert, 8);
             binNumber = this.getDecToOtherBase(numberToConvert, 2);
 
-        }else if(this.numericBase){}else if(this.numericBase){}else if(this.numericBase){}
+        }else if(this.numericBase === 'BIN'){
+
+            hexNumber = this.getBinToOtherBase(numberToConvert, 16);
+            decNumber = this.getBinToOtherBase(numberToConvert, 10);
+            octNumber = this.getBinToOtherBase(numberToConvert, 8);
+            binNumber = numberToConvert;
+
+        }else if(this.numericBase === 'OCT'){
+
+            hexNumber = this.getOctToOtherBase(numberToConvert, 16);
+            decNumber = this.getOctToOtherBase(numberToConvert, 10);
+            octNumber = numberToConvert;
+            binNumber = this.getOctToOtherBase(numberToConvert, 2);
+
+        }else if(this.numericBase === 'HEX'){
+
+            hexNumber = numberToConvert;
+            decNumber = this.getHexToOtherBase(numberToConvert, 10);
+            octNumber = this.getHexToOtherBase(numberToConvert, 8);
+            binNumber = this.getHexToOtherBase(numberToConvert, 2);
+
+        }
 
         window.viewsCalculator.setInnerHtmlToElement(hexNumber, 'HEX-result');
         window.viewsCalculator.setInnerHtmlToElement(decNumber, 'DEC-result');
@@ -624,31 +845,67 @@ class ProgrammerMode {
 
         if(this._operationList[this._operationList.length - 1] && !this.isOperator(this._operationList[this._operationList.length - 1])){
 
-            let binNum = this.getDecToOtherBase(this._operationList[this._operationList.length - 1], 2);
+            let binNum; 
 
-            let binNumList = binNum.split('');
+            if(this.numericBase === 'HEX'){
+
+                binNum = this.getHexToOtherBase(this._operationList[this._operationList.length - 1], 2);
+
+            }else if(this.numericBase === 'DEC'){
+
+                binNum = this.getDecToOtherBase(this._operationList[this._operationList.length - 1], 2);
+
+            }else if(this.numericBase === 'OCT'){
+
+                binNum = this.getOctToOtherBase(this._operationList[this._operationList.length - 1], 2);
+
+            }else if(this.numericBase === 'BIN'){
+
+                binNum = this._operationList[this._operationList.length - 1];
+
+            }
+
+            let binNumList
+
+            if(binNum && binNum.length > 1){
+
+                binNumList = binNum.split('');
+
+            }else{
+
+                binNumList = binNum.toString();
+
+            }
 
             //console.log('Binary Num Split: ', binNumList);
 
             let index = 0;
 
-            for(let i = binNumList.length - 1; i >= 0; i--){
+            if(binNumList.length < 64){
 
-                let button = document.getElementById(`btn-bit-${i}`);
+                for(let i = binNumList.length - 1; i >= 0; i--){
 
-                //console.log('Button Target: ', button);
+                    let button = document.getElementById(`btn-bit-${i}`);
+    
+                    //console.log('Button Target: ', button);
+    
+                    button.innerHTML = binNumList[index];
+    
+                    if(binNumList[index] == '1') {
+    
+                        button.classList.add('color-pink')
+    
+                        //console.log('Button Class: ', button.classList);
+    
+                    };
+    
+                    if(index < binNumList.length) index ++;
+    
+                }
 
-                button.innerHTML = binNumList[index];
+            }else{
 
-                if(binNumList[index] == '1') {
-
-                    button.classList.add('color-pink')
-
-                    //console.log('Button Class: ', button.classList);
-
-                };
-
-                if(index < binNumList.length) index ++;
+                this.errorDetect('Fuction warning | convertBinaryFromBtn() | : The binary number has more them 64 bits! ');
 
             }
 
@@ -657,6 +914,44 @@ class ProgrammerMode {
             this.bitToggleBtnReset('btn-bit-0', true)
 
         }
+
+    }
+    convertOperationFromAnyBaseToDecimal(copyArray, baseNumber){
+
+        let index = 0;
+
+        copyArray.forEach(content=>{
+
+
+            if(!this.isOperator(content)){
+
+                let decNum;
+
+                if(baseNumber === 2){
+
+                   decNum = this.getBinToOtherBase(content, 10);
+
+                }else if(baseNumber === 8){
+
+                    decNum = this.getOctToOtherBase(content, 10);
+
+                }else if(baseNumber === 16){
+
+                    decNum = this.getHexToOtherBase(content, 10);
+
+                }
+
+                copyArray[index] = decNum;
+
+            }
+
+            index++;
+
+        });
+
+        //console.log('Array Result: ', copyArray);
+
+        return copyArray;
 
     }
     getDecToOtherBase(numberToConvert, baseNumber){
@@ -724,24 +1019,138 @@ class ProgrammerMode {
         }
         
     }
+    getHexToOtherBase(numberToConvert, baseNumber){
+
+        try{
+            
+            let [integerPart, fractionalPart] = numberToConvert.toString().toUpperCase().split(".");
+            let decimalValue = parseInt(integerPart, 16);
+
+            if(fractionalPart){
+
+                let fractionDecimal = 0;
+
+                for (let i = 0; i< fractionalPart.length; i ++){
+
+                    fractionDecimal += parseInt(fractionalPart[i], 16) * Math.pow(16, -(i + 1));
+
+                }
+
+                decimalValue += fractionDecimal;
+
+            }
+            let intPart = Math.floor(decimalValue);
+            let fracPart = decimalValue - intPart;
+
+            let result = intPart.toString(baseNumber).toUpperCase();
+
+            if (fracPart > 0) {
+                result += '.';
+                for (let i = 0; i < 10; i++) { // até 10 dígitos de precisão
+                    fracPart *= baseNumber;
+                    let digit = Math.floor(fracPart);
+                    result += digit.toString(baseNumber).toUpperCase();
+                    fracPart -= digit;
+                    if (fracPart === 0) break;
+                }
+            }
+
+            return result;
+
+        }catch(error){
+
+            this.errorDetect(error);
+
+        }
+        
+    }
+    getOctToOtherBase(numberToConvert, baseNumber){
+
+        try {
+
+            let [integerPart, fractionalPart] = numberToConvert.toString().toLocaleUpperCase().split('.');
+            let decimalValue = parseInt(integerPart, 8);
+
+            if(fractionalPart){
+
+                let fractionDecimal = 0;
+
+                for (let i = 0; i< fractionalPart.length; i ++){
+
+                    fractionDecimal += parseInt(fractionalPart[i], 8) * Math.pow(8, -(i + 1));
+
+                }
+
+                decimalValue += fractionDecimal;
+
+            }
+
+            let intPart = Math.floor(decimalValue);
+            let fracPart = decimalValue - intPart;
+
+            let result = intPart.toString(baseNumber).toUpperCase();
+
+            if(fracPart > 0){
+
+                result += '.';
+
+                for(let i = 0; i < 10; i++){
+
+                    fracPart *= baseNumber;
+
+                    let digit = Math.floor(fracPart);
+                result += digit.toString(baseTarget).toUpperCase();
+                fracPart -= digit;
+                if (fracPart === 0) break;
+            }
+        }
+
+        return result; // stop here!!
+
+        }catch(error){
+
+            this.errorDetect(error);
+
+        }
+
+    }
     isOperator(valueTocheck){
 
         let operatorList = ['*', '+', '-', '/', '%', '<<', '>>', '&', '|', '^', 'NAND', 'NOR'];
 
+        if(this.numericBase === 'HEX'){
+
+            if(operatorList.indexOf(valueTocheck) >= 0 || valueTocheck === '(' || valueTocheck === ')'){
+
+
+                
+            }else{
+
+                valueTocheck = this.getHexToOtherBase(valueTocheck, 10);
+
+            }
+
+        }
+
         if(operatorList.indexOf(valueTocheck) >= 0 || valueTocheck === '(' || valueTocheck === ')'){
+
+            //console.log('Is not a number');
 
             return true;
 
-        }else if(!isNaN(parseFloat(valueTocheck) && isFinite(valueTocheck))){
+        }else if((!isNaN(parseFloat(valueTocheck) && isFinite(valueTocheck)))){
 
-            return false;
-            
+            //console.log('Is a number');
+
+            return false;       
 
         }else{
 
             this.errorDetect('This number is not a operator or a number!');
 
         }
+
+        
 
         
 
@@ -777,7 +1186,7 @@ class ProgrammerMode {
          
 
     }
-    addDec(value){
+    addDigits(value){
 
         this.tempResult = '';
 
@@ -805,6 +1214,8 @@ class ProgrammerMode {
             }
 
         }else if(this._operationList.length > 0){
+
+            //console.log('_operation has more then 1 lenght!');
 
             if(this.isOperator(this._operationList[this._operationList.length - 1]) === true){
 
@@ -885,16 +1296,36 @@ class ProgrammerMode {
 
             }else if(this.isOperator(this._operationList[this._operationList.length - 1]) === false){
 
+                //console.log('The last in _operation is a number! ');
+
                 if(this.isOperator(value) === false){
 
-                    let maxNumberSize;
+                    //console.log('The next value is a number! ');
 
-                    if(this.numericWordSize === "QWORD") maxNumberSize = 18;
-                    if(this.numericWordSize === "DWORD") maxNumberSize = 9;
-                    if(this.numericWordSize === "WORD") maxNumberSize = 4;
-                    if(this.numericWordSize === "BYTE") maxNumberSize = 2;
+                    //console.log('Word size pass? ', this.verifyWordRange(`${this._operationList[this._operationList.length - 1]}${value}`));
 
-                    if(this._operationList[this._operationList.length - 1].toString().length < maxNumberSize){
+                    let rengeVerify;
+
+                    if(this.numericBase === 'DEC'){
+
+                        rengeVerify = `${this._operationList[this._operationList.length - 1]}${value}`;
+            
+                    }else if(this.numericBase === 'BIN'){
+            
+                        rengeVerify = `${this.getBinToOtherBase(this._operationList[this._operationList.length - 1], 10)}${this.getBinToOtherBase(value, 10)}`;
+            
+                    }else if(this.numericBase === 'OCT'){
+            
+                        rengeVerify = `${this.getOctToOtherBase(this._operationList[this._operationList.length - 1], 10)}${this.getOctToOtherBase(value, 10)}`;
+            
+                    }
+                    else if(this.numericBase === 'HEX'){
+            
+                        rengeVerify = `${this.getHexToOtherBase(this._operationList[this._operationList.length - 1], 10)}${this.getHexToOtherBase(value, 10)}`;
+            
+                    }
+
+                    if(this.verifyWordRange(rengeVerify)){
 
                         let content = this._operationList[this._operationList.length - 1];
 
@@ -960,10 +1391,27 @@ class ProgrammerMode {
 
         this.convertBinaryFromBtn();
         
+        //console.log('Can have a preview calc? ', this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0));
 
-        if(this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose === 0)){
+        if(this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0)){
 
-            this.calcDec();
+            if(this.numericBase === 'HEX'){
+
+                this.calcOtherBases(16);  
+    
+            }else if(this.numericBase === 'DEC'){
+
+                this.calcDec();  
+    
+            }else if(this.numericBase === 'OCT'){
+
+                this.calcOtherBases(8);
+
+            }else if(this.numericBase === 'BIN'){
+
+                this.calcOtherBases(2);
+
+            }
         }
 
         this.updateDisplay();
@@ -1108,6 +1556,148 @@ class ProgrammerMode {
 
         }
     
+    }
+    calcOtherBases(baseNumber){
+
+        let storeOperator;
+        let result;
+
+        if(this.isOperator(this._operationList[this._operationList.length - 1]) && !(this.isOpenParentheses(this._operationList[this._operationList.length - 1]) || this.isCloseParentheses(this._operationList[this._operationList.length - 1]))){
+            
+            storeOperator = this._operationList[this._operationList.length - 1];
+
+            this._operationList.pop();
+    
+        }
+
+        if((this._operationList[this._operationList.length - 2] && this._operationList[this._operationList.length - 1])){
+
+            if(this.isOpenParentheses(this._operationList[this._operationList.length - 2])){
+
+                this.lastCalc = `+ ${this._operationList[this._operationList.length - 1]}`;
+
+            }else if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])){
+
+                if(this.isOpenParentheses(this._operationList[this._operationList.length - 3])){
+
+                    this.lastCalc = `+ ${this._operationList[this._operationList.length - 2]}`;
+    
+                }else{
+
+                    this.lastCalc = `${this._operationList[this._operationList.length - 3]} ${this._operationList[this._operationList.length - 2]}`;
+    
+                }
+
+            }else{
+
+                this.lastCalc = `${this._operationList[this._operationList.length - 2]} ${this._operationList[this._operationList.length - 1]}`
+
+            }
+
+        }
+
+        if(this.parenthesesToClose() > 0 ){
+
+            let remain = this.parenthesesToClose();
+
+            for (remain ; remain > 0; remain--){
+
+                if(this.isOperator(this._operationList[this._operationList.length - 1]) && !(this.isOpenParentheses(this._operationList[this._operationList.length - 1]) || this.isCloseParentheses(this._operationList[this._operationList.length - 1]))){
+
+                    this._operationList.push('0');
+                    this._operationList.push(')');
+
+                }else{
+
+                    this._operationList.push(')');
+
+                }
+
+            }
+
+        }
+
+        let convertedArray = this.convertOperationFromAnyBaseToDecimal([...this._operationList], baseNumber);
+
+
+        if((this.bitShiftType === 'logical' || this.bitShiftType == 'rotateCircular' || this.bitShiftType === 'throughCarry') && (convertedArray .includes('>>') || convertedArray .includes('<<'))){
+
+            let filtered = this.returnFilteredAndCalcByFunction(operation => operation === '<<' || operation === '>>', convertedArray);
+
+            if(this.bitShiftType === 'logical'){
+
+                let decUnsigned = this.convertToUnsigned(filtered[0], this.numericWordSize);
+
+                if(convertedArray .includes('<<')){
+
+                    result  = this.returnCalc(convertedArray);
+
+                }else{
+
+                    result = this.getLogicalShiftRight(decUnsigned, filtered[2]);
+
+                }
+
+            }else if(this.bitShiftType === 'rotateCircular'){
+
+                let decUnsigned = this.convertToUnsigned(filtered[0], this.numericWordSize);
+                let rotateSide;
+
+                if(filtered.includes('>>')){
+
+                    rotateSide = 'right';
+
+                }else if(filtered.includes('<<')){
+
+                    rotateSide = 'left';
+
+                }
+
+                result = this.getRotateCircularShift(decUnsigned, filtered[2], rotateSide, this.numericWordSize);
+
+            }else if(this.bitShiftType === 'throughCarry'){
+
+                let decUnsigned = this.convertToUnsigned(filtered[0], this.numericWordSize)
+                let rotateSide;
+
+                if(filtered.includes('>>')){
+
+                    rotateSide = 'right';
+
+                }else if(filtered.includes('<<')){
+
+                    rotateSide = 'left';
+
+                }
+
+                result = this.getThroughCarry(decUnsigned, filtered[2], rotateSide, this.numericWordSize)
+
+            }
+
+        }else if(this.bitByBitNorNand){
+            
+            result = this.calcNandNor(convertedArray);
+
+        }else{
+
+            result  = this.returnCalc(convertedArray );
+
+        }
+
+        result = this.getDecToOtherBase(result, baseNumber);
+
+        this.displayResult(result);
+        
+        this.tempResult = result;
+
+        this.convertToAllNumericBases(result);
+
+        if(storeOperator){
+
+            this._operationList.push(storeOperator);
+
+        }
+
     }
     calcNandNor(expresionArray){
 
@@ -1268,6 +1858,44 @@ class ProgrammerMode {
         }
 
     }
+    verifyWordRange(numberEntry){
+
+        let number = numberEntry;
+
+        number = parseInt(number);
+
+        //console.log('number Entry: ', number);
+
+        if(this.numericWordSize === "QWORD"){
+
+            //console.log('Stay in QWORD Range?: ', number < '18446744073709552000' && number > '-18446744073709552000');
+
+            if(number < '18446744073709552001' && number > '-18446744073709552001') return true;
+
+        }
+        if(this.numericWordSize === "DWORD") {
+
+            //console.log('Stay in DWORD Range?: ', number < '4294967295' && number > '-4294967295');
+            if(number < '4294967296' && number > '-4294967296') return true;
+
+        }
+        if(this.numericWordSize === "WORD"){
+
+            //console.log('Stay in WORD Range?: ', number < '65535' && number > '-65535');
+            if(number < '65536' && number > '-65536') return true;
+
+        }
+        if(this.numericWordSize === "BYTE") {
+
+            //console.log('Stay in BYTE Range?: ', number < '255' && number > '-255');
+
+            if(number < '256' && number > '-256') return true;
+
+        }
+
+        return false;
+
+    }
     calcAndFilterBasicNand(expresionArray){
 
         let tempArray = [...expresionArray];
@@ -1422,16 +2050,16 @@ class ProgrammerMode {
         }
 
     }
-    returnFilteredAndCalcByFunction(filterFunction){
+    returnFilteredAndCalcByFunction(filterFunction, arrayFilter = [...this._operationList]){
 
         let filtered = [];
-        let arraySize = this._operationList.length;
+        let arraySize = arrayFilter.length;
 
         if(arraySize === 3){
 
             for(let i = 0; i < arraySize; i ++){
 
-                filtered.push(this._operationList[i]);
+                filtered.push(arrayFilter[i]);
 
             }
 
@@ -1439,7 +2067,7 @@ class ProgrammerMode {
 
         }else if(arraySize > 3){
 
-            let shiftPosition = this.returnAllIndex(this._operationList, filterFunction);
+            let shiftPosition = this.returnAllIndex(arrayFilter, filterFunction);
 
             let lastPosition = 0;
 
@@ -1449,7 +2077,7 @@ class ProgrammerMode {
 
                 for(let i = lastPosition; i < position; i ++){
 
-                    tempCalc.push(this._operationList[i]);
+                    tempCalc.push(arrayFilter);
 
                 }
 
@@ -1457,11 +2085,11 @@ class ProgrammerMode {
 
                 if(this.bitByBitNorNand){
 
-                    filtered.push(this.calcAndFilterComplexNand(tempCalc), this._operationList[position]);
+                    filtered.push(this.calcAndFilterComplexNand(tempCalc), arrayFilter[position]);
 
                 }else{
 
-                    filtered.push(this.returnCalc(tempCalc), this._operationList[position]);
+                    filtered.push(this.returnCalc(tempCalc), arrayFilter[position]);
 
                 }
 
@@ -1473,7 +2101,7 @@ class ProgrammerMode {
 
                 for(let i = lastPosition; i < arraySize; i++){
 
-                    tempCalc.push(this._operationList[i]);
+                    tempCalc.push(arrayFilter[i]);
 
                 }
 

@@ -7,6 +7,7 @@ class StellarViews{
         this._errorSound = new Audio('assets/sound/calcError.mp3');
         this._sucessSound = new Audio('assets/sound/calcSucess.mp3');
         this._bitToggle = false;
+        this.baseMenu = [ false,'DEC'];
 
     }
 
@@ -53,7 +54,7 @@ class StellarViews{
             <ul class="wrapper-number-system">
 
                 <li id="HEX-select"><span>HEX</span><span id="HEX-result">0</span></li>
-                <li id="DEC-select" class="selected-numeric-base"><span>DEC</span><span id="DEC-result">0</span></li>
+                <li id="DEC-select"><span>DEC</span><span id="DEC-result">0</span></li>
                 <li id="OCT-select"><span>OCT</span><span id="OCT-result">0</span></li>
                 <li id="BIN-select"><span>BIN</span><span id="BIN-result">0</span></li>
 
@@ -1148,11 +1149,13 @@ class StellarViews{
         });
 
     }
-    enableBtn(id){
+    enableBtn(id, subClass = ''){
 
         let button = document.getElementById(id);
 
         button.disabled = false;
+
+        button.classList.remove(`disabled-btn${subClass}`);
 
     }
     disabledBtn(id, subClass = ''){
@@ -1163,11 +1166,45 @@ class StellarViews{
         button.classList.add(`disabled-btn${subClass}`);
 
     }
+    addClass(elementID, classToAdd){
+
+        let element = document.getElementById(elementID);
+
+        element.classList.add(`${classToAdd}`);
+
+        //console.log(element);
+
+    }
     removeClass(elementID, classToRemove){
 
         let element = document.getElementById(elementID);
 
         element.classList.remove(`${classToRemove}`);
+
+    }
+    hasClass(classArray, className){
+
+        let cssClassMatch = [];
+
+        classArray.forEach(cssClass => {
+
+            if(cssClass == className){
+
+                cssClassMatch.push(cssClass);
+
+            }
+
+        });
+
+        if(cssClassMatch.length >= 1){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
 
     }
     keybordAlternate(){
@@ -1176,8 +1213,26 @@ class StellarViews{
         
         let keyboardToggle = document.querySelector('#button-bit-toggle');
 
-        keyboard.classList.toggle('selected-function');
+        //console.log('main keyboard has a class',this.hasClass(keyboard.classList, 'selected-function'));
+
+        //console.log('secondary keybord has a class',this.hasClass(keyboardToggle.classList, 'selected-function'));
+
+        if(this.hasClass(keyboard.classList, 'selected-function')){
+
+            keyboardToggle.disabled = true;
+            
+            keyboard.disabled = false;
+
+        }else if(this.hasClass(keyboardToggle.classList, 'selected-function')){
+
+            keyboard.disabled = true;
+
+            keyboardToggle.disabled = false;
+
+        }
+
         keyboardToggle.classList.toggle('selected-function');
+        keyboard.classList.toggle('selected-function');
 
     }
     bitToggleMenu(){
@@ -1398,6 +1453,29 @@ class StellarViews{
         if(this._bitToggle){
 
             this.buttonsQueuesShow('show')
+
+        }
+
+    }
+    baseMenuControll(baseSelect){
+
+        if(baseSelect !== this.baseMenu[1] || this.baseMenu[0] === false){
+
+            let elList = document.querySelectorAll('.wrapper-number-system li');
+
+            //console.log('List of li elements: ', elList);
+
+            elList.forEach(li=>{
+
+                this.removeClass(li.id, 'selected-numeric-base')
+
+            });
+
+            document.querySelector(`#${baseSelect}-select`).classList.add('selected-numeric-base');
+
+            this.baseMenu[1] = baseSelect;
+
+            this.baseMenu[0] = true;
 
         }
 
