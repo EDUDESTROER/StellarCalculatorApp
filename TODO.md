@@ -1,7 +1,6 @@
 ## Improvements
-[ ] fix the binary conversion, because the getDecToOtherBase function returns -Binary and the getBinToOtherBase returns the binary number with the negative represented by 1 or 0.
 [ ] Many functions can be optimized.
 [ ] The programmer mode layout need to be fixed in mobile displays.
 [ ] line 890 error in Bit shift, Rotate Through Carry!
 [ ] programmerMode many bugs to fixed.
-[ ] Bug in Binary buttons to HEX?.
+[ ] the calc with FFFFFFFFFFFFFFF in HEX don't can be added with others numbers. it is probably not possible to do any other operation.

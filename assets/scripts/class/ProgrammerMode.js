@@ -22,7 +22,7 @@ class ProgrammerMode {
 
         this.numericBase = type;
 
-        let newNumberToDisplay = document.querySelector(`#${type}-result`).innerHTML === '0' ? '': document.querySelector('#BIN-result').innerHTML;
+        let newNumberToDisplay = document.querySelector(`#${type}-result`).innerHTML === '0' ? '': document.querySelector(`#${type}-result`).innerHTML;
 
         this.clearnAll();
 
@@ -162,19 +162,19 @@ class ProgrammerMode {
 
         if(this.numericBase === 'HEX'){
 
-            numBase = this.getBinToOtherBase(numResult.join(''), 16);
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 16);
 
         }else if(this.numericBase === 'DEC'){
 
-            numBase = this.getBinToOtherBase(numResult.join(''), 10);
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 10);
 
         }else if(this.numericBase === 'OCT'){
 
-            numBase = this.getBinToOtherBase(numResult.join(''), 8);
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 8);
 
         }else if(this.numericBase === 'BIN'){
 
-            numBase = this.getBinToOtherBase(numResult.join(''), 2);
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 2);
 
         }
 
@@ -812,31 +812,31 @@ class ProgrammerMode {
 
         if(this.numericBase === 'DEC'){
             
-            hexNumber = this.getDecToOtherBase(numberToConvert, 16);
+            hexNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),10 , 16);
             decNumber = numberToConvert;
-            octNumber = this.getDecToOtherBase(numberToConvert, 8);
-            binNumber = this.getDecToOtherBase(numberToConvert, 2);
+            octNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),10 , 8);
+            binNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),10 , 2);
 
         }else if(this.numericBase === 'BIN'){
 
-            hexNumber = this.getBinToOtherBase(numberToConvert, 16);
-            decNumber = this.getBinToOtherBase(numberToConvert, 10);
-            octNumber = this.getBinToOtherBase(numberToConvert, 8);
+            hexNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),2 , 16);
+            decNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),2 , 10);
+            octNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),2 , 8);
             binNumber = numberToConvert;
 
         }else if(this.numericBase === 'OCT'){
 
-            hexNumber = this.getOctToOtherBase(numberToConvert, 16);
-            decNumber = this.getOctToOtherBase(numberToConvert, 10);
+            hexNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),8 , 16);
+            decNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),8 , 10);
             octNumber = numberToConvert;
-            binNumber = this.getOctToOtherBase(numberToConvert, 2);
+            binNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),8 , 2);
 
         }else if(this.numericBase === 'HEX'){
 
             hexNumber = numberToConvert;
-            decNumber = this.getHexToOtherBase(numberToConvert, 10);
-            octNumber = this.getHexToOtherBase(numberToConvert, 8);
-            binNumber = this.getHexToOtherBase(numberToConvert, 2);
+            decNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),16 , 10);
+            octNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),16 , 8);
+            binNumber = this.getAnyBaseToAnyBase(numberToConvert.toString(),16 , 2);
 
         }
 
@@ -857,15 +857,15 @@ class ProgrammerMode {
 
             if(this.numericBase === 'HEX'){
 
-                binNum = this.getHexToOtherBase(this._operationList[this._operationList.length - 1], 2);
+                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 16, 2);
 
             }else if(this.numericBase === 'DEC'){
 
-                binNum = this.getDecToOtherBase(this._operationList[this._operationList.length - 1], 2);
+                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 10, 2);
 
             }else if(this.numericBase === 'OCT'){
 
-                binNum = this.getOctToOtherBase(this._operationList[this._operationList.length - 1], 2);
+                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 8, 2);
 
             }else if(this.numericBase === 'BIN'){
 
@@ -937,15 +937,15 @@ class ProgrammerMode {
 
                 if(baseNumber === 2){
 
-                   decNum = this.getBinToOtherBase(content, 10);
+                   decNum = this.getAnyBaseToAnyBase(content, 2, 10);
 
                 }else if(baseNumber === 8){
 
-                    decNum = this.getOctToOtherBase(content, 10);
+                    decNum = this.getAnyBaseToAnyBase(content, 8, 10);
 
                 }else if(baseNumber === 16){
 
-                    decNum = this.getHexToOtherBase(content, 10);
+                    decNum = this.getAnyBaseToAnyBase(content, 16, 10);
 
                 }
 
@@ -962,218 +962,74 @@ class ProgrammerMode {
         return copyArray;
 
     }
-    getDecToOtherBase(numberToConvert, baseNumber){
-
-        if(numberToConvert && numberToConvert != 0){
-
-            let numberToConvertString = numberToConvert.toString() //Treats BigInt
-
-            let integerPart = Math.floor(numberToConvertString);
-            let fractionalPart = numberToConvertString - integerPart;        
-
-            let numberConverted = integerPart.toString(baseNumber);
-
-            if (fractionalPart > 0){
-
-                numberConverted = numberConverted + '.';
-
-                for(let i = 0; i < 10; i++){
-
-                    fractionalPart *= baseNumber;
-                    
-                    let digit = Math.floor(fractionalPart);
-
-                    numberConverted += digit.toString(baseNumber);
-
-                    fractionalPart -= digit;
-
-                    if(fractionalPart == 0) break;
-
-                }
-
+    getAnyBaseToAnyBase(numberStr, fromBase, toBase, fractionDigits = 20) {
+        try {
+            if (typeof numberStr !== 'string') {
+                throw new Error("Number must be a string.");
             }
-
-            return numberConverted.toLocaleUpperCase();
-
-        }else if(numberToConvert == 0){
-
-            return 0;
-
-        }
-
-    }
-    getBinToOtherBase(numberToConvert, baseNumber){
-
-        try{
-
-            let signal = numberToConvert[0] === "1" ? -1n : 1n;
-
-            let usignedNumber = numberToConvert.slice(1);
-            let [integerPart, fractionalPart] = usignedNumber.split(".");
-            
-            //integer part using BigInt
-
-            let integerDecimal = BigInt('0b' + integerPart);
-
+            if (fromBase < 2 || fromBase > 36 || toBase < 2 || toBase > 36) {
+                throw new Error("Base must be between 2 and 36.");
+            }
+    
+            numberStr = numberStr.trim();
+    
+            // special treatment from zero!
+            if (numberStr === "0" || numberStr === "-0" || numberStr === "+0") {
+                return "0";
+            }
+    
+            let isNegative = numberStr[0] === '-';
+            if (isNegative) numberStr = numberStr.slice(1);
+    
+            let [integerPart, fractionalPart] = numberStr.split('.');
+    
+            // Integer Part
+            let integerDecimal = BigInt(0);
+            for (let i = 0; i < integerPart.length; i++) {
+                let digit = parseInt(integerPart[i], fromBase);
+                if (isNaN(digit)) throw new Error(`Invalid digit '${integerPart[i]}' for base ${fromBase}`);
+                integerDecimal = integerDecimal * BigInt(fromBase) + BigInt(digit);
+            }
+    
+            // farctional part!
             let fractionDecimal = 0;
-
-            if(fractionDecimal){
-
-                let fractionValue = 0;
-
-                for(let i = 0; i < fractionalPart.length; i++){
-
-                    if(fractionalPart[i] === '1'){
-
-                        fractionValue +=1 / Math.pow(2, i + 1);
-
-                    }
-
+            if (fractionalPart) {
+                for (let i = 0; i < fractionalPart.length; i++) {
+                    let digit = parseInt(fractionalPart[i], fromBase);
+                    if (isNaN(digit)) throw new Error(`Invalid fractional digit '${fractionalPart[i]}' for base ${fromBase}`);
+                    fractionDecimal += digit / Math.pow(fromBase, i + 1);
                 }
-
-                fractionDecimal = fractionValue; //Here stay a number
-
             }
-
-            let totalDecimal = (Number(signal * integerDecimal) + (Number(signal) * fractionDecimal));
-
-            let integerResult = (signal * integerDecimal).toString(baseNumber).toUpperCase();
-
+    
+            // Conversion of the integer part to the new base
+            let integerResult = (isNegative ? '-' : '') + integerDecimal.toString(toBase).toUpperCase();
+    
+            // Conversion of the Fractional part to the new base
             let fractionalResult = "";
-
-            if(fractionDecimal > 0){
-
-                let fraction = Math.abs(fractionDecimal);
-
+            if (fractionDecimal > 0) {
                 fractionalResult = ".";
-
                 let count = 0;
-
-                while (fraction !== 0 && count < 20){
-
-                    fraction *= baseNumber;
-
-                    let digit = Math.floor(fraction);
-
-                    fractionalResult += digit.toString(baseNumber).toUpperCase();
-
-                    fraction -=digit;
-
+                while (fractionDecimal !== 0 && count < fractionDigits) {
+                    fractionDecimal *= toBase;
+                    let digit = Math.floor(fractionDecimal);
+                    fractionalResult += digit.toString(toBase).toUpperCase();
+                    fractionDecimal -= digit;
                     count++;
-
                 }
-
             }
-
-            console.log('Binary number: ', numberToConvert);
-            console.log('Signal: ', signal.toString());
+    
+            /*console.log('Input number: ', (isNegative ? '-' : '') + numberStr);
+            console.log('From base: ', fromBase);
+            console.log('To base: ', toBase);
             console.log('Integer part decimal: ', integerDecimal.toString());
             console.log('Fractional part decimal: ', fractionDecimal);
-            console.log('Result: ', integerResult + fractionalResult);
-
+            console.log('Result: ', integerResult + fractionalResult);*/
+    
             return integerResult + fractionalResult;
-
-        }catch(error){
-
+    
+        } catch (error) {
             this.errorDetect(error);
-
         }
-        
-    }
-    getHexToOtherBase(numberToConvert, baseNumber){
-
-        try{
-            
-            let [integerPart, fractionalPart] = numberToConvert.toString().toUpperCase().split(".");
-            let decimalValue = parseInt(integerPart, 16);
-
-            if(fractionalPart){
-
-                let fractionDecimal = 0;
-
-                for (let i = 0; i< fractionalPart.length; i ++){
-
-                    fractionDecimal += parseInt(fractionalPart[i], 16) * Math.pow(16, -(i + 1));
-
-                }
-
-                decimalValue += fractionDecimal;
-
-            }
-            let intPart = Math.floor(decimalValue);
-            let fracPart = decimalValue - intPart;
-
-            let result = intPart.toString(baseNumber).toUpperCase();
-
-            if (fracPart > 0) {
-                result += '.';
-                for (let i = 0; i < 10; i++) { // até 10 dígitos de precisão
-                    fracPart *= baseNumber;
-                    let digit = Math.floor(fracPart);
-                    result += digit.toString(baseNumber).toUpperCase();
-                    fracPart -= digit;
-                    if (fracPart === 0) break;
-                }
-            }
-
-            return result;
-
-        }catch(error){
-
-            this.errorDetect(error);
-
-        }
-        
-    }
-    getOctToOtherBase(numberToConvert, baseNumber){
-
-        try {
-
-            let [integerPart, fractionalPart] = numberToConvert.toString().toLocaleUpperCase().split('.');
-            let decimalValue = parseInt(integerPart, 8);
-
-            if(fractionalPart){
-
-                let fractionDecimal = 0;
-
-                for (let i = 0; i< fractionalPart.length; i ++){
-
-                    fractionDecimal += parseInt(fractionalPart[i], 8) * Math.pow(8, -(i + 1));
-
-                }
-
-                decimalValue += fractionDecimal;
-
-            }
-
-            let intPart = Math.floor(decimalValue);
-            let fracPart = decimalValue - intPart;
-
-            let result = intPart.toString(baseNumber).toUpperCase();
-
-            if(fracPart > 0){
-
-                result += '.';
-
-                for(let i = 0; i < 10; i++){
-
-                    fracPart *= baseNumber;
-
-                    let digit = Math.floor(fracPart);
-                result += digit.toString(baseTarget).toUpperCase();
-                fracPart -= digit;
-                if (fracPart === 0) break;
-            }
-        }
-
-        return result; // stop here!!
-
-        }catch(error){
-
-            this.errorDetect(error);
-
-        }
-
     }
     isOperator(valueTocheck){
 
@@ -1187,7 +1043,7 @@ class ProgrammerMode {
                 
             }else{
 
-                valueTocheck = this.getHexToOtherBase(valueTocheck, 10);
+                valueTocheck = this.getAnyBaseToAnyBase(valueTocheck, 16, 10);
 
             }
 
@@ -1373,16 +1229,16 @@ class ProgrammerMode {
             
                     }else if(this.numericBase === 'BIN'){
             
-                        rengeVerify = `${this.getBinToOtherBase(this._operationList[this._operationList.length - 1], 10)}${this.getBinToOtherBase(value, 10)}`;
+                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 2, 10)}${this.getAnyBaseToAnyBase(value, 2, 10)}`;
             
                     }else if(this.numericBase === 'OCT'){
             
-                        rengeVerify = `${this.getOctToOtherBase(this._operationList[this._operationList.length - 1], 10)}${this.getOctToOtherBase(value, 10)}`;
+                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 8, 10)}${this.getAnyBaseToAnyBase(value, 8, 10)}`;
             
                     }
                     else if(this.numericBase === 'HEX'){
             
-                        rengeVerify = `${this.getHexToOtherBase(this._operationList[this._operationList.length - 1], 10)}${this.getHexToOtherBase(value, 10)}`;
+                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 16, 10)}${this.getAnyBaseToAnyBase(value, 16, 10)}`;
             
                     }
 
@@ -1745,7 +1601,7 @@ class ProgrammerMode {
 
         }
 
-        result = this.getDecToOtherBase(result, baseNumber);
+        result = this.getAnyBaseToAnyBase(result, 10, baseNumber);
 
         this.displayResult(result);
         
