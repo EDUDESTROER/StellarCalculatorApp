@@ -160,7 +160,11 @@ class ProgrammerMode {
 
         let numBase;
 
-        if(this.numericBase === 'DEC'){
+        if(this.numericBase === 'HEX'){
+
+            numBase = this.getBinToOtherBase(numResult.join(''), 16);
+
+        }else if(this.numericBase === 'DEC'){
 
             numBase = this.getBinToOtherBase(numResult.join(''), 10);
 
@@ -200,6 +204,8 @@ class ProgrammerMode {
             this.updateDisplay();
 
         }
+
+        this.convertToAllNumericBases(numBase);
 
     }
     start(){
@@ -789,6 +795,8 @@ class ProgrammerMode {
     
             this._operationList.push(result);
     
+            this.convertToAllNumericBases(result);
+
             this.displayResult(result);
             this.displayExpresion(expresion);
 
@@ -998,19 +1006,72 @@ class ProgrammerMode {
 
         try{
 
-            let signal = numberToConvert[0] === "1" ? -1 : 1;
-            let [integerPart, fractionalPart] = numberToConvert.split(".");
-            let numberDecimal = parseInt(integerPart, 2);
+            let signal = numberToConvert[0] === "1" ? -1n : 1n;
+
+            let usignedNumber = numberToConvert.slice(1);
+            let [integerPart, fractionalPart] = usignedNumber.split(".");
             
-            if (fractionalPart) {
-                let fractionDecimal = 0;
-                for (let i = 0; i < fractionalPart.length; i++) {
-                    fractionDecimal += parseInt(fractionalPart[i]) * Math.pow(2, -(i + 1));
+            //integer part using BigInt
+
+            let integerDecimal = BigInt('0b' + integerPart);
+
+            let fractionDecimal = 0;
+
+            if(fractionDecimal){
+
+                let fractionValue = 0;
+
+                for(let i = 0; i < fractionalPart.length; i++){
+
+                    if(fractionalPart[i] === '1'){
+
+                        fractionValue +=1 / Math.pow(2, i + 1);
+
+                    }
+
                 }
-                numberDecimal += fractionDecimal;
+
+                fractionDecimal = fractionValue; //Here stay a number
+
             }
-            
-            return (signal * numberDecimal).toString(baseNumber);
+
+            let totalDecimal = (Number(signal * integerDecimal) + (Number(signal) * fractionDecimal));
+
+            let integerResult = (signal * integerDecimal).toString(baseNumber).toUpperCase();
+
+            let fractionalResult = "";
+
+            if(fractionDecimal > 0){
+
+                let fraction = Math.abs(fractionDecimal);
+
+                fractionalResult = ".";
+
+                let count = 0;
+
+                while (fraction !== 0 && count < 20){
+
+                    fraction *= baseNumber;
+
+                    let digit = Math.floor(fraction);
+
+                    fractionalResult += digit.toString(baseNumber).toUpperCase();
+
+                    fraction -=digit;
+
+                    count++;
+
+                }
+
+            }
+
+            console.log('Binary number: ', numberToConvert);
+            console.log('Signal: ', signal.toString());
+            console.log('Integer part decimal: ', integerDecimal.toString());
+            console.log('Fractional part decimal: ', fractionDecimal);
+            console.log('Result: ', integerResult + fractionalResult);
+
+            return integerResult + fractionalResult;
 
         }catch(error){
 
