@@ -408,7 +408,7 @@ class ProgrammerMode {
 
             if(!this.isOperator(lastItem) || this.isCloseParentheses(lastItem)){
 
-                this.calcDec();
+                this.calcOtherBases(this.getNumericBaseToValue());
 
                 let expresion = ['~', this.tempResult]
 
@@ -731,23 +731,7 @@ class ProgrammerMode {
         
             }
 
-            if(this.numericBase === 'HEX'){
-
-                this.calcOtherBases(16);  
-    
-            }else if(this.numericBase === 'DEC'){
-
-                this.calcDec();  
-    
-            }else if(this.numericBase === 'OCT'){
-
-                this.calcOtherBases(8);
-
-            }else if(this.numericBase === 'BIN'){
-
-                this.calcOtherBases(2);
-
-            }
+            this.calcOtherBases(this.getNumericBaseToValue());
 
             let expresion =  `${this._operationList.join(' ')} =`;
             let result = this.tempResult;
@@ -770,23 +754,7 @@ class ProgrammerMode {
 
             if(calcList[0] === 'NAND' || calcList[0] === 'NOR') this.bitByBitNorNand = true;
 
-            if(this.numericBase === 'HEX'){
-
-                this.calcOtherBases(16);  
-    
-            }else if(this.numericBase === 'DEC'){
-
-                this.calcDec();
-
-            }else if(this.numericBase === 'OCT'){
-
-                this.calcOtherBases(8);
-
-            }else if(this.numericBase === 'BIN'){
-
-                this.calcOtherBases(2);
-
-            }
+            this.calcOtherBases(this.getNumericBaseToValue());
 
             let expresion =  `${this._operationList.join(' ')} =`;
             let result = this.tempResult;
@@ -857,15 +825,15 @@ class ProgrammerMode {
 
             if(this.numericBase === 'HEX'){
 
-                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 16, 2);
+                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1].toString(), 16, 2);
 
             }else if(this.numericBase === 'DEC'){
 
-                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 10, 2);
+                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1].toString(), 10, 2);
 
             }else if(this.numericBase === 'OCT'){
 
-                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 8, 2);
+                binNum = this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1].toString(), 8, 2);
 
             }else if(this.numericBase === 'BIN'){
 
@@ -937,15 +905,15 @@ class ProgrammerMode {
 
                 if(baseNumber === 2){
 
-                   decNum = this.getAnyBaseToAnyBase(content, 2, 10);
+                   decNum = this.getAnyBaseToAnyBase(content.toString(), 2, 10);
 
                 }else if(baseNumber === 8){
 
-                    decNum = this.getAnyBaseToAnyBase(content, 8, 10);
+                    decNum = this.getAnyBaseToAnyBase(content.toString(), 8, 10);
 
                 }else if(baseNumber === 16){
 
-                    decNum = this.getAnyBaseToAnyBase(content, 16, 10);
+                    decNum = this.getAnyBaseToAnyBase(content.toString(), 16, 10);
 
                 }
 
@@ -1031,6 +999,27 @@ class ProgrammerMode {
             this.errorDetect(error);
         }
     }
+    getNumericBaseToValue(){
+
+        if(this.numericBase === 'HEX'){
+
+            return 16;
+
+        }else if(this.numericBase === 'DEC'){
+
+            return 10;
+
+        }else if(this.numericBase === 'OCT'){
+
+            return 8;
+
+        }else if(this.numericBase === 'BIN'){
+
+            return 2;
+
+        }
+
+    }
     isOperator(valueTocheck){
 
         let operatorList = ['*', '+', '-', '/', '%', '<<', '>>', '&', '|', '^', 'NAND', 'NOR'];
@@ -1043,7 +1032,7 @@ class ProgrammerMode {
                 
             }else{
 
-                valueTocheck = this.getAnyBaseToAnyBase(valueTocheck, 16, 10);
+                valueTocheck = this.getAnyBaseToAnyBase(valueTocheck.toString(), 16, 10);
 
             }
 
@@ -1312,167 +1301,11 @@ class ProgrammerMode {
 
         if(this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0)){
 
-            if(this.numericBase === 'HEX'){
-
-                this.calcOtherBases(16);  
-    
-            }else if(this.numericBase === 'DEC'){
-
-                this.calcDec();  
-    
-            }else if(this.numericBase === 'OCT'){
-
-                this.calcOtherBases(8);
-
-            }else if(this.numericBase === 'BIN'){
-
-                this.calcOtherBases(2);
-
-            }
+            this.calcOtherBases(this.getNumericBaseToValue());
         }
 
         this.updateDisplay();
 
-    }
-    calcDec(){
-
-        let storeOperator;
-
-        if(this.isOperator(this._operationList[this._operationList.length - 1]) && !(this.isOpenParentheses(this._operationList[this._operationList.length - 1]) || this.isCloseParentheses(this._operationList[this._operationList.length - 1]))){
-            
-            storeOperator = this._operationList[this._operationList.length - 1];
-
-            this._operationList.pop();
-    
-        }
-
-        
-
-        if((this._operationList[this._operationList.length - 2] && this._operationList[this._operationList.length - 1])){
-
-            if(this.isOpenParentheses(this._operationList[this._operationList.length - 2])){
-
-                this.lastCalc = `+ ${this._operationList[this._operationList.length - 1]}`;
-
-            }else if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])){
-
-                if(this.isOpenParentheses(this._operationList[this._operationList.length - 3])){
-
-                    this.lastCalc = `+ ${this._operationList[this._operationList.length - 2]}`;
-    
-                }else{
-
-                    this.lastCalc = `${this._operationList[this._operationList.length - 3]} ${this._operationList[this._operationList.length - 2]}`;
-    
-                }
-
-            }else{
-
-                this.lastCalc = `${this._operationList[this._operationList.length - 2]} ${this._operationList[this._operationList.length - 1]}`
-
-            }
-
-        }
-
-        if(this.parenthesesToClose() > 0 ){
-
-            let remain = this.parenthesesToClose();
-
-            for (remain ; remain > 0; remain--){
-
-                if(this.isOperator(this._operationList[this._operationList.length - 1]) && !(this.isOpenParentheses(this._operationList[this._operationList.length - 1]) || this.isCloseParentheses(this._operationList[this._operationList.length - 1]))){
-
-                    this._operationList.push('0');
-                    this._operationList.push(')');
-
-                }else{
-
-                    this._operationList.push(')');
-
-                }
-
-            }
-
-        }
-
-        let result;
-
-        if((this.bitShiftType === 'logical' || this.bitShiftType == 'rotateCircular' || this.bitShiftType === 'throughCarry') && (this._operationList.includes('>>') || this._operationList.includes('<<'))){
-
-            let filtered = this.returnFilteredAndCalcByFunction(operation => operation === '<<' || operation === '>>');
-
-            if(this.bitShiftType === 'logical'){
-
-                let decUnsigned = this.convertToUnsigned(filtered[0], this.numericWordSize);
-
-                if(this._operationList.includes('<<')){
-
-                    result  = this.returnCalc(this._operationList);
-
-                }else{
-
-                    result = this.getLogicalShiftRight(decUnsigned, filtered[2]);
-
-                }
-
-            }else if(this.bitShiftType === 'rotateCircular'){
-
-                let decUnsigned = this.convertToUnsigned(filtered[0], this.numericWordSize);
-                let rotateSide;
-
-                if(filtered.includes('>>')){
-
-                    rotateSide = 'right';
-
-                }else if(filtered.includes('<<')){
-
-                    rotateSide = 'left';
-
-                }
-
-                result = this.getRotateCircularShift(decUnsigned, filtered[2], rotateSide, this.numericWordSize);
-
-            }else if(this.bitShiftType === 'throughCarry'){
-
-                let decUnsigned = this.convertToUnsigned(filtered[0], this.numericWordSize)
-                let rotateSide;
-
-                if(filtered.includes('>>')){
-
-                    rotateSide = 'right';
-
-                }else if(filtered.includes('<<')){
-
-                    rotateSide = 'left';
-
-                }
-
-                result = this.getThroughCarry(decUnsigned, filtered[2], rotateSide, this.numericWordSize)
-
-            }
-
-        }else if(this.bitByBitNorNand){
-            
-            result = this.calcNandNor(this._operationList);
-
-        }else{
-
-            result  = this.returnCalc(this._operationList);
-
-        }
-
-        this.displayResult(result);
-        
-        this.tempResult = result;
-
-        this.convertToAllNumericBases(result);
-
-        if(storeOperator){
-
-            this._operationList.push(storeOperator);
-
-        }
-    
     }
     calcOtherBases(baseNumber){
 
@@ -1513,6 +1346,8 @@ class ProgrammerMode {
 
         }
 
+        let convertedArray
+
         if(this.parenthesesToClose() > 0 ){
 
             let remain = this.parenthesesToClose();
@@ -1534,7 +1369,16 @@ class ProgrammerMode {
 
         }
 
-        let convertedArray = this.convertOperationFromAnyBaseToDecimal([...this._operationList], baseNumber);
+        if(baseNumber === 10){
+
+            convertedArray = [...this._operationList];
+
+        }else{
+
+            convertedArray = this.convertOperationFromAnyBaseToDecimal([...this._operationList], baseNumber);
+
+        }
+         
 
 
         if((this.bitShiftType === 'logical' || this.bitShiftType == 'rotateCircular' || this.bitShiftType === 'throughCarry') && (convertedArray .includes('>>') || convertedArray .includes('<<'))){
@@ -1601,7 +1445,12 @@ class ProgrammerMode {
 
         }
 
-        result = this.getAnyBaseToAnyBase(result, 10, baseNumber);
+        if(baseNumber === 10){
+        }else{
+
+            result = this.getAnyBaseToAnyBase(result.toString(), 10, baseNumber);
+
+        }
 
         this.displayResult(result);
         
