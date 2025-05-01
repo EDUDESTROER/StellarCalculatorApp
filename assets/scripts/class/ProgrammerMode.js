@@ -15,197 +15,7 @@ class ProgrammerMode {
         this.closeParenthesesNum = 0;
         this.shiftMenu = false;
         this.firstCallBitToggle = false;
-
-    }
-
-    cangeCalculatorType(type){
-
-        this.numericBase = type;
-
-        let newNumberToDisplay = document.querySelector(`#${type}-result`).innerHTML === '0' ? '': document.querySelector(`#${type}-result`).innerHTML;
-
-        this.clearnAll();
-
-        this._operationList.push(newNumberToDisplay);
-
-        window.viewsCalculator.baseMenuControll(this.numericBase);
-
-        this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
-
-        this.updateDisplay();
-
-        this.checkBaseAndDisabled();
-
-    }
-    checkBaseAndDisabled(){
-
-        window.viewsCalculator.disabledBtn('button-dot');
-        window.viewsCalculator.removeClass('button-dot', 'buttons-base-effects');
-
-        if(this.numericBase === 'HEX'){
-
-            let hexEnabled = ['A', 'B', 'C', 'D', 'E', 'F','7','8','9','4','5','6','2','3'];
-
-            hexEnabled.forEach(buttonName=>{
-
-                //console.log(buttonName);
-
-                window.viewsCalculator.enableBtn(`button-${buttonName}`);
-                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
-
-            });
-
-        }else if(this.numericBase === 'DEC'){
-
-            let decDisabled = ['A', 'B', 'C', 'D', 'E', 'F'];
-            let decEnabled = ['7','8','9','4','5','6','2','3'];
-
-            decDisabled.forEach(buttonName=>{
-
-                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
-                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
-
-            });
-
-            decEnabled.forEach(buttonName=>{
-
-                //console.log(buttonName);
-
-                window.viewsCalculator.enableBtn(`button-${buttonName}`);
-                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
-
-            });
-
-        }else if(this.numericBase === 'OCT'){
-
-            let octDisabled = ['A', 'B', 'C', 'D', 'E', 'F','8','9'];
-            let octEnabled = ['7','4','5','6','2','3'];
-
-            octDisabled.forEach(buttonName=>{
-
-                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
-                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
-
-            });
-
-            octEnabled.forEach(buttonName=>{
-
-                //console.log(buttonName);
-
-                window.viewsCalculator.enableBtn(`button-${buttonName}`);
-                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
-
-            });
-
-        }else if(this.numericBase === 'BIN'){
-
-            let binDisabled = ['A', 'B', 'C', 'D', 'E', 'F','7','8','9','4','5','6','2','3'];
-
-            binDisabled.forEach(buttonName=>{
-
-                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
-                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
-
-            });
-
-        }
-
-    }
-    checkNumericBase(){
-
-        if(this.numericBase === 'DEC'){
-
-            this.cangeCalculatorType('DEC'); 
-
-        }else if(this.numericBase === 'BIN'){
-
-            this.cangeCalculatorType('BIN');
-
-        }else if(this.numericBase === 'OCT'){
-
-            this.cangeCalculatorType('OCT');
-
-        }
-        else if(this.numericBase === 'HEX'){
-
-            this.cangeCalculatorType('HEX');
-
-        }
-
-    }
-    checkBinaryNumber(){
-
-        let startFromList = {
-
-            'QWORD': 63,
-            'DWORD': 31,
-            'WORD': 15,
-            'BYTE':  7,
-
-        };
-
-        let start = startFromList[this.numericWordSize];
-
-        let numResult = [];
-
-        for(let i = start; i >= 0; i--){
-
-            let button = document.getElementById(`btn-bit-${i}`);
-
-            numResult.push(button.innerHTML);
-
-        }
-
-        //console.log('Binary Number = ', numResult.join(''));
-
-        let numBase;
-
-        if(this.numericBase === 'HEX'){
-
-            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 16);
-
-        }else if(this.numericBase === 'DEC'){
-
-            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 10);
-
-        }else if(this.numericBase === 'OCT'){
-
-            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 8);
-
-        }else if(this.numericBase === 'BIN'){
-
-            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 2);
-
-        }
-
-
-        //console.log('Decimal Number = ', decNum);
-
-        if(this._operationList[this._operationList.length - 1]){
-
-            if(!this.isOperator(this._operationList[this._operationList.length - 1])){
-
-                this._operationList[this._operationList.length - 1] = numBase;
-    
-                this.updateDisplay();
-    
-            }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
-
-                this._operationList.push(numBase);
-
-                this.updateDisplay();
-
-            }
-
-        }else{
-
-            this._operationList[this._operationList.length - 1] = numBase;
-    
-            this.updateDisplay();
-
-        }
-
-        this.convertToAllNumericBases(numBase);
+        this.roundFract = '';
 
     }
     start(){
@@ -332,16 +142,16 @@ class ProgrammerMode {
                             this.changeBitShiftType('throughCarry');
                         break;
                         case 'BIN-select':
-                            this.cangeCalculatorType('BIN');
+                            this.changeCalculatorType('BIN');
                         break;
                         case 'DEC-select':
-                            this.cangeCalculatorType('DEC');
+                            this.changeCalculatorType('DEC');
                         break;
                         case 'OCT-select':
-                            this.cangeCalculatorType('OCT');
+                            this.changeCalculatorType('OCT');
                         break;
                         case 'HEX-select':
-                            this.cangeCalculatorType('HEX');
+                            this.changeCalculatorType('HEX');
                         break;
                         default:
                             console.error('In devoloping... ' + buttonName);
@@ -354,77 +164,11 @@ class ProgrammerMode {
         });
 
     }
-    changeBitShiftType(type){
-           
-        window.viewsCalculator.removeClassFromListOfEl(document.querySelector('.bit-shift-menu').childNodes, 'shift-select');
-        window.viewsCalculator.removeClassFromListOfEl(document.querySelectorAll('.shift-radio-input'), 'shift-radio-select');
+    setSound(value, sound){
 
-        if(type === 'arithmetic'){
+        this._audioOnOff = value;
 
-            let newSelect = document.querySelector('#bit-shift-arithmetic');
-
-            newSelect.classList.add('shift-select');
-
-            newSelect.firstChild.classList.add('shift-radio-select');
-
-        }
-        if(type === 'logical'){
-
-            let newSelect = document.querySelector('#bit-shift-logical');
-
-            newSelect.classList.add('shift-select');
-
-            newSelect.firstChild.classList.add('shift-radio-select');
-
-        }
-        if(type === 'rotateCircular'){
-
-            let newSelect = document.querySelector('#bit-shift-rotate-circular');
-
-            newSelect.classList.add('shift-select');
-
-            newSelect.firstChild.classList.add('shift-radio-select');
-
-        }
-        if(type === 'throughCarry'){
-
-            let newSelect = document.querySelector('#bit-shift-through-carry');
-
-            newSelect.classList.add('shift-select');
-
-            newSelect.firstChild.classList.add('shift-radio-select');
-
-        }
-
-        this.bitShiftType = type;
-
-        
-    }
-    denialOperation(){
-
-        if(this._operationList.length >= 1){
-
-            let lastItem = this._operationList[this._operationList.length - 1];
-
-            if(!this.isOperator(lastItem) || this.isCloseParentheses(lastItem)){
-
-                this.calcOtherBases(this.getNumericBaseToValue());
-
-                let expresion = ['~', this.tempResult]
-
-                let result = this.returnCalc(expresion);
-
-                this.displayExpresion(expresion.join(' ') + ' =')
-
-                this.displayResult(result);
-
-                this.convertToAllNumericBases(result);
-
-                this._operationList = [result];
-
-            }
-
-        }
+        this._clickSound = sound;
 
     }
     showMenu(menuClass){
@@ -448,212 +192,175 @@ class ProgrammerMode {
         }
 
     }
-    changeWordSize(){
+    checkBaseAndDisabled(){
 
-        if(this.numericWordSize === 'QWORD'){
+        window.viewsCalculator.disabledBtn('button-dot');
+        window.viewsCalculator.removeClass('button-dot', 'buttons-base-effects');
 
-            this.numericWordSize = 'DWORD';
-            this.disabledBitToggle('DWORD');
+        if(this.numericBase === 'HEX'){
 
-        }else if(this.numericWordSize === 'DWORD'){
+            let hexEnabled = ['A', 'B', 'C', 'D', 'E', 'F','7','8','9','4','5','6','2','3'];
 
-            this.numericWordSize = 'WORD';
-            this.disabledBitToggle('WORD');
+            hexEnabled.forEach(buttonName=>{
 
-        }else if(this.numericWordSize === 'WORD'){
+                //console.log(buttonName);
 
-            this.numericWordSize = 'BYTE';
-            this.disabledBitToggle('BYTE');
+                window.viewsCalculator.enableBtn(`button-${buttonName}`);
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
 
-        }else if(this.numericWordSize === 'BYTE'){
+            });
 
-            this.numericWordSize = 'QWORD';
-            this.disabledBitToggle('QWORD');
+        }else if(this.numericBase === 'DEC'){
+
+            let decDisabled = ['A', 'B', 'C', 'D', 'E', 'F'];
+            let decEnabled = ['7','8','9','4','5','6','2','3'];
+
+            decDisabled.forEach(buttonName=>{
+
+                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+            decEnabled.forEach(buttonName=>{
+
+                //console.log(buttonName);
+
+                window.viewsCalculator.enableBtn(`button-${buttonName}`);
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+        }else if(this.numericBase === 'OCT'){
+
+            let octDisabled = ['A', 'B', 'C', 'D', 'E', 'F','8','9'];
+            let octEnabled = ['7','4','5','6','2','3'];
+
+            octDisabled.forEach(buttonName=>{
+
+                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+            octEnabled.forEach(buttonName=>{
+
+                //console.log(buttonName);
+
+                window.viewsCalculator.enableBtn(`button-${buttonName}`);
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
+
+        }else if(this.numericBase === 'BIN'){
+
+            let binDisabled = ['A', 'B', 'C', 'D', 'E', 'F','7','8','9','4','5','6','2','3'];
+
+            binDisabled.forEach(buttonName=>{
+
+                window.viewsCalculator.disabledBtn(`button-${buttonName}`);
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+
+            });
 
         }
 
-        window.viewsCalculator.setInnerHtmlToElement(this.numericWordSize, 'button-change-word-size');
-        this.clearnAll();
+    }
+    checkNumericBase(){
+
+        if(this.numericBase === 'DEC'){
+
+            this.changeCalculatorType('DEC'); 
+
+        }else if(this.numericBase === 'BIN'){
+
+            this.changeCalculatorType('BIN');
+
+        }else if(this.numericBase === 'OCT'){
+
+            this.changeCalculatorType('OCT');
+
+        }
+        else if(this.numericBase === 'HEX'){
+
+            this.changeCalculatorType('HEX');
+
+        }
 
     }
-    disabledBitToggle(bitWord){
+    checkBinaryNumber(){
 
-        let bitWordToDisabledList = {
+        let startFromList = {
 
-            'QWORD': false,
-            'DWORD': 32,
-            'WORD': 16,
-            'BYTE':  8,
+            'QWORD': 63,
+            'DWORD': 31,
+            'WORD': 15,
+            'BYTE':  7,
 
         };
 
-        let numberToStart = bitWordToDisabledList[bitWord];
+        let start = startFromList[this.numericWordSize];
 
-        if(numberToStart){
+        let numResult = [];
 
-            for(let i = numberToStart; i < 64; i++){
+        for(let i = start; i >= 0; i--){
 
-                window.viewsCalculator.disabledBtn(`btn-bit-${i}`, `-bit-toggle`);
+            let button = document.getElementById(`btn-bit-${i}`);
 
-                this.bitToggleBtnReset(`btn-bit-${i}`);
+            numResult.push(button.innerHTML);
+
+        }
+
+        //console.log('Binary Number = ', numResult.join(''));
+
+        let numBase;
+
+        if(this.numericBase === 'HEX'){
+
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 16);
+
+        }else if(this.numericBase === 'DEC'){
+
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 10);
+
+        }else if(this.numericBase === 'OCT'){
+
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 8);
+
+        }else if(this.numericBase === 'BIN'){
+
+            numBase = this.getAnyBaseToAnyBase(numResult.join(''), 2, 2);
+
+        }
+
+
+        //console.log('Decimal Number = ', decNum);
+
+        if(this._operationList[this._operationList.length - 1]){
+
+            if(!this.isOperator(this._operationList[this._operationList.length - 1])){
+
+                this._operationList[this._operationList.length - 1] = numBase;
     
-            }
-            for(let i = numberToStart - 1; i >= 0; i--){
-
-                window.viewsCalculator.removeClass(`btn-bit-${i}`, 'disabled-btn-bit-toggle');
+                this.updateDisplay();
     
+            }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
+
+                this._operationList.push(numBase);
+
+                this.updateDisplay();
+
             }
 
         }else{
 
-            for(let i = 0; i < 64; i++){
-
-                window.viewsCalculator.removeClass(`btn-bit-${i}`, 'disabled-btn-bit-toggle');
-
-                window.viewsCalculator.enableBtn(`btn-bit-${i}`);
+            this._operationList[this._operationList.length - 1] = numBase;
     
-            }
-
-        }
-
-    }
-    activeBitToggleEvents(){
-
-       if(this.firstCallBitToggle === false){
-
-            document.querySelectorAll('.btn-bit-toggle').forEach(button=>{
-
-                button.addEventListener('click', e=>{
-
-                    button.innerHTML === '0'? button.innerHTML = '1' : button.innerHTML = '0';
-
-                    button.classList.toggle('color-pink');
-
-                    this.checkBinaryNumber();
-
-                });
-
-            });
-
-            this.firstCallBitToggle = true;
-
-       }
-
-    }
-    bitToggleBtnReset(id, all = false){
-
-        let button = document.getElementById(id);
-
-        button.innerHTML = '0';
-
-        if(all){
-
-            for(let i = 0; i < 64; i++){
-
-                document.getElementById(`btn-bit-${i}`).innerHTML = '0';
-                window.viewsCalculator.removeClass(`btn-bit-${i}`, 'color-pink');
-                window.viewsCalculator.enableBtn(`btn-bit-${i}`);
-    
-            }
-
-        }
-
-    }
-    changeSignal(){
-
-        if(this._operationList.length >=1){
-
-            if(this._operationList.length === 1){
-
-                if(Math.sign(this._operationList[0]) === 1){
-    
-                    this._operationList[0] = `-${this._operationList[0]}`;
-    
-                }else if(Math.sign(this._operationList[0]) === -1){
-    
-                    this._operationList[0] = `${this._operationList[0].replace('-', '')}`;
-    
-                }
-    
-            }else{
-    
-                if(!this.isOperator(this._operationList[this._operationList.length - 1])){
-    
-                    if(Math.sign(this._operationList[this._operationList.length - 1]) === 1){
-    
-                        this._operationList[this._operationList.length - 1] = `-${this._operationList[this._operationList.length - 1]}`;
-        
-                    }else if(Math.sign(this._operationList[this._operationList.length - 1]) === -1){
-        
-                        this._operationList[this._operationList.length - 1] = `${this._operationList[this._operationList.length - 1].replace('-', '')}`;
-        
-                    }
-    
-                }
-    
-            }
-
-            this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
-
             this.updateDisplay();
 
         }
 
-
-    }
-    eraseLastCaractere(){
-
-        if(this._operationList[this._operationList.length - 1]){
-
-            
-
-            if(!this.isOperator(this._operationList[this._operationList.length - 1])){
-    
-                this._operationList[this._operationList.length - 1] = this._operationList[this._operationList.length - 1].slice(0, -1).toString();
-    
-                if(!this._operationList[this._operationList.length - 1]) {
-
-                    this._operationList.pop();
-                        
-                    this.displayResult('0');
-
-                }
-
-                this.updateDisplay();
-                this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                this.convertBinaryFromBtn();
-    
-            }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
-
-                if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])) this.closeParenthesesNum = this.closeParenthesesNum - 1;
-                if(this.isOpenParentheses(this._operationList[this._operationList.length - 1])) this.openParenthesesNum = this.openParenthesesNum - 1;
-
-                window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-    
-                this._operationList.pop();
-    
-                this.updateDisplay();
-                this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                this.convertBinaryFromBtn();
-    
-            }
-
-            if(this._operationList[this._operationList.length - 1]){
-
-                this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
-
-            }else{
-
-                this.convertToAllNumericBases('0');
-
-            }
-
-    
-            
-
-        }
+        this.convertToAllNumericBases(numBase);
 
     }
     checkCalcType(value){
@@ -771,6 +478,141 @@ class ProgrammerMode {
         }
 
     }
+    changeBitShiftType(type){
+           
+        window.viewsCalculator.removeClassFromListOfEl(document.querySelector('.bit-shift-menu').childNodes, 'shift-select');
+        window.viewsCalculator.removeClassFromListOfEl(document.querySelectorAll('.shift-radio-input'), 'shift-radio-select');
+
+        if(type === 'arithmetic'){
+
+            let newSelect = document.querySelector('#bit-shift-arithmetic');
+
+            newSelect.classList.add('shift-select');
+
+            newSelect.firstChild.classList.add('shift-radio-select');
+
+        }
+        if(type === 'logical'){
+
+            let newSelect = document.querySelector('#bit-shift-logical');
+
+            newSelect.classList.add('shift-select');
+
+            newSelect.firstChild.classList.add('shift-radio-select');
+
+        }
+        if(type === 'rotateCircular'){
+
+            let newSelect = document.querySelector('#bit-shift-rotate-circular');
+
+            newSelect.classList.add('shift-select');
+
+            newSelect.firstChild.classList.add('shift-radio-select');
+
+        }
+        if(type === 'throughCarry'){
+
+            let newSelect = document.querySelector('#bit-shift-through-carry');
+
+            newSelect.classList.add('shift-select');
+
+            newSelect.firstChild.classList.add('shift-radio-select');
+
+        }
+
+        this.bitShiftType = type;
+
+        
+    }
+    changeWordSize(){
+
+        if(this.numericWordSize === 'QWORD'){
+
+            this.numericWordSize = 'DWORD';
+            this.disabledBitToggle('DWORD');
+
+        }else if(this.numericWordSize === 'DWORD'){
+
+            this.numericWordSize = 'WORD';
+            this.disabledBitToggle('WORD');
+
+        }else if(this.numericWordSize === 'WORD'){
+
+            this.numericWordSize = 'BYTE';
+            this.disabledBitToggle('BYTE');
+
+        }else if(this.numericWordSize === 'BYTE'){
+
+            this.numericWordSize = 'QWORD';
+            this.disabledBitToggle('QWORD');
+
+        }
+
+        window.viewsCalculator.setInnerHtmlToElement(this.numericWordSize, 'button-change-word-size');
+        this.clearnAll();
+
+    }
+    changeSignal(){
+
+        if(this._operationList.length >=1){
+
+            if(this._operationList.length === 1){
+
+                if(Math.sign(this._operationList[0]) === 1){
+    
+                    this._operationList[0] = `-${this._operationList[0]}`;
+    
+                }else if(Math.sign(this._operationList[0]) === -1){
+    
+                    this._operationList[0] = `${this._operationList[0].replace('-', '')}`;
+    
+                }
+    
+            }else{
+    
+                if(!this.isOperator(this._operationList[this._operationList.length - 1])){
+    
+                    if(Math.sign(this._operationList[this._operationList.length - 1]) === 1){
+    
+                        this._operationList[this._operationList.length - 1] = `-${this._operationList[this._operationList.length - 1]}`;
+        
+                    }else if(Math.sign(this._operationList[this._operationList.length - 1]) === -1){
+        
+                        this._operationList[this._operationList.length - 1] = `${this._operationList[this._operationList.length - 1].replace('-', '')}`;
+        
+                    }
+    
+                }
+    
+            }
+
+            this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
+
+            this.updateDisplay();
+
+        }
+
+
+    }
+    changeCalculatorType(type){
+
+        this.numericBase = type;
+
+        let newNumberToDisplay = document.querySelector(`#${type}-result`).innerHTML === '0' ? '': document.querySelector(`#${type}-result`).innerHTML;
+
+        this.clearnAll();
+
+        this._operationList.push(newNumberToDisplay);
+
+        window.viewsCalculator.baseMenuControll(this.numericBase);
+
+        this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
+
+        this.updateDisplay();
+
+        this.checkBaseAndDisabled();
+
+    }
     convertToAllNumericBases(numberToConvert){
 
         let hexNumber;
@@ -857,7 +699,7 @@ class ProgrammerMode {
 
             let index = 0;
 
-            if(binNumList.length < 64){
+            if(binNumList.length <= 64){
 
                 for(let i = binNumList.length - 1; i >= 0; i--){
 
@@ -881,7 +723,7 @@ class ProgrammerMode {
 
             }else{
 
-                this.errorDetect('Fuction warning | convertBinaryFromBtn() | : The binary number has more them 64 bits! ');
+                this.errorDetect(`Fuction warning | convertBinaryFromBtn() | : The binary number has more them 64 bits! ${binNumList.length}` );
 
             }
 
@@ -930,381 +772,34 @@ class ProgrammerMode {
         return copyArray;
 
     }
-    getAnyBaseToAnyBase(numberStr, fromBase, toBase, fractionDigits = 20) {
-        try {
-            if (typeof numberStr !== 'string') {
-                throw new Error("Number must be a string.");
-            }
-            if (fromBase < 2 || fromBase > 36 || toBase < 2 || toBase > 36) {
-                throw new Error("Base must be between 2 and 36.");
-            }
-    
-            numberStr = numberStr.trim();
-    
-            // special treatment from zero!
-            if (numberStr === "0" || numberStr === "-0" || numberStr === "+0") {
-                return "0";
-            }
-    
-            let isNegative = numberStr[0] === '-';
-            if (isNegative) numberStr = numberStr.slice(1);
-    
-            let [integerPart, fractionalPart] = numberStr.split('.');
-    
-            // Integer Part
-            let integerDecimal = BigInt(0);
-            for (let i = 0; i < integerPart.length; i++) {
-                let digit = parseInt(integerPart[i], fromBase);
-                if (isNaN(digit)) throw new Error(`Invalid digit '${integerPart[i]}' for base ${fromBase}`);
-                integerDecimal = integerDecimal * BigInt(fromBase) + BigInt(digit);
-            }
-    
-            // farctional part!
-            let fractionDecimal = 0;
-            if (fractionalPart) {
-                for (let i = 0; i < fractionalPart.length; i++) {
-                    let digit = parseInt(fractionalPart[i], fromBase);
-                    if (isNaN(digit)) throw new Error(`Invalid fractional digit '${fractionalPart[i]}' for base ${fromBase}`);
-                    fractionDecimal += digit / Math.pow(fromBase, i + 1);
-                }
-            }
-    
-            // Conversion of the integer part to the new base
-            let integerResult = (isNegative ? '-' : '') + integerDecimal.toString(toBase).toUpperCase();
-    
-            // Conversion of the Fractional part to the new base
-            let fractionalResult = "";
-            if (fractionDecimal > 0) {
-                fractionalResult = ".";
-                let count = 0;
-                while (fractionDecimal !== 0 && count < fractionDigits) {
-                    fractionDecimal *= toBase;
-                    let digit = Math.floor(fractionDecimal);
-                    fractionalResult += digit.toString(toBase).toUpperCase();
-                    fractionDecimal -= digit;
-                    count++;
-                }
-            }
-    
-            /*console.log('Input number: ', (isNegative ? '-' : '') + numberStr);
-            console.log('From base: ', fromBase);
-            console.log('To base: ', toBase);
-            console.log('Integer part decimal: ', integerDecimal.toString());
-            console.log('Fractional part decimal: ', fractionDecimal);
-            console.log('Result: ', integerResult + fractionalResult);*/
-    
-            return integerResult + fractionalResult;
-    
-        } catch (error) {
-            this.errorDetect(error);
-        }
-    }
-    getNumericBaseToValue(){
+    convertToUnsigned(decValue, wordSize){
 
-        if(this.numericBase === 'HEX'){
-
-            return 16;
-
-        }else if(this.numericBase === 'DEC'){
-
-            return 10;
-
-        }else if(this.numericBase === 'OCT'){
-
-            return 8;
-
-        }else if(this.numericBase === 'BIN'){
-
-            return 2;
-
+        let wordToBitSize = {
+            'QWORD':64,
+            'DWORD':32,
+            'WORD':16,
+            'BYTE':8,
         }
 
-    }
-    isOperator(valueTocheck){
+        let bits = wordToBitSize[wordSize];
 
-        let operatorList = ['*', '+', '-', '/', '%', '<<', '>>', '&', '|', '^', 'NAND', 'NOR'];
+        if(bits <= 32){
 
-        if(this.numericBase === 'HEX'){
+            let maxValue = Math.pow(2, bits);
 
-            if(operatorList.indexOf(valueTocheck) >= 0 || valueTocheck === '(' || valueTocheck === ')'){
+            return (decValue >>> 0) & (maxValue - 1);
 
+        }else if( bits === 64){
 
-                
-            }else{
+            let bigValue = BigInt(decValue);
 
-                valueTocheck = this.getAnyBaseToAnyBase(valueTocheck.toString(), 16, 10);
+            let maxValue64 = BigInt(2) ** BigInt(64);
 
-            }
+            let usignedValue64 = bigValue < 0 ? maxValue64 + bigValue : bigValue;
 
-        }
-
-        if(operatorList.indexOf(valueTocheck) >= 0 || valueTocheck === '(' || valueTocheck === ')'){
-
-            //console.log('Is not a number');
-
-            return true;
-
-        }else if((!isNaN(parseFloat(valueTocheck) && isFinite(valueTocheck)))){
-
-            //console.log('Is a number');
-
-            return false;       
-
-        }else{
-
-            this.errorDetect('This number is not a operator or a number!');
+            return usignedValue64.toString();
 
         }
-
-        
-
-        
-
-    }
-    isOpenParentheses(valueTocheck){
-
-        if(valueTocheck === '(') return true;
-
-        return false;
-        
-    }
-    isCloseParentheses(valueTocheck){
-
-        if(valueTocheck === ')') return true;
-
-        return false
-
-    }
-    parenthesesToClose(){
-
-        let result = this.openParenthesesNum - this.closeParenthesesNum;
-
-        if(result > 0){
-
-            return result
-
-        }else{
-
-            return '';
-
-        }
-
-         
-
-    }
-    addDigits(value){
-
-        this.tempResult = '';
-
-        if(this._operationList.length <= 0){
-
-            if(this.isOperator(value) === false || this.isOpenParentheses(value)){
-
-                this._operationList.push(value);
-
-                if(!this.isOpenParentheses(value)){
-
-                    this.convertToAllNumericBases(value);
-
-                }
-
-                if(this.isOpenParentheses(value)){
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                    this.openParenthesesNum = this.openParenthesesNum + 1;
-
-                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-
-                }
-            }
-
-        }else if(this._operationList.length > 0){
-
-            //console.log('_operation has more then 1 lenght!');
-
-            if(this.isOperator(this._operationList[this._operationList.length - 1]) === true){
-
-                if(this.isOperator(value) === false){
-
-                    if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])){
-
-                        this._operationList.push('*');
-                        this._operationList.push(value);
-
-                    }else {
-
-                        this._operationList.push(value);
-
-                    }
-
-                    this.convertToAllNumericBases(value);
-
-
-                }else if(this.isOperator(value) === true && !(this.isOpenParentheses(value) || this.isCloseParentheses(value)) && (this._operationList[this._operationList.length - 1] !== '(' && this._operationList[this._operationList.length - 1] !== ')')){
-
-                    this._operationList.pop();
-
-                    this._operationList.push(value);
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                }else if(this.isOperator(value) === true && !(this.isOpenParentheses(value) || this.isCloseParentheses(value)) && (this._operationList[this._operationList.length - 1] !== '(' && this._operationList[this._operationList.length - 1] === ')')){
-
-                    this._operationList.push(value);
-
-                }else if(this.isOpenParentheses(value)){
-
-                    if(this._operationList[this._operationList.length - 1] === ')'){
-
-                        this._operationList.push('*');
-
-                        this._operationList.push(value);
-
-                    }else{
-
-                        this._operationList.push(value);
-
-                    }
-
-                    this.openParenthesesNum = this.openParenthesesNum + 1;
-
-                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                }else if(this.isCloseParentheses(value)){
-
-                    if(this._operationList[this._operationList.length - 1] === '('){
-
-                        this._operationList.push('0');
-
-                        this._operationList.push(value);
-
-                    }else{
-
-                        if(this.parenthesesToClose() > 0){
-
-                            this._operationList.push(value);
-
-                        }
-
-                    }
-
-                    this.closeParenthesesNum = this.closeParenthesesNum + 1;
-
-                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                }
-
-
-            }else if(this.isOperator(this._operationList[this._operationList.length - 1]) === false){
-
-                //console.log('The last in _operation is a number! ');
-
-                if(this.isOperator(value) === false){
-
-                    //console.log('The next value is a number! ');
-
-                    //console.log('Word size pass? ', this.verifyWordRange(`${this._operationList[this._operationList.length - 1]}${value}`));
-
-                    let rengeVerify;
-
-                    if(this.numericBase === 'DEC'){
-
-                        rengeVerify = `${this._operationList[this._operationList.length - 1]}${value}`;
-            
-                    }else if(this.numericBase === 'BIN'){
-            
-                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 2, 10)}${this.getAnyBaseToAnyBase(value, 2, 10)}`;
-            
-                    }else if(this.numericBase === 'OCT'){
-            
-                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 8, 10)}${this.getAnyBaseToAnyBase(value, 8, 10)}`;
-            
-                    }
-                    else if(this.numericBase === 'HEX'){
-            
-                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 16, 10)}${this.getAnyBaseToAnyBase(value, 16, 10)}`;
-            
-                    }
-
-                    if(this.verifyWordRange(rengeVerify)){
-
-                        let content = this._operationList[this._operationList.length - 1];
-
-                        this._operationList.pop();
-
-                        content = content + value;
-
-                        this._operationList.push(content);
-
-                        this.convertToAllNumericBases(content);
-
-                    }
-
-
-                }else if(this.isOperator(value) === true && !(this.isOpenParentheses(value) || this.isCloseParentheses(value))){
-
-                    this._operationList.push(value);
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-
-                }else if(this.isOpenParentheses(value)){
-
-                    this._operationList.push('*');
-
-                    this._operationList.push(value);
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                    this.openParenthesesNum = this.openParenthesesNum + 1;
-
-                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-
-                }else if(this.isCloseParentheses(value)){
-
-                    if(this._operationList[this._operationList.length - 1] === '('){
-
-                        this._operationList.push('0');
-
-                        this._operationList.push(value);
-
-                    }else{
-
-                        if(this.parenthesesToClose() > 0){
-
-                            this._operationList.push(value);
-
-                        }
-
-                    }
-
-                    this.closeParenthesesNum = this.closeParenthesesNum + 1;
-
-                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
-
-                    this.displayExpresion(`${this._operationList.join(' ')} `);
-
-                }
-
-            }
-
-        }
-
-        this.convertBinaryFromBtn();
-        
-        //console.log('Can have a preview calc? ', this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0));
-
-        if(this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0)){
-
-            this.calcOtherBases(this.getNumericBaseToValue());
-        }
-
-        this.updateDisplay();
 
     }
     calcOtherBases(baseNumber){
@@ -1452,8 +947,18 @@ class ProgrammerMode {
 
         }
 
+        if(!this.verifyMaxAndMinRange(result)){
+
+            result = this.roundFract;
+
+            this.clearnAll()
+
+        }
+
+        //console.log('Calc Result: ', result);
+
         this.displayResult(result);
-        
+            
         this.tempResult = result;
 
         this.convertToAllNumericBases(result);
@@ -1463,6 +968,10 @@ class ProgrammerMode {
             this._operationList.push(storeOperator);
 
         }
+
+        
+
+        
 
     }
     calcNandNor(expresionArray){
@@ -1537,129 +1046,6 @@ class ProgrammerMode {
         //console.log('End', expresionArray);
 
         return expresionArray[0];
-
-    }
-    findOrder(expresionArray){
-
-        let openParenthesesPositions = this.returnAllIndex(expresionArray, operation => operation === '(');
-
-        let closeParenthesesPositions = this.returnAllIndex(expresionArray, operation => operation === ')');
-
-        let execOrder = [];
-
-        //console.log('Open ', openParenthesesPositions);
-
-        //console.log('Close ', closeParenthesesPositions);
-
-        let i = 0;
-
-        while(openParenthesesPositions.length > 0){
-
-            let nextToOrder = this.verifyOrder(openParenthesesPositions, closeParenthesesPositions, i);
-
-            if(nextToOrder || nextToOrder === 0){
-
-                //console.log('Before push ',nextToOrder);
-
-                execOrder.push(openParenthesesPositions[nextToOrder]);
-
-                let greaterThanArray = []
-                
-                closeParenthesesPositions.forEach(element=>{
-
-                    if(element > openParenthesesPositions[nextToOrder]){
-
-                        greaterThanArray.push(element);
-
-                    }
-
-                });
-
-                execOrder.push(greaterThanArray[0]);
-
-                //console.log('Ordem de execução: ',execOrder);
-
-                openParenthesesPositions.splice(nextToOrder, 1);
-                closeParenthesesPositions.splice(closeParenthesesPositions.indexOf(greaterThanArray[0]), 1);
-
-                //console.log('Open: ',openParenthesesPositions);
-
-                i = 0;
-
-            }else{
-
-                i++;
-
-            }
-
-            if(i > openParenthesesPositions.length) break;
-
-            //console.log('I: ', i);
-
-            //console.log('proximo execução: ',nextToOrder);
-
-        }
-
-        return execOrder;
-
-    }
-    verifyOrder(arrayOpen, arrayClose, position){
-
-        if(arrayOpen[position + 1]){
-
-            if((arrayOpen[position + 1] > arrayOpen[position])&&( arrayOpen[position + 1] > arrayClose[position])){
-
-                return position
-    
-            }else{
-    
-                return false;
-    
-            }
-
-        }else{
-
-            return position;
-
-        }
-
-    }
-    verifyWordRange(numberEntry){
-
-        let number = numberEntry;
-
-        number = parseInt(number);
-
-        //console.log('number Entry: ', number);
-
-        if(this.numericWordSize === "QWORD"){
-
-            //console.log('Stay in QWORD Range?: ', number < '18446744073709552000' && number > '-18446744073709552000');
-
-            if(number < '18446744073709552001' && number > '-18446744073709552001') return true;
-
-        }
-        if(this.numericWordSize === "DWORD") {
-
-            //console.log('Stay in DWORD Range?: ', number < '4294967295' && number > '-4294967295');
-            if(number < '4294967296' && number > '-4294967296') return true;
-
-        }
-        if(this.numericWordSize === "WORD"){
-
-            //console.log('Stay in WORD Range?: ', number < '65535' && number > '-65535');
-            if(number < '65536' && number > '-65536') return true;
-
-        }
-        if(this.numericWordSize === "BYTE") {
-
-            //console.log('Stay in BYTE Range?: ', number < '255' && number > '-255');
-
-            if(number < '256' && number > '-256') return true;
-
-        }
-
-        return false;
 
     }
     calcAndFilterBasicNand(expresionArray){
@@ -1787,97 +1173,314 @@ class ProgrammerMode {
         return tempArray[0];
 
     }
-    returnNandNorExpressionArray(firstValue, secondValue, operation){
+    denialOperation(){
 
-        if(operation === 'nand'){
+        if(this._operationList.length >= 1){
 
-            return ['~', '(', firstValue, '&', secondValue, ')'];
+            let lastItem = this._operationList[this._operationList.length - 1];
 
-        }else if(operation === 'nor'){
+            if(!this.isOperator(lastItem) || this.isCloseParentheses(lastItem)){
 
-            return ['~', '(', firstValue, '|', secondValue, ')'];
+                this.calcOtherBases(this.getNumericBaseToValue());
 
-        }
+                let expresion = ['~', this.tempResult]
 
-    }
-    returnCalc(expresionArray){
+                let result = this.returnCalc(expresion);
 
-        console.log('Return Calc | expression recive: ', expresionArray);
+                this.displayExpresion(expresion.join(' ') + ' =')
 
-        try{
+                this.displayResult(result);
 
-            return new Function(`return ${expresionArray.join(' ')} `)();
+                this.convertToAllNumericBases(result);
 
-        }catch(err){
-
-            this.errorDetect( `Error In this Calc: ${expresionArray.join(' ')}
-            ${err}`);
-
-        }
-
-    }
-    returnFilteredAndCalcByFunction(filterFunction, arrayFilter = [...this._operationList]){
-
-        let filtered = [];
-        let arraySize = arrayFilter.length;
-
-        if(arraySize === 3){
-
-            for(let i = 0; i < arraySize; i ++){
-
-                filtered.push(arrayFilter[i]);
+                this._operationList = [result];
 
             }
 
-            console.log(filtered);
+        }
 
-        }else if(arraySize > 3){
+    }
+    disabledBitToggle(bitWord){
 
-            let shiftPosition = this.returnAllIndex(arrayFilter, filterFunction);
+        let bitWordToDisabledList = {
 
-            let lastPosition = 0;
+            'QWORD': false,
+            'DWORD': 32,
+            'WORD': 16,
+            'BYTE':  8,
 
-            shiftPosition.forEach(position=>{
+        };
 
-                let tempCalc = []
+        let numberToStart = bitWordToDisabledList[bitWord];
 
-                for(let i = lastPosition; i < position; i ++){
+        if(numberToStart){
 
-                    tempCalc.push(arrayFilter);
+            for(let i = numberToStart; i < 64; i++){
 
-                }
+                window.viewsCalculator.disabledBtn(`btn-bit-${i}`, `-bit-toggle`);
 
-                lastPosition = position + 1;
+                this.bitToggleBtnReset(`btn-bit-${i}`);
+    
+            }
+            for(let i = numberToStart - 1; i >= 0; i--){
 
-                if(this.bitByBitNorNand){
+                window.viewsCalculator.removeClass(`btn-bit-${i}`, 'disabled-btn-bit-toggle');
+    
+            }
 
-                    filtered.push(this.calcAndFilterComplexNand(tempCalc), arrayFilter[position]);
+        }else{
 
-                }else{
+            for(let i = 0; i < 64; i++){
 
-                    filtered.push(this.returnCalc(tempCalc), arrayFilter[position]);
+                window.viewsCalculator.removeClass(`btn-bit-${i}`, 'disabled-btn-bit-toggle');
 
-                }
+                window.viewsCalculator.enableBtn(`btn-bit-${i}`);
+    
+            }
+
+        }
+
+    }
+    displayResult(result){
+
+        window.viewsCalculator.setInnerHtmlToElement(result, 'current-output');
+
+       setTimeout(()=>
+        {
+
+            //console.log('_operationList Before: ', this._operationList) //Check convertBinaryFromBtn
+
+            this.convertBinaryFromBtn();
+
+        },500)
+
+    }
+    displayExpresion(expresion){
+
+        window.viewsCalculator.setInnerHtmlToElement(expresion, 'previous-output');
+
+    }
+    activeBitToggleEvents(){
+
+       if(this.firstCallBitToggle === false){
+
+            document.querySelectorAll('.btn-bit-toggle').forEach(button=>{
+
+                button.addEventListener('click', e=>{
+
+                    button.innerHTML === '0'? button.innerHTML = '1' : button.innerHTML = '0';
+
+                    button.classList.toggle('color-pink');
+
+                    this.checkBinaryNumber();
+
+                });
 
             });
 
-            if(lastPosition < arraySize){
+            this.firstCallBitToggle = true;
 
-                let tempCalc = []
+       }
 
-                for(let i = lastPosition; i < arraySize; i++){
+    }
+    addDigits(value){
 
-                    tempCalc.push(arrayFilter[i]);
+        this.tempResult = '';
+
+        if(this._operationList.length <= 0){
+
+            if(this.isOperator(value) === false || this.isOpenParentheses(value)){
+
+                this._operationList.push(value);
+
+                if(!this.isOpenParentheses(value)){
+
+                    this.convertToAllNumericBases(value);
 
                 }
 
-                if(this.bitByBitNorNand){
+                if(this.isOpenParentheses(value)){
 
-                    filtered.push(this.calcAndFilterComplexNand(tempCalc));
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
 
-                }else{
+                    this.openParenthesesNum = this.openParenthesesNum + 1;
 
-                    filtered.push(this.returnCalc(tempCalc));
+                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+
+                }
+            }
+
+        }else if(this._operationList.length > 0){
+
+            //console.log('_operation has more then 1 lenght!');
+
+            if(this.isOperator(this._operationList[this._operationList.length - 1]) === true){
+
+                if(this.isOperator(value) === false){
+
+                    if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])){
+
+                        this._operationList.push('*');
+                        this._operationList.push(value);
+
+                    }else {
+
+                        this._operationList.push(value);
+
+                    }
+
+                    this.convertToAllNumericBases(value);
+
+
+                }else if(this.isOperator(value) === true && !(this.isOpenParentheses(value) || this.isCloseParentheses(value)) && (this._operationList[this._operationList.length - 1] !== '(' && this._operationList[this._operationList.length - 1] !== ')')){
+
+                    this._operationList.pop();
+
+                    this._operationList.push(value);
+
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                }else if(this.isOperator(value) === true && !(this.isOpenParentheses(value) || this.isCloseParentheses(value)) && (this._operationList[this._operationList.length - 1] !== '(' && this._operationList[this._operationList.length - 1] === ')')){
+
+                    this._operationList.push(value);
+
+                }else if(this.isOpenParentheses(value)){
+
+                    if(this._operationList[this._operationList.length - 1] === ')'){
+
+                        this._operationList.push('*');
+
+                        this._operationList.push(value);
+
+                    }else{
+
+                        this._operationList.push(value);
+
+                    }
+
+                    this.openParenthesesNum = this.openParenthesesNum + 1;
+
+                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                }else if(this.isCloseParentheses(value)){
+
+                    if(this._operationList[this._operationList.length - 1] === '('){
+
+                        this._operationList.push('0');
+
+                        this._operationList.push(value);
+
+                    }else{
+
+                        if(this.parenthesesToClose() > 0){
+
+                            this._operationList.push(value);
+
+                        }
+
+                    }
+
+                    this.closeParenthesesNum = this.closeParenthesesNum + 1;
+
+                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                }
+
+
+            }else if(this.isOperator(this._operationList[this._operationList.length - 1]) === false){
+
+                //console.log('The last in _operation is a number! ');
+
+                if(this.isOperator(value) === false){
+
+                    //console.log('The next value is a number! ');
+
+                    //console.log('Word size pass? ', this.verifyWordRange(`${this._operationList[this._operationList.length - 1]}${value}`));
+
+                    let rengeVerify;
+
+                    if(this.numericBase === 'DEC'){
+
+                        rengeVerify = `${this._operationList[this._operationList.length - 1]}${value}`;
+            
+                    }else if(this.numericBase === 'BIN'){
+            
+                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 2, 10)}${this.getAnyBaseToAnyBase(value, 2, 10)}`;
+            
+                    }else if(this.numericBase === 'OCT'){
+            
+                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 8, 10)}${this.getAnyBaseToAnyBase(value, 8, 10)}`;
+            
+                    }
+                    else if(this.numericBase === 'HEX'){
+            
+                        rengeVerify = `${this.getAnyBaseToAnyBase(this._operationList[this._operationList.length - 1], 16, 10)}${this.getAnyBaseToAnyBase(value, 16, 10)}`;
+            
+                    }
+
+                    //console.log('Next number: ', rengeVerify);
+
+                    if(this.verifyWordRange(rengeVerify)){
+
+                        let content = this._operationList[this._operationList.length - 1];
+
+                        this._operationList.pop();
+
+                        content = content + value;
+
+                        this._operationList.push(content);
+
+                        this.convertToAllNumericBases(content);
+
+                    }
+
+
+                }else if(this.isOperator(value) === true && !(this.isOpenParentheses(value) || this.isCloseParentheses(value))){
+
+                    this._operationList.push(value);
+
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
+
+
+                }else if(this.isOpenParentheses(value)){
+
+                    this._operationList.push('*');
+
+                    this._operationList.push(value);
+
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                    this.openParenthesesNum = this.openParenthesesNum + 1;
+
+                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+
+                }else if(this.isCloseParentheses(value)){
+
+                    if(this._operationList[this._operationList.length - 1] === '('){
+
+                        this._operationList.push('0');
+
+                        this._operationList.push(value);
+
+                    }else{
+
+                        if(this.parenthesesToClose() > 0){
+
+                            this._operationList.push(value);
+
+                        }
+
+                    }
+
+                    this.closeParenthesesNum = this.closeParenthesesNum + 1;
+
+                    window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+
+                    this.displayExpresion(`${this._operationList.join(' ')} `);
 
                 }
 
@@ -1885,14 +1488,172 @@ class ProgrammerMode {
 
         }
 
-        console.log(filtered);
+        this.convertBinaryFromBtn();
+        
+        //console.log('Can have a preview calc? ', this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0));
 
-        return filtered;
+        if(this._operationList.length > 3 && this.isOperator(this._operationList[this._operationList.length - 1]) && (this.parenthesesToClose() == 0)){
+
+            this.calcOtherBases(this.getNumericBaseToValue());
+        }
+
+        this.updateDisplay();
 
     }
-    returnAllIndex(array, condition){
+    eraseLastCaractere(){
 
-        return array.map((item, index) => condition(item, index, array) ? index : -1).filter(index => index !== -1);
+        if(this._operationList[this._operationList.length - 1]){
+
+            
+
+            if(!this.isOperator(this._operationList[this._operationList.length - 1])){
+    
+                this._operationList[this._operationList.length - 1] = this._operationList[this._operationList.length - 1].slice(0, -1).toString();
+    
+                if(!this._operationList[this._operationList.length - 1]) {
+
+                    this._operationList.pop();
+                        
+                    this.displayResult('0');
+
+                }
+
+                this.updateDisplay();
+                this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                this.convertBinaryFromBtn();
+    
+            }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
+
+                if(this.isCloseParentheses(this._operationList[this._operationList.length - 1])) this.closeParenthesesNum = this.closeParenthesesNum - 1;
+                if(this.isOpenParentheses(this._operationList[this._operationList.length - 1])) this.openParenthesesNum = this.openParenthesesNum - 1;
+
+                window.viewsCalculator.setInnerHtmlToElement(this.parenthesesToClose(), 'open-parentheses-sub');
+    
+                this._operationList.pop();
+    
+                this.updateDisplay();
+                this.displayExpresion(`${this._operationList.join(' ')} `);
+
+                this.convertBinaryFromBtn();
+    
+            }
+
+            if(this._operationList[this._operationList.length - 1]){
+
+                this.convertToAllNumericBases(this._operationList[this._operationList.length - 1]);
+
+            }else{
+
+                this.convertToAllNumericBases('0');
+
+            }
+
+    
+            
+
+        }
+
+    }
+    errorDetect(info){
+
+        console.error(info);
+        
+        setTimeout(()=>{
+
+            this.clearnAll();
+
+        }, "100");
+
+    }
+    getAnyBaseToAnyBase(numberStr, fromBase, toBase, fractionDigits = 20) {
+        try {
+            if (typeof numberStr !== 'string') {
+                throw new Error("Number must be a string.");
+            }
+            if (fromBase < 2 || fromBase > 36 || toBase < 2 || toBase > 36) {
+                throw new Error("Base must be between 2 and 36.");
+            }
+    
+            numberStr = numberStr.trim();
+    
+            // special treatment from zero!
+            if (numberStr === "0" || numberStr === "-0" || numberStr === "+0") {
+                return "0";
+            }
+    
+            let isNegative = numberStr[0] === '-';
+            if (isNegative) numberStr = numberStr.slice(1);
+    
+            let [integerPart, fractionalPart] = numberStr.split('.');
+    
+            // Integer Part
+            let integerDecimal = BigInt(0);
+            for (let i = 0; i < integerPart.length; i++) {
+                let digit = parseInt(integerPart[i], fromBase);
+                if (isNaN(digit)) throw new Error(`Invalid digit '${integerPart[i]}' for base ${fromBase}`);
+                integerDecimal = integerDecimal * BigInt(fromBase) + BigInt(digit);
+            }
+    
+            // farctional part!
+            let fractionDecimal = 0;
+            if (fractionalPart) {
+                for (let i = 0; i < fractionalPart.length; i++) {
+                    let digit = parseInt(fractionalPart[i], fromBase);
+                    if (isNaN(digit)) throw new Error(`Invalid fractional digit '${fractionalPart[i]}' for base ${fromBase}`);
+                    fractionDecimal += digit / Math.pow(fromBase, i + 1);
+                }
+            }
+    
+            // Conversion of the integer part to the new base
+            let integerResult = (isNegative ? '-' : '') + integerDecimal.toString(toBase).toUpperCase();
+    
+            // Conversion of the Fractional part to the new base
+            let fractionalResult = "";
+            if (fractionDecimal > 0) {
+                fractionalResult = ".";
+                let count = 0;
+                while (fractionDecimal !== 0 && count < fractionDigits) {
+                    fractionDecimal *= toBase;
+                    let digit = Math.floor(fractionDecimal);
+                    fractionalResult += digit.toString(toBase).toUpperCase();
+                    fractionDecimal -= digit;
+                    count++;
+                }
+            }
+    
+            /*console.log('Input number: ', (isNegative ? '-' : '') + numberStr);
+            console.log('From base: ', fromBase);
+            console.log('To base: ', toBase);
+            console.log('Integer part decimal: ', integerDecimal.toString());
+            console.log('Fractional part decimal: ', fractionDecimal);
+            console.log('Result: ', integerResult + fractionalResult);*/
+    
+            return integerResult + fractionalResult;
+    
+        } catch (error) {
+            this.errorDetect(error);
+        }
+    }
+    getNumericBaseToValue(){
+
+        if(this.numericBase === 'HEX'){
+
+            return 16;
+
+        }else if(this.numericBase === 'DEC'){
+
+            return 10;
+
+        }else if(this.numericBase === 'OCT'){
+
+            return 8;
+
+        }else if(this.numericBase === 'BIN'){
+
+            return 2;
+
+        }
 
     }
     getThroughCarry(decNumber, shiftNumber, rotateSide, wordSize){
@@ -2085,41 +1846,76 @@ class ProgrammerMode {
         return result;
 
     }
-    convertToUnsigned(decValue, wordSize){
+    isOperator(valueTocheck){
 
-        let wordToBitSize = {
-            'QWORD':64,
-            'DWORD':32,
-            'WORD':16,
-            'BYTE':8,
-        }
+        let operatorList = ['*', '+', '-', '/', '%', '<<', '>>', '&', '|', '^', 'NAND', 'NOR'];
 
-        let bits = wordToBitSize[wordSize];
+        if(this.numericBase === 'HEX'){
 
-        if(bits <= 32){
+            if(operatorList.indexOf(valueTocheck) >= 0 || valueTocheck === '(' || valueTocheck === ')'){
 
-            let maxValue = Math.pow(2, bits);
 
-            return (decValue >>> 0) & (maxValue - 1);
+                
+            }else{
 
-        }else if( bits === 64){
+                valueTocheck = this.getAnyBaseToAnyBase(valueTocheck.toString(), 16, 10);
 
-            let bigValue = BigInt(decValue);
-
-            let maxValue64 = BigInt(2) ** BigInt(64);
-
-            let usignedValue64 = bigValue < 0 ? maxValue64 + bigValue : bigValue;
-
-            return usignedValue64.toString();
+            }
 
         }
+
+        if(operatorList.indexOf(valueTocheck) >= 0 || valueTocheck === '(' || valueTocheck === ')'){
+
+            //console.log('Is not a number');
+
+            return true;
+
+        }else if((!isNaN(parseFloat(valueTocheck) && isFinite(valueTocheck)))){
+
+            //console.log('Is a number');
+
+            return false;       
+
+        }else{
+
+            this.errorDetect('This number is not a operator or a number!');
+
+        }
+
+        
+
+        
 
     }
-    setSound(value, sound){
+    isOpenParentheses(valueTocheck){
 
-        this._audioOnOff = value;
+        if(valueTocheck === '(') return true;
 
-        this._clickSound = sound;
+        return false;
+        
+    }
+    isCloseParentheses(valueTocheck){
+
+        if(valueTocheck === ')') return true;
+
+        return false
+
+    }
+    parenthesesToClose(){
+
+        let result = this.openParenthesesNum - this.closeParenthesesNum;
+
+        if(result > 0){
+
+            return result
+
+        }else{
+
+            return '';
+
+        }
+
+         
 
     }
     playSound(){
@@ -2128,6 +1924,249 @@ class ProgrammerMode {
 
             this._clickSound.currentTime = 0;
             this._clickSound.play();
+
+        }
+
+    }
+    verifyOrder(arrayOpen, arrayClose, position){
+
+        if(arrayOpen[position + 1]){
+
+            if((arrayOpen[position + 1] > arrayOpen[position])&&( arrayOpen[position + 1] > arrayClose[position])){
+
+                return position
+    
+            }else{
+    
+                return false;
+    
+            }
+
+        }else{
+
+            return position;
+
+        }
+
+    }
+    verifyWordRange(numberEntry){
+
+        let number = numberEntry;
+
+        number = parseInt(number);
+
+        //console.log('number Entry: ', number);
+
+        if(this.numericWordSize === "QWORD"){
+
+            //console.log('Stay in QWORD Range?: ', number <= '18446744073709552000' && number >= '-18446744073709552000');
+
+            if(number <= '18446744073709551615' && number >= '-18446744073709551615') return true;
+
+        }
+        if(this.numericWordSize === "DWORD") {
+
+            //console.log('Stay in DWORD Range?: ', number <= '4294967295' && number >= '-4294967295');
+            if(number <= '4294967296' && number >= '-4294967296') return true;
+
+        }
+        if(this.numericWordSize === "WORD"){
+
+            //console.log('Stay in WORD Range?: ', number <= '65535' && number >= '-65535');
+            if(number <= '65536' && number >= '-65536') return true;
+
+        }
+        if(this.numericWordSize === "BYTE") {
+
+            //console.log('Stay in BYTE Range?: ', number <= '255' && number >= '-255');
+
+            if(number <= '256' && number >= '-256') return true;
+
+        }
+
+        return false;
+
+    }
+    verifyFractionalRange(number){
+
+        let numberStr = number.toString();
+
+        let numberStrSplit = numberStr.split('.');
+
+        let fractionalPart = numberStrSplit[1];
+
+        if(fractionalPart){
+
+            if(fractionalPart.length > 9){
+
+                return false;
+    
+            }else{
+    
+                return true;
+    
+            }
+
+        }else{
+
+            return true;
+
+        }
+
+    }
+    verifyMaxAndMinRange(number){
+
+        let integer = false;
+
+        let frac = false;
+
+        if(this.verifyWordRange(number)){
+
+            integer = true;
+
+        }
+
+        if(this.verifyFractionalRange(number)){
+
+            frac = true;
+
+        }
+
+        if(!frac){
+
+            this.roundFract = this.roundFraction(number);
+
+        }
+        if(!integer){
+
+            this.roundFract = this._operationList[0];
+
+        }
+
+        //console.log('The integer part and the fractional part not pass the limits? ', integer && frac);
+
+        return (integer && frac);
+
+    }
+    returnNandNorExpressionArray(firstValue, secondValue, operation){
+
+        if(operation === 'nand'){
+
+            return ['~', '(', firstValue, '&', secondValue, ')'];
+
+        }else if(operation === 'nor'){
+
+            return ['~', '(', firstValue, '|', secondValue, ')'];
+
+        }
+
+    }
+    returnCalc(expresionArray){
+
+        console.log('Return Calc | expression recive: ', expresionArray);
+
+        try{
+
+            return new Function(`return ${expresionArray.join(' ')} `)();
+
+        }catch(err){
+
+            this.errorDetect( `Error In this Calc: ${expresionArray.join(' ')}
+            ${err}`);
+
+        }
+
+    }
+    returnFilteredAndCalcByFunction(filterFunction, arrayFilter = [...this._operationList]){
+
+        let filtered = [];
+        let arraySize = arrayFilter.length;
+
+        if(arraySize === 3){
+
+            for(let i = 0; i < arraySize; i ++){
+
+                filtered.push(arrayFilter[i]);
+
+            }
+
+            console.log(filtered);
+
+        }else if(arraySize > 3){
+
+            let shiftPosition = this.returnAllIndex(arrayFilter, filterFunction);
+
+            let lastPosition = 0;
+
+            shiftPosition.forEach(position=>{
+
+                let tempCalc = []
+
+                for(let i = lastPosition; i < position; i ++){
+
+                    tempCalc.push(arrayFilter);
+
+                }
+
+                lastPosition = position + 1;
+
+                if(this.bitByBitNorNand){
+
+                    filtered.push(this.calcAndFilterComplexNand(tempCalc), arrayFilter[position]);
+
+                }else{
+
+                    filtered.push(this.returnCalc(tempCalc), arrayFilter[position]);
+
+                }
+
+            });
+
+            if(lastPosition < arraySize){
+
+                let tempCalc = []
+
+                for(let i = lastPosition; i < arraySize; i++){
+
+                    tempCalc.push(arrayFilter[i]);
+
+                }
+
+                if(this.bitByBitNorNand){
+
+                    filtered.push(this.calcAndFilterComplexNand(tempCalc));
+
+                }else{
+
+                    filtered.push(this.returnCalc(tempCalc));
+
+                }
+
+            }
+
+        }
+
+        console.log(filtered);
+
+        return filtered;
+
+    }
+    returnAllIndex(array, condition){
+
+        return array.map((item, index) => condition(item, index, array) ? index : -1).filter(index => index !== -1);
+
+    }
+    roundFraction(number){
+
+        try{
+
+            number = number.toFixed(9);
+
+            return number;
+
+        }catch(err){
+
+            this.errorDetect(err);
 
         }
 
@@ -2155,41 +2194,94 @@ class ProgrammerMode {
         }
 
     }
-    displayResult(result){
+    bitToggleBtnReset(id, all = false){
 
-        window.viewsCalculator.setInnerHtmlToElement(result, 'current-output');
+        let button = document.getElementById(id);
 
-       setTimeout(()=>
-        {
+        button.innerHTML = '0';
 
-            //console.log('_operationList Before: ', this._operationList) //Check convertBinaryFromBtn
+        if(all){
 
-            this.convertBinaryFromBtn();
+            for(let i = 0; i < 64; i++){
 
-        },500)
+                document.getElementById(`btn-bit-${i}`).innerHTML = '0';
+                window.viewsCalculator.removeClass(`btn-bit-${i}`, 'color-pink');
+                window.viewsCalculator.enableBtn(`btn-bit-${i}`);
+    
+            }
 
-    }
-    displayExpresion(expresion){
-
-        window.viewsCalculator.setInnerHtmlToElement(expresion, 'previous-output');
-
-    }
-    errorDetect(info){
-
-        console.error(info);
-        
-        setTimeout(()=>{
-
-            this.clearnAll();
-
-        }, "100");
+        }
 
     }
+    findOrder(expresionArray){
 
+        let openParenthesesPositions = this.returnAllIndex(expresionArray, operation => operation === '(');
+
+        let closeParenthesesPositions = this.returnAllIndex(expresionArray, operation => operation === ')');
+
+        let execOrder = [];
+
+        //console.log('Open ', openParenthesesPositions);
+
+        //console.log('Close ', closeParenthesesPositions);
+
+        let i = 0;
+
+        while(openParenthesesPositions.length > 0){
+
+            let nextToOrder = this.verifyOrder(openParenthesesPositions, closeParenthesesPositions, i);
+
+            if(nextToOrder || nextToOrder === 0){
+
+                //console.log('Before push ',nextToOrder);
+
+                execOrder.push(openParenthesesPositions[nextToOrder]);
+
+                let greaterThanArray = []
+                
+                closeParenthesesPositions.forEach(element=>{
+
+                    if(element > openParenthesesPositions[nextToOrder]){
+
+                        greaterThanArray.push(element);
+
+                    }
+
+                });
+
+                execOrder.push(greaterThanArray[0]);
+
+                //console.log('Ordem de execução: ',execOrder);
+
+                openParenthesesPositions.splice(nextToOrder, 1);
+                closeParenthesesPositions.splice(closeParenthesesPositions.indexOf(greaterThanArray[0]), 1);
+
+                //console.log('Open: ',openParenthesesPositions);
+
+                i = 0;
+
+            }else{
+
+                i++;
+
+            }
+
+            if(i > openParenthesesPositions.length) break;
+
+            //console.log('I: ', i);
+
+            //console.log('proximo execução: ',nextToOrder);
+
+        }
+
+        return execOrder;
+
+    }
     clearnAll(){
 
         this._operationList = [];
         this.tempResult = '';
+        this.roundFract = '';
 
         this.displayResult('0');
         this.displayExpresion('');
