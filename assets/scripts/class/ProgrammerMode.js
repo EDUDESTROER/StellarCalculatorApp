@@ -336,26 +336,35 @@ class ProgrammerMode {
 
         //console.log('Decimal Number = ', decNum);
 
-        if(this._operationList[this._operationList.length - 1]){
+        if(this._operationList.length >= 1){
 
-            if(!this.isOperator(this._operationList[this._operationList.length - 1])){
+            if(this._operationList[this._operationList.length - 1]){
 
+                if(!this.isOperator(this._operationList[this._operationList.length - 1])){
+    
+                    this._operationList[this._operationList.length - 1] = numBase;
+        
+                    this.updateDisplay();
+        
+                }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
+    
+                    this._operationList.push(numBase);
+    
+                    this.updateDisplay();
+    
+                }
+    
+            }else{
+    
                 this._operationList[this._operationList.length - 1] = numBase;
-    
+        
                 this.updateDisplay();
     
-            }else if(this.isOperator(this._operationList[this._operationList.length - 1])){
-
-                this._operationList.push(numBase);
-
-                this.updateDisplay();
-
             }
 
         }else{
 
-            this._operationList[this._operationList.length - 1] = numBase;
-    
+            this._operationList.push(numBase);
             this.updateDisplay();
 
         }
@@ -464,6 +473,13 @@ class ProgrammerMode {
             this.calcOtherBases(this.getNumericBaseToValue());
 
             let expresion =  `${this._operationList.join(' ')} =`;
+
+            if(expresion === ' ='){
+
+                expresion = '';
+
+            }
+
             let result = this.tempResult;
     
             this.clearnAll();
