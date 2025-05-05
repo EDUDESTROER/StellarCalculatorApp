@@ -27,9 +27,9 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'standard' /*|| !this._selectedCalculatorMode*/){
 
-            let standardEl = window.viewsCalculator.returnStandard();
+            let standardEl = window.viewsCalculator.returnCalculator('standard');
 
             this._calculatorParentEl.innerHTML = standardEl;
 
@@ -40,6 +40,22 @@ class StellarControler {
             window.viewsCalculator.displaySucess('Standard select');
 
             this._historyButtonEl.disabled = false;
+            
+        }
+        if(this._selectedCalculatorMode === 'programmer' || !this._selectedCalculatorMode){
+
+            let standardEl = window.viewsCalculator.returnCalculator('programmer');
+
+            this._calculatorParentEl.innerHTML = standardEl;
+
+            window.calculatorHistory.changeHistoryType('programmer');
+
+            window.calculatorProgrammerMode.start();
+
+            window.viewsCalculator.displaySucess('Programmer select');
+
+            this._historyButtonEl.disabled = true;
+            this._historyButtonEl.classList.add('disabled-btn')
             
         }
         if(this._selectedCalculatorMode === 'length'){ 
@@ -78,9 +94,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'volume'){
 
-            let angleEl = window.viewsCalculator.returnConversor('volume');
+            let volumeEl = window.viewsCalculator.returnConversor('volume');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = volumeEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -95,9 +111,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'weigth and mass'){
 
-            let angleEl = window.viewsCalculator.returnConversor('weigthAndMass');
+            let weigthAndMassEl = window.viewsCalculator.returnConversor('weigthAndMass');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = weigthAndMassEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -112,9 +128,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'temperature'){
 
-            let angleEl = window.viewsCalculator.returnConversor('temperature');
+            let temperatureEl = window.viewsCalculator.returnConversor('temperature');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = temperatureEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -129,9 +145,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'energy'){
 
-            let angleEl = window.viewsCalculator.returnConversor('energy');
+            let energyEl = window.viewsCalculator.returnConversor('energy');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = energyEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -146,9 +162,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'area'){
 
-            let angleEl = window.viewsCalculator.returnConversor('area');
+            let areaEl = window.viewsCalculator.returnConversor('area');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = areaEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -163,9 +179,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'speed'){
 
-            let angleEl = window.viewsCalculator.returnConversor('speed');
+            let speedEl = window.viewsCalculator.returnConversor('speed');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = speedEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -180,9 +196,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'currency'){ 
 
-            let angleEl = window.viewsCalculator.returnConversor('currency');
+            let currencyEl = window.viewsCalculator.returnConversor('currency');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = currencyEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -197,9 +213,9 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'time'){ 
 
-            let angleEl = window.viewsCalculator.returnConversor('time');
+            let timeEl = window.viewsCalculator.returnConversor('time');
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            this._calculatorParentEl.innerHTML = timeEl;
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -309,6 +325,7 @@ class StellarControler {
             this._soundButtonEl.firstElementChild.src = 'assets/icons/sound.png';
 
             window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
+            window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
 
             window.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
 
@@ -317,6 +334,7 @@ class StellarControler {
             this._soundButtonEl.firstElementChild.src = 'assets/icons/no_sound.png';
 
             window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
+            window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
 
             window.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
 

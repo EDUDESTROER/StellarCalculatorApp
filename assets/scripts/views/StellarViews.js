@@ -6,75 +6,319 @@ class StellarViews{
         this.historyCalcAndResultsList = document.querySelector('.wrapper-calc-and-results');  
         this._errorSound = new Audio('assets/sound/calcError.mp3');
         this._sucessSound = new Audio('assets/sound/calcSucess.mp3');
+        this._bitToggle = false;
+        this.baseMenu = [ false,'DEC'];
 
     }
 
-    returnStandard(){
+    returnCalculator(type){
 
-        let standard = `
-        
-                <div class="wrapper-calculator-output">
+        let calculator;
+        let programmerClass = '';
 
-                    <div class="outputs previous-output" id="previous-output"></div>
-                    <div class="outputs current-output" id="current-output">0</div>
+        if(type === 'programmer'){
 
-                </div>
-                <div class="wrapper-buttons">
+            programmerClass = 'wrapper-calculator-output-programmer';
 
-                    <div class="wrapper-buttons-queues">
+        }
 
-                        <button id="button-percent" class="buttons-base-effects buttons-color-darker">%</button>
-                        <button id="button-ce" class="buttons-base-effects buttons-color-darker">CE</button>
-                        <button id="button-c" class="buttons-base-effects buttons-color-darker">C</button>
-                        <button id="button-backspace" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/backspace.png" alt="backspace button icon"></button>
+        let outputs = this.returnCalculatorOutputs(type);
+        let buttons = this.returnCalculatorQueues(type);
 
-                    </div>
-                    <div class="wrapper-buttons-queues">
+        calculator = `
 
-                        <button id="button-one-divide-per" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/1 divide by.png" alt="mathematical symbol of one divided by X"></button>
-                        <button id="button-squared" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/X squared.png" alt="mathematical symbol of X squared"></button>
-                        <button id="button-square-root" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/square-root.png" alt="mathematical symbol of square root"></button>
-                        <button id="button-divide" class="buttons-base-effects buttons-color-darker">÷</button>
+            <div class="wrapper-calculator-output ${programmerClass}">
 
-                    </div>
-                    <div class="wrapper-buttons-queues">
+                ${outputs.innerHTML}
+                
+            </div>
+            <div class="wrapper-buttons">
 
-                        <button id="button-7" class="buttons-base-effects buttons-color-main">7</button>
-                        <button id="button-8" class="buttons-base-effects buttons-color-main">8</button>
-                        <button id="button-9" class="buttons-base-effects buttons-color-main">9</button>
-                        <button id="button-multiplication" class="buttons-base-effects buttons-color-darker">x</button>
+                ${buttons.innerHTML}
 
-                    </div>
-                    <div class="wrapper-buttons-queues">
-
-                        <button id="button-4" class="buttons-base-effects buttons-color-main">4</button>
-                        <button id="button-5" class="buttons-base-effects buttons-color-main">5</button>
-                        <button id="button-6" class="buttons-base-effects buttons-color-main">6</button>
-                        <button id="button-subtraction" class="buttons-base-effects buttons-color-darker">-</button>
-
-                    </div>
-                    <div class="wrapper-buttons-queues">
-
-                        <button id="button-1" class="buttons-base-effects buttons-color-main">1</button>
-                        <button id="button-2" class="buttons-base-effects buttons-color-main">2</button>
-                        <button id="button-3" class="buttons-base-effects buttons-color-main">3</button>
-                        <button id="button-sum" class="buttons-base-effects buttons-color-darker">+</button>
-
-                    </div>
-                    <div class="wrapper-buttons-queues">
-
-                        <button id="button-change-signal" class="buttons-base-effects buttons-color-main">+/-</button>
-                        <button id="button-0" class="buttons-base-effects buttons-color-main">0</button>
-                        <button id="button-dot" class="buttons-base-effects buttons-color-main">,</button>
-                        <button id="button-equal" class="buttons-base-effects buttons-color-bright">=</button>
-
-                    </div>
-
-                </div>
+            </div>
 
         `;
 
-        return standard;
+        return calculator;
+
+    }
+
+    returnCalculatorOutputs(type){
+
+        let outputs;
+        let programmerClass = '';
+
+        let complexOutputs = `
+        
+            <ul class="wrapper-number-system">
+
+                <li id="HEX-select"><span>HEX</span><span id="HEX-result">0</span></li>
+                <li id="DEC-select"><span>DEC</span><span id="DEC-result">0</span></li>
+                <li id="OCT-select"><span>OCT</span><span id="OCT-result">0</span></li>
+                <li id="BIN-select"><span>BIN</span><span id="BIN-result">0</span></li>
+
+            </ul>
+
+        `;
+
+        if(type === 'programmer'){
+            
+            programmerClass = 'output-programmer';
+
+        }
+
+        let basicsOutputs = `
+        
+            <div class="outputs previous-output ${programmerClass}" id="previous-output"></div>
+            <div class="outputs current-output ${programmerClass}-second" id="current-output">0</div>
+
+        `;
+
+        outputs = new DOMParser().parseFromString(basicsOutputs, "text/html");
+
+        outputs = outputs.firstChild.lastChild;
+
+        if(type === 'programmer'){
+
+            complexOutputs = new DOMParser().parseFromString(complexOutputs, "text/html");
+
+            complexOutputs = complexOutputs.firstChild.lastChild.children[0];
+
+            outputs.appendChild(complexOutputs);
+
+        }
+
+        return outputs;
+
+    }
+
+    returnCalculatorQueues(type){
+
+        let standardButtonsList = [
+            'percent',
+            'ce', 
+            'c', 
+            'backspace', 
+            'one-divide-per', 
+            'squared', 
+            'square-root', 
+            'divide',
+            '7',
+            '8',
+            '9',
+            'multiplication',
+            '4',
+            '5',
+            '6',
+            'subtraction',
+            '1',
+            '2',
+            '3',
+            'sum',
+            'change-signal',
+            '0',
+            'dot',
+            'equal'
+            
+        ];
+        let programmerButtonsList = [
+            'A',
+            'arithmetic-shift-left',
+            'arithmetic-shift-right', 
+            'c', 
+            'backspace',
+            'B',
+            'open-parentheses', 
+            'close-parentheses', 
+            'percent', 
+            'divide',
+            'C',
+            '7',
+            '8',
+            '9',
+            'multiplication',
+            'D',
+            '4',
+            '5',
+            '6',
+            'subtraction',
+            'E',
+            '1',
+            '2',
+            '3',
+            'sum',
+            'F',
+            'change-signal',
+            '0',
+            'dot',
+            'equal'
+            
+        ];
+
+        let buttons = [];
+        let oneQueue;
+        let twoQueue;
+        let threeQueue;
+        let fourQueue;
+        let fiveQueue;
+        let sixQueue;
+
+        if(type === 'standard'){
+
+            standardButtonsList.forEach(buttonName=>{
+
+                buttons.push(this.returnCalculatorButtons(buttonName));
+
+            });
+
+            oneQueue = `${buttons[0]} ${buttons[1]} ${buttons[2]} ${buttons[3]}`;
+            twoQueue = `${buttons[4]} ${buttons[5]} ${buttons[6]} ${buttons[7]}`;
+            threeQueue = `${buttons[8]} ${buttons[9]} ${buttons[10]} ${buttons[11]}`;
+            fourQueue = `${buttons[12]} ${buttons[13]} ${buttons[14]} ${buttons[15]}`;
+            fiveQueue = `${buttons[16]} ${buttons[17]} ${buttons[18]} ${buttons[19]}`;
+            sixQueue = `${buttons[20]} ${buttons[21]} ${buttons[22]} ${buttons[23]}`;
+
+        }
+        if(type === 'programmer'){
+
+            programmerButtonsList.forEach(buttonName=>{
+
+                buttons.push(this.returnCalculatorButtons(buttonName));
+
+            });
+
+            oneQueue = `${buttons[0]} ${buttons[1]} ${buttons[2]} ${buttons[3]} ${buttons[4]}`;
+            twoQueue = `${buttons[5]} ${buttons[6]} ${buttons[7]} ${buttons[8]} ${buttons[9]}`;
+            threeQueue = `${buttons[10]} ${buttons[11]} ${buttons[12]} ${buttons[13]} ${buttons[14]}`;
+            fourQueue = `${buttons[15]} ${buttons[16]} ${buttons[17]} ${buttons[18]} ${buttons[19]}`;
+            fiveQueue = `${buttons[20]} ${buttons[21]} ${buttons[22]} ${buttons[23]} ${buttons[24]}`;
+            sixQueue = `${buttons[25]} ${buttons[26]} ${buttons[27]} ${buttons[28]} ${buttons[29]}`;
+
+        }
+
+        let wrapperQueuesBasic = `
+        
+            <div class="wrapper-buttons-queues">
+                ${oneQueue}   
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${twoQueue} 
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${threeQueue}        
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${fourQueue} 
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${fiveQueue} 
+            </div>
+
+            <div class="wrapper-buttons-queues">
+                ${sixQueue} 
+            </div>
+
+        `;
+
+        let queues = new DOMParser().parseFromString(wrapperQueuesBasic, "text/html");
+
+        queues = queues.firstChild.lastChild;
+
+        if(type === 'standard'){
+
+            return queues;
+
+        }
+
+        let programmerFunctionsBtn = `
+            <div class="wrapper-programmer-functions">
+
+                <button id="button-keyboard" class="selected-function"><img width="24px" src="assets/icons/keyboard-icon.png" alt=""></button>
+                <button id="button-bit-toggle" class=""><img width="24px" src="assets/icons/bit-toggle-icon.png" alt="bit-toggle-icon"></button>
+                <button id="button-change-word-size" class="">QWORD</button>
+                <div id="button-bit-by-bit">
+                    <img width="34px" src="assets/icons/logic-gates.png" alt="logic gates icon"> 
+                    <span>Bit by bit</span> 
+                    <div class="caret"></div>
+                    <ul class="bit-by-bit-menu">
+                        <button id="button-bit-by-bit-and" class="buttons-base-effects">AND</button>
+                        <button id="button-bit-by-bit-or" class="buttons-base-effects">OR</button>
+                        <button id="button-bit-by-bit-not" class="buttons-base-effects">NOT</button>
+                        <button id="button-bit-by-bit-nand" class="buttons-base-effects">NAND</button>
+                        <button id="button-bit-by-bit-nor" class="buttons-base-effects">NOR</button>
+                        <button id="button-bit-by-bit-xor" class="buttons-base-effects">XOR</button>
+                    </ul>
+                </div>
+                <div id="button-bit-shift">
+                    <img width="24px" src="assets/icons/bit-shift.png" alt="bit shift icon">
+                    <span>Bit shift </span>
+                    <div class="caret"></div>
+                    <ul class="bit-shift-menu">
+                        <li id="bit-shift-arithmetic" class="shift-select"><div class="shift-radio-input shift-radio-select"></div>Arithmetic Shift</li>
+                        <li id="bit-shift-logical"><div class="shift-radio-input"></div>Logical offset</li>
+                        <li id="bit-shift-rotate-circular"><div class="shift-radio-input"></div>Rotate circular shift</li>
+                        <li id="bit-shift-through-carry"><div class="shift-radio-input"></div>Rotate Through Carry</li>
+                    </ul>
+                </div>
+
+            </div>
+        `;
+
+        programmerFunctionsBtn = new DOMParser().parseFromString(programmerFunctionsBtn, "text/html");
+
+        programmerFunctionsBtn = programmerFunctionsBtn.firstChild.lastChild;
+
+        queues.insertBefore(programmerFunctionsBtn.firstChild, queues.firstChild);
+
+        return queues;
+
+    }
+
+    returnCalculatorButtons(name){
+
+        let buttonsList ={
+            'percent': '<button id="button-percent" class="buttons-base-effects buttons-color-darker">%</button>',
+            'ce': '<button id="button-ce" class="buttons-base-effects buttons-color-darker">CE</button>', 
+            'c': '<button id="button-c" class="buttons-base-effects buttons-color-darker">C</button>', 
+            'backspace': '<button id="button-backspace" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/backspace.png" alt="backspace button icon"></img></button>', 
+            'one-divide-per': '<button id="button-one-divide-per" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/1 divide by.png" alt="mathematical symbol of one divided by X"></img></button>', 
+            'squared': '<button id="button-squared" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/X squared.png" alt="mathematical symbol of X squared"></img></button>', 
+            'square-root': '<button id="button-square-root" class="buttons-base-effects buttons-color-darker"><img width="64px" src="assets/icons/square-root.png" alt="mathematical symbol of square root"></img></button>', 
+            'divide': '<button id="button-divide" class="buttons-base-effects buttons-color-darker">÷</button>',
+            '7': '<button id="button-7" class="buttons-base-effects buttons-color-main">7</button>',
+            '8': '<button id="button-8" class="buttons-base-effects buttons-color-main">8</button>',
+            '9': '<button id="button-9" class="buttons-base-effects buttons-color-main">9</button>',
+            'multiplication': '<button id="button-multiplication" class="buttons-base-effects buttons-color-darker">x</button>',
+            '4': '<button id="button-4" class="buttons-base-effects buttons-color-main">4</button>',
+            '5': '<button id="button-5" class="buttons-base-effects buttons-color-main">5</button>',
+            '6': '<button id="button-6" class="buttons-base-effects buttons-color-main">6</button>',
+            'subtraction': '<button id="button-subtraction" class="buttons-base-effects buttons-color-darker">-</button>',
+            '1': '<button id="button-1" class="buttons-base-effects buttons-color-main">1</button>',
+            '2': '<button id="button-2" class="buttons-base-effects buttons-color-main">2</button>',
+            '3': '<button id="button-3" class="buttons-base-effects buttons-color-main">3</button>',
+            'sum': '<button id="button-sum" class="buttons-base-effects buttons-color-darker">+</button>',
+            'change-signal': '<button id="button-change-signal" class="buttons-base-effects buttons-color-main">+/-</button>',
+            '0': '<button id="button-0" class="buttons-base-effects buttons-color-main">0</button>',
+            'dot': '<button id="button-dot" class="buttons-base-effects buttons-color-main">,</button>',
+            'equal': '<button id="button-equal" class="buttons-base-effects buttons-color-bright">=</button>',
+            'A': '<button id="button-A" class="buttons-base-effects buttons-color-main">A</button>',
+            'arithmetic-shift-left': '<button id="button-arithmetic-shift-left" class="buttons-base-effects buttons-color-darker"><<</button>',
+            'arithmetic-shift-right': '<button id="button-arithmetic-shift-right" class="buttons-base-effects buttons-color-darker">>></button>',
+            'B': '<button id="button-B" class="buttons-base-effects buttons-color-main">B</button>',
+            'open-parentheses': '<button id="button-open-parentheses" class="buttons-base-effects buttons-color-darker">(<sub id="open-parentheses-sub" class="parentheses-sub"></sub></button>',
+            'close-parentheses': '<button id="button-close-parentheses" class="buttons-base-effects buttons-color-darker">)</button>',
+            'C': '<button id="button-C" class="buttons-base-effects buttons-color-main">C</button>',
+            'D': '<button id="button-D" class="buttons-base-effects buttons-color-main">D</button>',
+            'E': '<button id="button-E" class="buttons-base-effects buttons-color-main">E</button>',
+            'F': '<button id="button-F" class="buttons-base-effects buttons-color-main">F</button>',
+        };
+
+        return buttonsList[name];
 
     }
 
@@ -813,10 +1057,74 @@ class StellarViews{
         element.style.display = 'none';
 
     }
-    
+
     showElement(element, displayType){
 
         element.style.display = displayType;
+
+    }
+
+    buttonsQueuesShow(hideOrShow){
+
+        let buttonQueues = document.querySelectorAll('.wrapper-buttons-queues');
+
+        let bitQueues = document.querySelectorAll('.toggle-queues');
+
+        if(hideOrShow === 'hide'){
+
+            buttonQueues.forEach(queues=>{
+
+                if(queues.nodeName !== '#text'){
+    
+                    this.unShowElement(queues);
+    
+                }
+    
+            });
+
+            if(this._bitToggle){
+
+                bitQueues.forEach(queues=>{
+    
+                    if(queues.nodeName !== '#text'){
+        
+                        this.showElement(queues, 'flex');
+        
+                    }
+        
+                });
+
+            }
+    
+        }
+
+        if(hideOrShow === 'show'){
+
+            buttonQueues.forEach(queues=>{
+
+                if(queues.nodeName !== '#text'){
+    
+                    this.showElement(queues, 'flex');
+    
+                }
+    
+            });
+
+            if(this._bitToggle){
+
+                bitQueues.forEach(queues=>{
+    
+                    if(queues.nodeName !== '#text'){
+        
+                        this.unShowElement(queues);
+        
+                    }
+        
+                });
+
+            }
+    
+        }
 
     }
 
@@ -839,6 +1147,337 @@ class StellarViews{
             }
             
         });
+
+    }
+    enableBtn(id, subClass = ''){
+
+        let button = document.getElementById(id);
+
+        button.disabled = false;
+
+        button.classList.remove(`disabled-btn${subClass}`);
+
+    }
+    disabledBtn(id, subClass = ''){
+
+        let button = document.getElementById(id);
+
+        button.disabled = true;
+        button.classList.add(`disabled-btn${subClass}`);
+
+    }
+    addClass(elementID, classToAdd){
+
+        let element = document.getElementById(elementID);
+
+        element.classList.add(`${classToAdd}`);
+
+        //console.log(element);
+
+    }
+    removeClass(elementID, classToRemove){
+
+        let element = document.getElementById(elementID);
+
+        element.classList.remove(`${classToRemove}`);
+
+    }
+    hasClass(classArray, className){
+
+        let cssClassMatch = [];
+
+        classArray.forEach(cssClass => {
+
+            if(cssClass == className){
+
+                cssClassMatch.push(cssClass);
+
+            }
+
+        });
+
+        if(cssClassMatch.length >= 1){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+    keybordAlternate(){
+
+        let keyboard = document.querySelector('#button-keyboard');
+        
+        let keyboardToggle = document.querySelector('#button-bit-toggle');
+
+        //console.log('main keyboard has a class',this.hasClass(keyboard.classList, 'selected-function'));
+
+        //console.log('secondary keybord has a class',this.hasClass(keyboardToggle.classList, 'selected-function'));
+
+        if(this.hasClass(keyboard.classList, 'selected-function')){
+
+            keyboardToggle.disabled = true;
+            
+            keyboard.disabled = false;
+
+        }else if(this.hasClass(keyboardToggle.classList, 'selected-function')){
+
+            keyboard.disabled = true;
+
+            keyboardToggle.disabled = false;
+
+        }
+
+        keyboardToggle.classList.toggle('selected-function');
+        keyboard.classList.toggle('selected-function');
+
+    }
+    bitToggleMenu(){
+
+        if(!document.querySelector('.toggle-queues')) this._bitToggle = false;
+
+        this.buttonsQueuesShow('hide');
+
+        this.keybordAlternate();
+
+        if(!this._bitToggle){
+
+            let menuParent = document.querySelector('.wrapper-buttons');
+
+            let toggleQueues = `
+            
+                <div class="toggle-queues">
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-63">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-62">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-61">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-60">0</button>
+                        </div>
+                        <span>60</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-59">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-58">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-57">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-56">0</button>
+                        </div>
+                        <span>56</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-55">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-54">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-53">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-52">0</button>
+                        </div>
+                        <span>52</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-51">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-50">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-49">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-48">0</button>
+                        </div>
+                        <span>48</span>
+                    </div>
+
+                </div>
+
+                <div class="toggle-queues">
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-47">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-46">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-45">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-44">0</button>
+                        </div>
+                        <span>44</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-43">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-42">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-41">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-40">0</button>
+                        </div>
+                        <span>40</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-39">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-38">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-37">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-36">0</button>
+                        </div>
+                        <span>36</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-35">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-34">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-33">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-32">0</button>
+                        </div>
+                        <span>32</span>
+                    </div>
+
+                </div>
+                
+                <div class="toggle-queues">
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-31">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-30">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-29">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-28">0</button>
+                        </div>
+                        <span>28</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-27">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-26">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-25">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-24">0</button>
+                        </div>
+                        <span>24</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-23">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-22">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-21">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-20">0</button>
+                        </div>
+                        <span>20</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-19">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-18">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-17">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-16">0</button>
+                        </div>
+                        <span>16</span>
+                    </div>
+
+                </div>
+
+                <div class="toggle-queues">
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-15">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-14">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-13">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-12">0</button>
+                        </div>
+                        <span>12</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-11">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-10">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-9">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-8">0</button>
+                        </div>
+                        <span>8</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-7">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-6">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-5">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-4">0</button>
+                        </div>
+                        <span>4</span>
+                    </div>
+
+                    <div class="toggle-queues-division">
+                        <div class="wrapper-toggle-queues-buttons">
+                            <button class="btn-bit-toggle" id="btn-bit-3">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-2">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-1">0</button>
+                            <button class="btn-bit-toggle" id="btn-bit-0">0</button>
+                        </div>
+                        <span>0</span>
+                    </div>
+
+                </div>
+
+            `
+
+            let queues = new DOMParser().parseFromString(toggleQueues, "text/html");
+
+            queues = queues.firstChild.lastChild;
+
+            queues.childNodes.forEach(el=>{
+
+                if(el.nodeName !== '#text'){
+
+                    menuParent.appendChild(el);
+
+                }
+
+            });
+
+        }
+
+        this._bitToggle = true;
+
+    }
+    showKeyboardMenu(){
+
+        this.keybordAlternate();
+
+        if(this._bitToggle){
+
+            this.buttonsQueuesShow('show')
+
+        }
+
+    }
+    baseMenuControll(baseSelect){
+
+        if(baseSelect !== this.baseMenu[1] || this.baseMenu[0] === false){
+
+            let elList = document.querySelectorAll('.wrapper-number-system li');
+
+            //console.log('List of li elements: ', elList);
+
+            elList.forEach(li=>{
+
+                this.removeClass(li.id, 'selected-numeric-base')
+
+            });
+
+            document.querySelector(`#${baseSelect}-select`).classList.add('selected-numeric-base');
+
+            this.baseMenu[1] = baseSelect;
+
+            this.baseMenu[0] = true;
+
+        }
 
     }
 
