@@ -17,7 +17,7 @@ class StellarControler {
         this._historyEl = document.querySelector('.float-history');
         this._clickSound = new Audio('assets/sound/click.wav');
 
-        this.checkCalculatorMode();
+        //this.checkCalculatorMode();
         this.startCalculatorsButtons();
         this.activeSoundMode();
 
@@ -27,7 +27,7 @@ class StellarControler {
 
         this._calculatorParentEl.innerHTML = ''
 
-        if(this._selectedCalculatorMode === 'standard' /*|| !this._selectedCalculatorMode*/){
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             let standardEl = window.viewsCalculator.returnCalculator('standard');
 
@@ -42,7 +42,7 @@ class StellarControler {
             this._historyButtonEl.disabled = false;
             
         }
-        if(this._selectedCalculatorMode === 'programmer' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'programmer' ){
 
             let standardEl = window.viewsCalculator.returnCalculator('programmer');
 
@@ -239,13 +239,13 @@ class StellarControler {
 
         });
 
-        this._closeHistoryEl.addEventListener('click', ()=>{
+        /*this._closeHistoryEl.addEventListener('click', ()=>{
 
             window.viewsCalculator.unShowElement(this._historyEl);
 
             this._historyHidden = true;
 
-        });
+        });*/
 
         this._historyButtonEl.addEventListener('click', ()=>{
 
@@ -265,11 +265,11 @@ class StellarControler {
 
         });
 
-        this._closeMenuButtonEl.addEventListener('click', ()=>{
+        /*this._closeMenuButtonEl.addEventListener('click', ()=>{
 
             window.viewsCalculator.unShowElement(this._floatSideMenuEl);
 
-        });
+        });*/
 
         this._sideMenuButtonsElList.forEach(element=>{
 
