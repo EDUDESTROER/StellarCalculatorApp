@@ -11,6 +11,82 @@ class StellarViews{
 
     }
 
+    showWithInert(element){
+
+        element.style.opacity = '100';
+        element.removeAttribute('inert');
+
+    }
+
+    unshowWithInertList(elList){
+
+        elList.forEach(el=>{
+
+            el.style.opacity = '0';
+            el.setAttribute('inert', '');
+
+        });
+
+    }
+    checkBitToggleMenu(){
+
+        this.toggleQueues = document.querySelectorAll('.toggle-queues');
+
+        this.programmerQueues = document.querySelectorAll('.queues-programmer');
+
+        if(!this._bitToggle){
+
+            this.disabledBtn('button-bit-toggle');
+            this.removeClass('button-bit-toggle', 'bar-basic-efect');
+            this.addClass('button-bit-toggle','selected-function');
+
+            this.enableBtn('button-keyboard');
+            this.removeClass('button-keyboard', 'selected-function');
+            this.addClass('button-keyboard','bar-basic-efect');
+
+            this.toggleQueues.forEach(queue=>{
+
+                this.showElement(queue, 'flex');
+
+            });
+
+             this.programmerQueues.forEach(queue=>{
+
+                this.unShowElement(queue);
+
+            });
+
+            this._bitToggle = true;
+
+        }else if(this._bitToggle){
+
+            this.disabledBtn('button-keyboard');
+            this.removeClass('button-keyboard', 'bar-basic-efect');
+            this.addClass('button-keyboard','selected-function');
+
+            this.enableBtn('button-bit-toggle');
+            this.removeClass('button-bit-toggle', 'selected-function');
+            this.addClass('button-bit-toggle','bar-basic-efect');
+
+            this.programmerQueues.forEach(queue=>{
+
+                this.showElement(queue, 'flex');
+
+            });
+
+             this.toggleQueues.forEach(queue=>{
+
+                this.unShowElement(queue);
+
+            });
+
+
+            this._bitToggle = false;
+
+        }
+
+    }
+
     returnCalculator(type){
 
         let calculator;
@@ -991,17 +1067,17 @@ class StellarViews{
                 <img src="assets/icons/check.png" draggable="false" alt="Sucess icon">
                 <span class="sucess">${textInfo}</span>
 
-        `;
+            `;
 
-        this._statusEl.children[1].className = 'sucess';
+            this._statusEl.children[1].className = 'sucess';
 
-        this.showElement(this._statusEl, 'flex');
+            this.showElement(this._statusEl, 'flex');
 
-        this._statusEl.style.animation = 'appear 1s';
+            this._statusEl.style.animation = 'appear 1s';
 
-        this._sucessSound.currentTime = 0;
-        this._sucessSound.volume = 0.4;
-        this._sucessSound.play();
+            this._sucessSound.currentTime = 0;
+            this._sucessSound.volume = 0.4;
+            this._sucessSound.play();
         
         }, 1000);
 
@@ -1064,70 +1140,6 @@ class StellarViews{
 
     }
 
-    buttonsQueuesShow(hideOrShow){
-
-        let buttonQueues = document.querySelectorAll('.wrapper-buttons-queues');
-
-        let bitQueues = document.querySelectorAll('.toggle-queues');
-
-        if(hideOrShow === 'hide'){
-
-            buttonQueues.forEach(queues=>{
-
-                if(queues.nodeName !== '#text'){
-    
-                    this.unShowElement(queues);
-    
-                }
-    
-            });
-
-            if(this._bitToggle){
-
-                bitQueues.forEach(queues=>{
-    
-                    if(queues.nodeName !== '#text'){
-        
-                        this.showElement(queues, 'flex');
-        
-                    }
-        
-                });
-
-            }
-    
-        }
-
-        if(hideOrShow === 'show'){
-
-            buttonQueues.forEach(queues=>{
-
-                if(queues.nodeName !== '#text'){
-    
-                    this.showElement(queues, 'flex');
-    
-                }
-    
-            });
-
-            if(this._bitToggle){
-
-                bitQueues.forEach(queues=>{
-    
-                    if(queues.nodeName !== '#text'){
-        
-                        this.unShowElement(queues);
-        
-                    }
-        
-                });
-
-            }
-    
-        }
-
-    }
-
     setInnerHtmlToElement(innerValue, elementId){
 
         let element = document.querySelector(`#${elementId}`);
@@ -1162,7 +1174,12 @@ class StellarViews{
 
         let button = document.getElementById(id);
 
+        //console.log(button);
+
         button.disabled = true;
+
+        //console.log(button.disabled);
+
         button.classList.add(`disabled-btn${subClass}`);
 
     }
@@ -1203,256 +1220,6 @@ class StellarViews{
         }else{
 
             return false;
-
-        }
-
-    }
-    keybordAlternate(){
-
-        let keyboard = document.querySelector('#button-keyboard');
-        
-        let keyboardToggle = document.querySelector('#button-bit-toggle');
-
-        //console.log('main keyboard has a class',this.hasClass(keyboard.classList, 'selected-function'));
-
-        //console.log('secondary keybord has a class',this.hasClass(keyboardToggle.classList, 'selected-function'));
-
-        if(this.hasClass(keyboard.classList, 'selected-function')){
-
-            keyboardToggle.disabled = true;
-            
-            keyboard.disabled = false;
-
-        }else if(this.hasClass(keyboardToggle.classList, 'selected-function')){
-
-            keyboard.disabled = true;
-
-            keyboardToggle.disabled = false;
-
-        }
-
-        keyboardToggle.classList.toggle('selected-function');
-        keyboard.classList.toggle('selected-function');
-
-    }
-    bitToggleMenu(){
-
-        if(!document.querySelector('.toggle-queues')) this._bitToggle = false;
-
-        this.buttonsQueuesShow('hide');
-
-        this.keybordAlternate();
-
-        if(!this._bitToggle){
-
-            let menuParent = document.querySelector('.wrapper-buttons');
-
-            let toggleQueues = `
-            
-                <div class="toggle-queues">
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-63">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-62">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-61">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-60">0</button>
-                        </div>
-                        <span>60</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-59">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-58">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-57">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-56">0</button>
-                        </div>
-                        <span>56</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-55">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-54">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-53">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-52">0</button>
-                        </div>
-                        <span>52</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-51">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-50">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-49">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-48">0</button>
-                        </div>
-                        <span>48</span>
-                    </div>
-
-                </div>
-
-                <div class="toggle-queues">
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-47">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-46">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-45">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-44">0</button>
-                        </div>
-                        <span>44</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-43">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-42">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-41">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-40">0</button>
-                        </div>
-                        <span>40</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-39">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-38">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-37">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-36">0</button>
-                        </div>
-                        <span>36</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-35">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-34">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-33">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-32">0</button>
-                        </div>
-                        <span>32</span>
-                    </div>
-
-                </div>
-                
-                <div class="toggle-queues">
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-31">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-30">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-29">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-28">0</button>
-                        </div>
-                        <span>28</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-27">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-26">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-25">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-24">0</button>
-                        </div>
-                        <span>24</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-23">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-22">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-21">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-20">0</button>
-                        </div>
-                        <span>20</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-19">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-18">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-17">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-16">0</button>
-                        </div>
-                        <span>16</span>
-                    </div>
-
-                </div>
-
-                <div class="toggle-queues">
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-15">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-14">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-13">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-12">0</button>
-                        </div>
-                        <span>12</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-11">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-10">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-9">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-8">0</button>
-                        </div>
-                        <span>8</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-7">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-6">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-5">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-4">0</button>
-                        </div>
-                        <span>4</span>
-                    </div>
-
-                    <div class="toggle-queues-division">
-                        <div class="wrapper-toggle-queues-buttons">
-                            <button class="btn-bit-toggle" id="btn-bit-3">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-2">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-1">0</button>
-                            <button class="btn-bit-toggle" id="btn-bit-0">0</button>
-                        </div>
-                        <span>0</span>
-                    </div>
-
-                </div>
-
-            `
-
-            let queues = new DOMParser().parseFromString(toggleQueues, "text/html");
-
-            queues = queues.firstChild.lastChild;
-
-            queues.childNodes.forEach(el=>{
-
-                if(el.nodeName !== '#text'){
-
-                    menuParent.appendChild(el);
-
-                }
-
-            });
-
-        }
-
-        this._bitToggle = true;
-
-    }
-    showKeyboardMenu(){
-
-        this.keybordAlternate();
-
-        if(this._bitToggle){
-
-            this.buttonsQueuesShow('show')
 
         }
 

@@ -14,6 +14,7 @@ class ProgrammerMode {
         this.openParenthesesNum = 0;
         this.closeParenthesesNum = 0;
         this.shiftMenu = false;
+        this.subMenuOpen = '';
         this.firstCallBitToggle = false;
         this.roundFract = '';
 
@@ -22,10 +23,7 @@ class ProgrammerMode {
 
         this.checkNumericBase();
 
-        window.viewsCalculator.bitToggleMenu();
-        window.viewsCalculator.showKeyboardMenu();
-
-        document.querySelectorAll('.bit-shift-menu, .bit-by-bit-menu, .wrapper-buttons-queues, .wrapper-number-system, .wrapper-programmer-functions').forEach(queues=>{
+        document.querySelectorAll('.bit-shift-menu, .bit-by-bit-menu, .queues-programmer, .wrapper-number-system, .wrapper-programmer-functions').forEach(queues=>{
 
             queues.childNodes.forEach(button=>{
 
@@ -117,17 +115,17 @@ class ProgrammerMode {
                             this.changeWordSize();
                         break;
                         case 'bit-shift':
-                            this.showMenu('bit-shift-menu');
+                            this.showMenu('bit-shift');
                         break;
                         case 'bit-by-bit':
-                            this.showMenu('bit-by-bit-menu');
+                            this.showMenu('bit-by');
                         break;
                         case 'bit-toggle':
-                            window.viewsCalculator.bitToggleMenu();
+                            window.viewsCalculator.checkBitToggleMenu();
                             this.activeBitToggleEvents();
                         break;
                         case 'keyboard':
-                            window.viewsCalculator.showKeyboardMenu();
+                            window.viewsCalculator.checkBitToggleMenu();
                         break;
                         case 'bit-shift-arithmetic':
                             this.changeBitShiftType('arithmetic');
@@ -171,31 +169,59 @@ class ProgrammerMode {
         this._clickSound = sound;
 
     }
-    showMenu(menuClass){
+    showMenu(menuClick){
 
-        let menu = document.querySelector(`.${menuClass}`);
+        let menuBitShift = document.querySelector('.bit-shift-menu');
+        let menuBitByBit = document.querySelector('.bit-by-bit-menu');
 
-        menu.parentElement.children[2].classList.toggle('caret-rotate')
+        let closed = '';
 
-        if(this.shiftMenu){
+        if(this.subMenuOpen === 'bit-shift'){
 
-            window.viewsCalculator.unShowElement(menu);
-
+            window.viewsCalculator.unshowWithInertList([menuBitShift]);
+            this.subMenuOpen = '';
+            closed = 'bit-shift';
             this.shiftMenu = false;
 
-        }else{
+        }else if(this.subMenuOpen === 'bit-by'){
 
-            window.viewsCalculator.showElement(menu, 'flex');
-
-            this.shiftMenu = true;
+            window.viewsCalculator.unshowWithInertList([menuBitByBit]);
+            this.subMenuOpen = '';
+            closed = 'bit-by';
+            this.shiftMenu = false;
 
         }
 
+        if(!this.shiftMenu){
+
+            if(menuClick === 'bit-shift'){
+
+                if(closed !== 'bit-shift'){
+
+                    window.viewsCalculator.showWithInert(menuBitShift);
+                    this.subMenuOpen = menuClick;
+                    this.shiftMenu = true;
+
+                }
+
+            }else if(menuClick === 'bit-by'){
+
+                if(closed !== 'bit-by'){
+
+                    window.viewsCalculator.showWithInert(menuBitByBit);
+                    this.subMenuOpen = menuClick;
+                    this.shiftMenu = true;
+
+                }
+
+            }
+
+        }
     }
     checkBaseAndDisabled(){
 
         window.viewsCalculator.disabledBtn('button-dot');
-        window.viewsCalculator.removeClass('button-dot', 'buttons-base-effects');
+        window.viewsCalculator.removeClass('button-dot', 'calc-btn-efects');
 
         if(this.numericBase === 'HEX'){
 
@@ -206,7 +232,7 @@ class ProgrammerMode {
                 //console.log(buttonName);
 
                 window.viewsCalculator.enableBtn(`button-${buttonName}`);
-                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'calc-btn-efects');
 
             });
 
@@ -218,7 +244,7 @@ class ProgrammerMode {
             decDisabled.forEach(buttonName=>{
 
                 window.viewsCalculator.disabledBtn(`button-${buttonName}`);
-                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'calc-btn-efects');
 
             });
 
@@ -227,7 +253,7 @@ class ProgrammerMode {
                 //console.log(buttonName);
 
                 window.viewsCalculator.enableBtn(`button-${buttonName}`);
-                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'calc-btn-efects');
 
             });
 
@@ -239,7 +265,7 @@ class ProgrammerMode {
             octDisabled.forEach(buttonName=>{
 
                 window.viewsCalculator.disabledBtn(`button-${buttonName}`);
-                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'calc-btn-efects');
 
             });
 
@@ -248,7 +274,7 @@ class ProgrammerMode {
                 //console.log(buttonName);
 
                 window.viewsCalculator.enableBtn(`button-${buttonName}`);
-                window.viewsCalculator.addClass(`button-${buttonName}`, 'buttons-base-effects');
+                window.viewsCalculator.addClass(`button-${buttonName}`, 'calc-btn-efects');
 
             });
 
@@ -259,7 +285,7 @@ class ProgrammerMode {
             binDisabled.forEach(buttonName=>{
 
                 window.viewsCalculator.disabledBtn(`button-${buttonName}`);
-                window.viewsCalculator.removeClass(`button-${buttonName}`, 'buttons-base-effects');
+                window.viewsCalculator.removeClass(`button-${buttonName}`, 'calc-btn-efects');
 
             });
 
@@ -505,16 +531,18 @@ class ProgrammerMode {
 
             newSelect.classList.add('shift-select');
 
-            newSelect.firstChild.classList.add('shift-radio-select');
+            newSelect.firstElementChild.classList.add('shift-radio-select');
 
         }
         if(type === 'logical'){
 
             let newSelect = document.querySelector('#bit-shift-logical');
 
+            console.dir(newSelect);
+
             newSelect.classList.add('shift-select');
 
-            newSelect.firstChild.classList.add('shift-radio-select');
+            newSelect.firstElementChild.classList.add('shift-radio-select');
 
         }
         if(type === 'rotateCircular'){
@@ -523,7 +551,7 @@ class ProgrammerMode {
 
             newSelect.classList.add('shift-select');
 
-            newSelect.firstChild.classList.add('shift-radio-select');
+            newSelect.firstElementChild.classList.add('shift-radio-select');
 
         }
         if(type === 'throughCarry'){
@@ -532,7 +560,7 @@ class ProgrammerMode {
 
             newSelect.classList.add('shift-select');
 
-            newSelect.firstChild.classList.add('shift-radio-select');
+            newSelect.firstElementChild.classList.add('shift-radio-select');
 
         }
 
@@ -1259,7 +1287,7 @@ class ProgrammerMode {
     }
     displayResult(result){
 
-        window.viewsCalculator.setInnerHtmlToElement(result, 'current-output');
+        window.viewsCalculator.setInnerHtmlToElement(result, 'current-output-programmer');
 
        setTimeout(()=>
         {
@@ -1273,7 +1301,7 @@ class ProgrammerMode {
     }
     displayExpresion(expresion){
 
-        window.viewsCalculator.setInnerHtmlToElement(expresion, 'previous-output');
+        window.viewsCalculator.setInnerHtmlToElement(expresion, 'previous-output-programmer');
 
     }
     activeBitToggleEvents(){
@@ -2193,13 +2221,13 @@ class ProgrammerMode {
 
             if(!this.isOperator(this._operationList[this._operationList.length - 1])){
 
-                window.viewsCalculator.setInnerHtmlToElement(this._operationList[this._operationList.length - 1], 'current-output');
+                window.viewsCalculator.setInnerHtmlToElement(this._operationList[this._operationList.length - 1], 'current-output-programmer');
     
             }
             
             if((this._operationList.length % 2) === 0){
                 
-                window.viewsCalculator.setInnerHtmlToElement(this._operationList.join(' '), 'previous-output');
+                window.viewsCalculator.setInnerHtmlToElement(this._operationList.join(' '), 'previous-output-programmer');
     
             }
 
@@ -2222,7 +2250,7 @@ class ProgrammerMode {
 
                 document.getElementById(`btn-bit-${i}`).innerHTML = '0';
                 window.viewsCalculator.removeClass(`btn-bit-${i}`, 'color-pink');
-                window.viewsCalculator.enableBtn(`btn-bit-${i}`);
+                //window.viewsCalculator.enableBtn(`btn-bit-${i}`); // ? I don't now why a put this here...
     
             }
 

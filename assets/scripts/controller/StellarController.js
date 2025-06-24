@@ -2,22 +2,30 @@ class StellarControler {
 
     constructor(){
 
+        this.isStartStandardMode = false;
+        this.isStartProgrammerMode = false;
+        this.isStartConverterMode = false;
+
         this._selectedCalculatorMode;
-        this.selectedCalculatorModeEl = document.querySelector('#mode-name');
         this._selectedSoundMode = false;
-        this._calculatorParentEl = document.querySelector('.wrapper-calculator');
-        this._openMenuButtonEl = document.querySelector('#btn-open-side-menu');
-        this._closeMenuButtonEl  = document.querySelector('#btn-close-side-menu');
-        this._floatSideMenuEl = document.querySelector('.float-menu');
-        this._sideMenuButtonsElList = document.querySelectorAll('.calculator-mode');
+        this.selectedCalculatorModeEl = document.querySelector('#mode-name');
+        this._standardEl = document.querySelector('#standard-calculator-wrapper');
+        this._programmerEl = document.querySelector('#programmer-calculator-wrapper');
+        this.allCalculators = [this._standardEl, this._programmerEl];
+        this._menuButtonEl = document.querySelector('#btn-side-menu');
         this._soundButtonEl = document.querySelector('#button-sound');
         this._historyButtonEl = document.querySelector('#button-history');
-        this._historyHidden = true;
         this._closeHistoryEl = document.querySelector('.exit-float-history');
-        this._historyEl = document.querySelector('.float-history');
         this._clickSound = new Audio('assets/sound/click.wav');
 
-        //this.checkCalculatorMode();
+        this._floatSideMenuEl = document.querySelector('.float-menu');
+        this._sideMenuButtonsElList = document.querySelectorAll('.calculator-mode');
+        this._historyEl = document.querySelector('.float-history');
+        this.exitSideMenuEl = document.querySelector('#exit-side-menu');
+        this.floatSideMenuState = 'close';
+        this.historyElState = 'close';
+
+        this.checkCalculatorMode();
         this.startCalculatorsButtons();
         this.activeSoundMode();
 
@@ -25,37 +33,39 @@ class StellarControler {
 
     checkCalculatorMode(){
 
-        this._calculatorParentEl.innerHTML = ''
+        if(this._selectedCalculatorMode === 'standard'){
 
-        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            let standardEl = window.viewsCalculator.returnCalculator('standard');
-
-            this._calculatorParentEl.innerHTML = standardEl;
+            window.viewsCalculator.showWithInert(this._standardEl);
 
             window.calculatorHistory.changeHistoryType('standard');
 
-            window.calculatorStandardMode.start();
+            if(!this.isStartStandardMode) window.calculatorStandardMode.start();
 
             window.viewsCalculator.displaySucess('Standard select');
 
             this._historyButtonEl.disabled = false;
+
+            this.isStartStandardMode = true;
             
         }
-        if(this._selectedCalculatorMode === 'programmer' ){
+        if(this._selectedCalculatorMode === 'programmer' || !this._selectedCalculatorMode){
 
-            let standardEl = window.viewsCalculator.returnCalculator('programmer');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = standardEl;
+            window.viewsCalculator.showWithInert(this._programmerEl);
 
             window.calculatorHistory.changeHistoryType('programmer');
 
-            window.calculatorProgrammerMode.start();
+            if(!this.isStartProgrammerMode) window.calculatorProgrammerMode.start();
 
             window.viewsCalculator.displaySucess('Programmer select');
 
             this._historyButtonEl.disabled = true;
-            this._historyButtonEl.classList.add('disabled-btn')
+            this._historyButtonEl.classList.add('disabled-btn');
+
+            this.isStartProgrammerMode = true
             
         }
         if(this._selectedCalculatorMode === 'length'){ 
@@ -233,43 +243,27 @@ class StellarControler {
     }
     startCalculatorsButtons(){
 
-        this._openMenuButtonEl.addEventListener('click', ()=>{
+        this._menuButtonEl.addEventListener('click', ()=>{
 
-            window.viewsCalculator.showElement(this._floatSideMenuEl, 'flex');
+            
+           this.floatSideMenuState = this.checkToShow(this.floatSideMenuState, this._floatSideMenuEl);
+            
 
         });
-
-        /*this._closeHistoryEl.addEventListener('click', ()=>{
-
-            window.viewsCalculator.unShowElement(this._historyEl);
-
-            this._historyHidden = true;
-
-        });*/
 
         this._historyButtonEl.addEventListener('click', ()=>{
 
-            if(this._historyHidden){
-
-                window.viewsCalculator.showElement(this._historyEl, 'flex');
-
-                this._historyHidden = false;
-
-            }else{
-
-                window.viewsCalculator.unShowElement(this._historyEl);
-
-                this._historyHidden = true;
-
-            }
+            this.historyElState = this.checkToShow(this.historyElState, this._historyEl);
 
         });
 
-        /*this._closeMenuButtonEl.addEventListener('click', ()=>{
+        this.exitSideMenuEl.addEventListener('click', ()=>{
 
-            window.viewsCalculator.unShowElement(this._floatSideMenuEl);
+            this.floatSideMenuState = this.historyElState = 'open';
 
-        });*/
+            this.floatSideMenuState = this.checkToShow(this.floatSideMenuState, this._floatSideMenuEl);
+            this.historyElState = this.checkToShow(this.historyElState, this._historyEl);
+        });
 
         this._sideMenuButtonsElList.forEach(element=>{
 
@@ -280,6 +274,25 @@ class StellarControler {
            });
 
         });
+
+    }
+    checkToShow(varState, varEl){
+
+        if(varState === 'close'){
+
+            window.viewsCalculator.showWithInert(varEl);
+            window.viewsCalculator.showWithInert(this.exitSideMenuEl);
+
+            return 'open';
+
+        }else if(varState === 'open'){
+
+            window.viewsCalculator.unshowWithInertList([varEl]);
+            window.viewsCalculator.unshowWithInertList([this.exitSideMenuEl]);
+
+            return 'close';
+
+        }
 
     }
     newSelectedElement(selectedEelement){

@@ -538,11 +538,28 @@ body{
     /*background-color: azure;*/
     height: calc((100% / 7) - 0.15rem);
     width: 99.7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
 }
 .queues-programmer > button{
 
     width: calc((100% / 5) - 0.1rem);
+    height: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #F1F7FF;
+
+}
+.queues-programmer button img{
+
+    width: 2rem;
 
 }
 .toggle-queues{
@@ -885,9 +902,20 @@ body{
     transform: rotate(180deg);
 
 }
-button.disabled-btn{
+button.disabled-btn{ /*body main place if don't work*/
 
     background-color: #2222221c;
+    cursor: default;
+
+}
+button.disabled-btn-bit-toggle{
+
+    color: #f1f7ff7b;
+
+}
+button.disabled-btn-bit-toggle:hover{
+
+    color: #f1f7ff7b;
     cursor: default;
 
 }
@@ -1339,12 +1367,12 @@ button.disabled-btn{
 @keyframes linegrowheight{
 
     0%{
-        width: 0;
-        left: 50%;
+        height: 0;
+        bottom: 50%;
     }
     100%{
-        left: 25%;
-        width: 50%;
+        bottom: 25%;
+        height: 50%;
     }
 
 }
