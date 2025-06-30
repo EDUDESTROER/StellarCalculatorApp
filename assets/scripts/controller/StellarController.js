@@ -36,7 +36,7 @@ class StellarControler {
         //console.log('pass: checkCalculatorMode');
         //console.log('Selected Mode: ', this._selectedCalculatorMode);
         
-        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'standard'){
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -252,6 +252,25 @@ class StellarControler {
             window.calculatorConverterMode.clearConverter();
 
             window.viewsCalculator.displaySucess('Time select');
+
+            this._historyButtonEl.disabled = false;
+
+            this.isStartConverterMode = true;
+
+        }
+        if(this._selectedCalculatorMode === 'power' || !this._selectedCalculatorMode){ 
+
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+
+            window.viewsCalculator.showWithInert(this._conversorEl);
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('power');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Power select');
 
             this._historyButtonEl.disabled = false;
 

@@ -9,6 +9,7 @@ window.currencyConverter = new Currency();
 window.timeConverter = new Time();
 window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
+window.powerConverter = new Power();
 window.calculatorStandardMode = new StellarStandardMode();
 window.calculatorProgrammerMode = new ProgrammerMode();
 window.calculatorConverterMode = new ConverterMode();
