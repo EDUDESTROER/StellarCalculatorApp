@@ -47,11 +47,11 @@ class History{
 
         let spanCalculation = window.viewsCalculator.returnSpan(calculation);
 
-        spanCalculation.classList.add('history-calc');
+        spanCalculation.classList.add('history-calc', 'bar-basic-efect');
 
         let spanResult = window.viewsCalculator.returnSpan(result);
 
-        spanResult.classList.add('history-result');
+        spanResult.classList.add('history-result', 'bar-basic-efect');
 
         let li = window.viewsCalculator.returnLi([spanCalculation, spanResult], true, 2);
 

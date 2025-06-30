@@ -13,6 +13,7 @@ class ConverterMode {
         this.secondSelectedEl;
         this._audioOnOff;
         this._clickSound
+        this.activeBtn = false;
         
 
     }
@@ -23,14 +24,22 @@ class ConverterMode {
         this.secondConversorListEl = document.querySelector('#second-converter-list');
         this.btnSelectionFirst = document.querySelector('#btn-first-selection');
         this.btnSelectionSecond = document.querySelector('#btn-second-selection');
-        this.firstSelectedEl = this.btnSelectionFirst.children[0].children[0];
-        this.secondSelectedEl = this.btnSelectionSecond.children[0].children[0];
+        this.firstSelectedEl = document.querySelector('#first-select');
+        this.secondSelectedEl = document.querySelector('#second-select');
+
+        window.viewsCalculator.setConversorTo(type, this.firstConversorListEl, this.firstSelectedEl, this.secondConversorListEl, this.secondSelectedEl);
 
         this.converterType = type;
 
-        this.addEventsToSelection(this.btnSelectionFirst, this.firstConversorListEl);
-        this.addEventsToSelection(this.btnSelectionSecond, this.secondConversorListEl);
-        this.addEventsToButtons();
+        if(this.activeBtn === false){
+
+            this.addEventsToSelection(this.btnSelectionFirst, this.firstConversorListEl);
+            this.addEventsToSelection(this.btnSelectionSecond, this.secondConversorListEl);
+            this.addEventsToButtons();
+
+        }
+
+        this.activeBtn = true;
 
     }
 
@@ -86,7 +95,7 @@ class ConverterMode {
 
                 button.addEventListener('click', e=>{
 
-                    let buttonName = button.id.replace('button-', '');
+                    let buttonName = button.id.replace('button-conversor-', '');
 
                     this.playSound();
 
@@ -114,7 +123,7 @@ class ConverterMode {
                             this.backspacePress();
                         break;
                         default:
-                            console.error('no functions on: ', buttonName);
+                            //
                         break;
 
                     }
@@ -556,6 +565,8 @@ class ConverterMode {
     }
 
     clearConverter(){
+
+        //console.log('pass: ClearConverter');
 
         this.firstOutputValue = '';
 

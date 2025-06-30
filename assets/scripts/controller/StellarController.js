@@ -2,20 +2,28 @@ class StellarControler {
 
     constructor(){
 
+        this.isStartStandardMode = false;
+        this.isStartProgrammerMode = false;
+
         this._selectedCalculatorMode;
-        this.selectedCalculatorModeEl = document.querySelector('#mode-name');
         this._selectedSoundMode = false;
-        this._calculatorParentEl = document.querySelector('.wrapper-calculator');
-        this._openMenuButtonEl = document.querySelector('#btn-open-side-menu');
-        this._closeMenuButtonEl  = document.querySelector('#btn-close-side-menu');
-        this._floatSideMenuEl = document.querySelector('.float-menu');
-        this._sideMenuButtonsElList = document.querySelectorAll('.calculator-mode');
+        this.selectedCalculatorModeEl = document.querySelector('#mode-name');
+        this._standardEl = document.querySelector('#standard-calculator-wrapper');
+        this._programmerEl = document.querySelector('#programmer-calculator-wrapper');
+        this._conversorEl = document.querySelector('#conversor-calculator-wrapper');
+        this.allCalculators = [this._standardEl, this._programmerEl, this._conversorEl];
+        this._menuButtonEl = document.querySelector('#btn-side-menu');
         this._soundButtonEl = document.querySelector('#button-sound');
         this._historyButtonEl = document.querySelector('#button-history');
-        this._historyHidden = true;
         this._closeHistoryEl = document.querySelector('.exit-float-history');
-        this._historyEl = document.querySelector('.float-history');
         this._clickSound = new Audio('assets/sound/click.wav');
+
+        this._floatSideMenuEl = document.querySelector('.float-menu');
+        this._sideMenuButtonsElList = document.querySelectorAll('.calculator-mode');
+        this._historyEl = document.querySelector('.float-history');
+        this.exitSideMenuEl = document.querySelector('#exit-side-menu');
+        this.floatSideMenuState = 'close';
+        this.historyElState = 'close';
 
         this.checkCalculatorMode();
         this.startCalculatorsButtons();
@@ -25,44 +33,49 @@ class StellarControler {
 
     checkCalculatorMode(){
 
-        this._calculatorParentEl.innerHTML = ''
+        //console.log('pass: checkCalculatorMode');
+        //console.log('Selected Mode: ', this._selectedCalculatorMode);
+        
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
-        if(this._selectedCalculatorMode === 'standard' /*|| !this._selectedCalculatorMode*/){
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            let standardEl = window.viewsCalculator.returnCalculator('standard');
-
-            this._calculatorParentEl.innerHTML = standardEl;
+            window.viewsCalculator.showWithInert(this._standardEl);
 
             window.calculatorHistory.changeHistoryType('standard');
 
-            window.calculatorStandardMode.start();
+            if(!this.isStartStandardMode) window.calculatorStandardMode.start();
 
             window.viewsCalculator.displaySucess('Standard select');
 
             this._historyButtonEl.disabled = false;
+
+            this.isStartStandardMode = true;
             
         }
-        if(this._selectedCalculatorMode === 'programmer' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'programmer'){
 
-            let standardEl = window.viewsCalculator.returnCalculator('programmer');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = standardEl;
+            window.viewsCalculator.showWithInert(this._programmerEl);
 
             window.calculatorHistory.changeHistoryType('programmer');
 
-            window.calculatorProgrammerMode.start();
+            if(!this.isStartProgrammerMode) window.calculatorProgrammerMode.start();
 
             window.viewsCalculator.displaySucess('Programmer select');
 
             this._historyButtonEl.disabled = true;
-            this._historyButtonEl.classList.add('disabled-btn')
+            this._historyButtonEl.classList.add('disabled-btn');
+
+            this.isStartProgrammerMode = true;
             
         }
         if(this._selectedCalculatorMode === 'length'){ 
 
-            let lengthEl = window.viewsCalculator.returnConversor('length');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = lengthEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -73,13 +86,12 @@ class StellarControler {
             window.viewsCalculator.displaySucess('Length select');
 
             this._historyButtonEl.disabled = false;
-
         }
         if(this._selectedCalculatorMode === 'angle'){
 
-            let angleEl = window.viewsCalculator.returnConversor('angle');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -91,12 +103,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'volume'){
 
-            let volumeEl = window.viewsCalculator.returnConversor('volume');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = volumeEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -108,12 +122,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'weigth and mass'){
 
-            let weigthAndMassEl = window.viewsCalculator.returnConversor('weigthAndMass');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = weigthAndMassEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -121,16 +137,18 @@ class StellarControler {
 
             window.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Weigth And Mass select');
+            window.viewsCalculator.displaySucess('Weigth and mass select');
 
             this._historyButtonEl.disabled = false;
+
+            this.isStartConverterMode = true;
 
         }
         if(this._selectedCalculatorMode === 'temperature'){
 
-            let temperatureEl = window.viewsCalculator.returnConversor('temperature');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = temperatureEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -142,12 +160,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'energy'){
 
-            let energyEl = window.viewsCalculator.returnConversor('energy');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = energyEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -159,12 +179,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'area'){
 
-            let areaEl = window.viewsCalculator.returnConversor('area');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = areaEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -176,12 +198,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'speed'){
 
-            let speedEl = window.viewsCalculator.returnConversor('speed');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = speedEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -193,12 +217,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'currency'){ 
 
-            let currencyEl = window.viewsCalculator.returnConversor('currency');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = currencyEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -210,12 +236,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'time'){ 
 
-            let timeEl = window.viewsCalculator.returnConversor('time');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = timeEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -227,48 +255,34 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
 
 
     }
     startCalculatorsButtons(){
 
-        this._openMenuButtonEl.addEventListener('click', ()=>{
+        this._menuButtonEl.addEventListener('click', ()=>{
 
-            window.viewsCalculator.showElement(this._floatSideMenuEl, 'flex');
-
-        });
-
-        this._closeHistoryEl.addEventListener('click', ()=>{
-
-            window.viewsCalculator.unShowElement(this._historyEl);
-
-            this._historyHidden = true;
+            
+           this.floatSideMenuState = this.checkToShow(this.floatSideMenuState, this._floatSideMenuEl);
+            
 
         });
 
         this._historyButtonEl.addEventListener('click', ()=>{
 
-            if(this._historyHidden){
-
-                window.viewsCalculator.showElement(this._historyEl, 'flex');
-
-                this._historyHidden = false;
-
-            }else{
-
-                window.viewsCalculator.unShowElement(this._historyEl);
-
-                this._historyHidden = true;
-
-            }
+            this.historyElState = this.checkToShow(this.historyElState, this._historyEl);
 
         });
 
-        this._closeMenuButtonEl.addEventListener('click', ()=>{
+        this.exitSideMenuEl.addEventListener('click', ()=>{
 
-            window.viewsCalculator.unShowElement(this._floatSideMenuEl);
+            this.floatSideMenuState = this.historyElState = 'open';
 
+            this.floatSideMenuState = this.checkToShow(this.floatSideMenuState, this._floatSideMenuEl);
+            this.historyElState = this.checkToShow(this.historyElState, this._historyEl);
         });
 
         this._sideMenuButtonsElList.forEach(element=>{
@@ -280,6 +294,25 @@ class StellarControler {
            });
 
         });
+
+    }
+    checkToShow(varState, varEl){
+
+        if(varState === 'close'){
+
+            window.viewsCalculator.showWithInert(varEl);
+            window.viewsCalculator.showWithInert(this.exitSideMenuEl);
+
+            return 'open';
+
+        }else if(varState === 'open'){
+
+            window.viewsCalculator.unshowWithInertList([varEl]);
+            window.viewsCalculator.unshowWithInertList([this.exitSideMenuEl]);
+
+            return 'close';
+
+        }
 
     }
     newSelectedElement(selectedEelement){

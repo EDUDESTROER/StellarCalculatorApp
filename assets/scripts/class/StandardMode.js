@@ -17,7 +17,7 @@ class StellarStandardMode {
 
                 button.addEventListener('click', e=>{
 
-                    let buttonName = button.id.replace('button-', '');
+                    let buttonName = button.id.replace('standard-button-', '');
 
                     //console.log(buttonName);
 
@@ -81,7 +81,7 @@ class StellarStandardMode {
                         break;
 
                         default:
-                            this.inError(buttonName);
+                            //
                         break;
                     }
 
