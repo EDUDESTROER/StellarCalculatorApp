@@ -81,7 +81,7 @@ class StellarStandardMode {
                         break;
 
                         default:
-                            this.inError(buttonName);
+                            //
                         break;
                     }
 

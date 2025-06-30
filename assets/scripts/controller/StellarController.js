@@ -4,14 +4,14 @@ class StellarControler {
 
         this.isStartStandardMode = false;
         this.isStartProgrammerMode = false;
-        this.isStartConverterMode = false;
 
         this._selectedCalculatorMode;
         this._selectedSoundMode = false;
         this.selectedCalculatorModeEl = document.querySelector('#mode-name');
         this._standardEl = document.querySelector('#standard-calculator-wrapper');
         this._programmerEl = document.querySelector('#programmer-calculator-wrapper');
-        this.allCalculators = [this._standardEl, this._programmerEl];
+        this._conversorEl = document.querySelector('#conversor-calculator-wrapper');
+        this.allCalculators = [this._standardEl, this._programmerEl, this._conversorEl];
         this._menuButtonEl = document.querySelector('#btn-side-menu');
         this._soundButtonEl = document.querySelector('#button-sound');
         this._historyButtonEl = document.querySelector('#button-history');
@@ -33,7 +33,10 @@ class StellarControler {
 
     checkCalculatorMode(){
 
-        if(this._selectedCalculatorMode === 'standard'){
+        //console.log('pass: checkCalculatorMode');
+        //console.log('Selected Mode: ', this._selectedCalculatorMode);
+        
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -50,7 +53,7 @@ class StellarControler {
             this.isStartStandardMode = true;
             
         }
-        if(this._selectedCalculatorMode === 'programmer' || !this._selectedCalculatorMode){
+        if(this._selectedCalculatorMode === 'programmer'){
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -65,14 +68,14 @@ class StellarControler {
             this._historyButtonEl.disabled = true;
             this._historyButtonEl.classList.add('disabled-btn');
 
-            this.isStartProgrammerMode = true
+            this.isStartProgrammerMode = true;
             
         }
         if(this._selectedCalculatorMode === 'length'){ 
 
-            let lengthEl = window.viewsCalculator.returnConversor('length');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = lengthEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -83,13 +86,12 @@ class StellarControler {
             window.viewsCalculator.displaySucess('Length select');
 
             this._historyButtonEl.disabled = false;
-
         }
         if(this._selectedCalculatorMode === 'angle'){
 
-            let angleEl = window.viewsCalculator.returnConversor('angle');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = angleEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -101,12 +103,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'volume'){
 
-            let volumeEl = window.viewsCalculator.returnConversor('volume');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = volumeEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -118,12 +122,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'weigth and mass'){
 
-            let weigthAndMassEl = window.viewsCalculator.returnConversor('weigthAndMass');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = weigthAndMassEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -131,16 +137,18 @@ class StellarControler {
 
             window.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Weigth And Mass select');
+            window.viewsCalculator.displaySucess('Weigth and mass select');
 
             this._historyButtonEl.disabled = false;
+
+            this.isStartConverterMode = true;
 
         }
         if(this._selectedCalculatorMode === 'temperature'){
 
-            let temperatureEl = window.viewsCalculator.returnConversor('temperature');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = temperatureEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -152,12 +160,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'energy'){
 
-            let energyEl = window.viewsCalculator.returnConversor('energy');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = energyEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -169,12 +179,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'area'){
 
-            let areaEl = window.viewsCalculator.returnConversor('area');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = areaEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -186,12 +198,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'speed'){
 
-            let speedEl = window.viewsCalculator.returnConversor('speed');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = speedEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -203,12 +217,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'currency'){ 
 
-            let currencyEl = window.viewsCalculator.returnConversor('currency');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = currencyEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -220,12 +236,14 @@ class StellarControler {
 
             this._historyButtonEl.disabled = false;
 
+            this.isStartConverterMode = true;
+
         }
         if(this._selectedCalculatorMode === 'time'){ 
 
-            let timeEl = window.viewsCalculator.returnConversor('time');
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            this._calculatorParentEl.innerHTML = timeEl;
+            window.viewsCalculator.showWithInert(this._conversorEl);
 
             window.calculatorHistory.changeHistoryType('converter');
 
@@ -236,6 +254,8 @@ class StellarControler {
             window.viewsCalculator.displaySucess('Time select');
 
             this._historyButtonEl.disabled = false;
+
+            this.isStartConverterMode = true;
 
         }
 

@@ -27,7 +27,7 @@ class Energy {
             }, 
             'Kilojoules': {
                 'Electron volts': 6.241509e+21, 
-                'Joules': 1, 
+                'Joules': 1000, 
                 'Kilojoules': 1,
                 'Thermic calories': 239.0057, 
                 'Food calories': 0.239006, 
