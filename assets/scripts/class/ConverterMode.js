@@ -239,6 +239,11 @@ class ConverterMode {
             result = window.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
+        else if(this.converterType == 'power'){
+
+            result = window.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }
 
         if(result === false){
 
@@ -511,7 +516,12 @@ class ConverterMode {
             'h': 'Hours',
             'd': 'Days',
             'w': 'Weeks',
-            'y': 'Years'
+            'y': 'Years',
+            'W': 'Watts',
+            'kW': 'Kilowatts',
+            'hp': 'Horsepower(USA)',
+            'lb-ft/min': 'Pound-feet/minute',
+            'BTU/min': 'BTUs/minute'
         }
 
         let firstConverterName = abreviations[value[1]];

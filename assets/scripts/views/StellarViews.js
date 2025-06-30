@@ -19,7 +19,7 @@ class StellarViews{
     }
     setConversorTo(type, firstListEl, firstSelected, secondListEl, secondSelected){
 
-        console.log('pass: setConversorTo');
+        //console.log('pass: setConversorTo');
 
         firstListEl.innerHTML = '';
         firstSelected.innerHTML = '';
@@ -415,6 +415,18 @@ class StellarViews{
                 'Days', 
                 'Weeks',
                 'Years'
+            ];
+
+        }
+        if(type === 'power'){
+
+            liNumber = 5;
+            nameList = [
+                'Watts', 
+                'Kilowatts',
+                'Horsepower(USA)', 
+                'Pound-feet/minute',
+                'BTUs/minute'
             ];
 
         }
