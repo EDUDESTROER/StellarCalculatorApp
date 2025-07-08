@@ -113,6 +113,7 @@ body{
     /*background-color: #B90B75;*/
     border: none;
     width: calc((100% / 2));
+    max-width: 65px;
     height: 85%;
     display: flex;
     align-items: center;
@@ -134,6 +135,8 @@ body{
     font-weight: bolder;
     color: #F1F7FF;
     user-select: none;
+    flex-wrap: nowrap;
+    text-wrap: nowrap;
 
 }
 .float-menu{

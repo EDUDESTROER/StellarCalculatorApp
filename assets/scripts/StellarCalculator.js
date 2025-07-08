@@ -10,6 +10,7 @@ window.timeConverter = new Time();
 window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
 window.powerConverter = new Power();
+window.pressureConverter = new Pressure();
 window.calculatorStandardMode = new StellarStandardMode();
 window.calculatorProgrammerMode = new ProgrammerMode();
 window.calculatorConverterMode = new ConverterMode();

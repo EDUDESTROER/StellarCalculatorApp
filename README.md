@@ -23,6 +23,8 @@ Next tasks:
 
 - [x] Develop a user-friendly, responsive Web calculator designed to ensure compatibility across all devices.
 - [x] Develop a user-friendly, responsive Programmer calculator designed to ensure compatibility across all devices.
+- [ ] Develop a user-friendly, responsive Date calculator designed to ensure compatibility across all devices.
+- [ ] Develop a user-friendly, responsive Graphical representation calculator designed to ensure compatibility across all devices.
 - [x] Develop a measure converter.
 - [x] Develop a history for the calculator.
 - [x] Develop a angle converter.
@@ -34,7 +36,9 @@ Next tasks:
 - [x] Develop a speed converter.
 - [x] Develop a time converter.    
 - [x] Develop a currency converter.
-- [ ] Develop a potency converter.
+- [x] Develop a potency converter.
+- [x] Develop a pressure converter.
+- [ ] Develop a data converter.
 
 
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:

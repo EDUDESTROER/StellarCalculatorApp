@@ -244,6 +244,11 @@ class ConverterMode {
             result = window.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
+        else if(this.converterType == 'pressure'){
+
+            result = window.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }
 
         if(result === false){
 
@@ -521,7 +526,13 @@ class ConverterMode {
             'kW': 'Kilowatts',
             'hp': 'Horsepower(USA)',
             'lb-ft/min': 'Pound-feet/minute',
-            'BTU/min': 'BTUs/minute'
+            'BTU/min': 'BTUs/minute',
+            'atm': 'Atmospheres',
+            'bar': 'Bars',
+            'kPa': 'Kilopascals',
+            'mmHg': 'Millimeters of mercury',
+            'Pa': 'Pascals',
+            'psi': 'Pounds per square inch'
         }
 
         let firstConverterName = abreviations[value[1]];
