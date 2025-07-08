@@ -430,6 +430,19 @@ class StellarViews{
             ];
 
         }
+        if(type === 'pressure'){
+
+            liNumber = 6;
+            nameList = [
+                'Atmospheres', 
+                'Bars',
+                'Kilopascals', 
+                'Millimeters of mercury',
+                'Pascals',
+                'Pounds per square inch'
+            ];
+
+        }
 
         for (let index = 0; index < liNumber; index++) {
 
