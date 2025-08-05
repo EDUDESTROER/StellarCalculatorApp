@@ -11,6 +11,7 @@ window.weigthAndMassConverter = new WeigthAndMass();
 window.temperatureConverter = new Temperature();
 window.powerConverter = new Power();
 window.pressureConverter = new Pressure();
+window.dataConverter = new Data();
 window.calculatorStandardMode = new StellarStandardMode();
 window.calculatorProgrammerMode = new ProgrammerMode();
 window.calculatorConverterMode = new ConverterMode();

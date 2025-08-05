@@ -277,7 +277,7 @@ class StellarControler {
             this.isStartConverterMode = true;
 
         }
-        if(this._selectedCalculatorMode === 'pressure' || !this._selectedCalculatorMode){ 
+        if(this._selectedCalculatorMode === 'pressure'){ 
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -296,7 +296,25 @@ class StellarControler {
             this.isStartConverterMode = true;
 
         }
+        if(this._selectedCalculatorMode === 'data' || !this._selectedCalculatorMode){ 
 
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+
+            window.viewsCalculator.showWithInert(this._conversorEl);
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('data');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Data select');
+
+            this._historyButtonEl.disabled = false;
+
+            this.isStartConverterMode = true;
+
+        }
 
     }
     startCalculatorsButtons(){

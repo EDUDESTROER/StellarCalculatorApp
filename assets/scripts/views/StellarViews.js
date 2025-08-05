@@ -443,6 +443,48 @@ class StellarViews{
             ];
 
         }
+        if(type === 'data'){
+
+            liNumber = 35;
+            nameList = [
+                'Bit',
+                'Nibble',
+                'Byte',
+                'Kilobit',
+                'Kibibit',
+                'Kilobyte',
+                'Kibibyte',
+                'Megabit',
+                'Mebibit',
+                'Megabyte',
+                'Mebibyte',
+                'Gigabit',
+                'Gibibit',
+                'Gigabyte',
+                'Gibibyte',
+                'Terabit',
+                'Tebibit',
+                'Terabyte',
+                'Tebibyte',
+                'Petabit',
+                'Pebibit',
+                'Petabyte',
+                'Pebibyte',
+                'Exabit',
+                'Exbibit',
+                'Exabyte',
+                'Exbibyte',
+                'Zettabit',
+                'Zebibit',
+                'Zettabyte',
+                'Zebibyte',
+                'Yottabit',
+                'Yobibit',
+                'Yottabyte',
+                'Yobibyte'
+            ];
+
+        }
 
         for (let index = 0; index < liNumber; index++) {
 
