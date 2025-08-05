@@ -1,5 +1,5 @@
 ## Improvements
-- [ ] Aside element have a layout break when you select weigth and mass.
+- [x] Aside element have a layout break when you select weigth and mass.
 
 
 ## Errors
@@ -10,4 +10,4 @@
 ### Next tasks
 - [ ] Develop a user-friendly, responsive Date calculator designed to ensure compatibility across all devices.
 - [ ] Develop a user-friendly, responsive Graphical representation calculator designed to ensure compatibility across all devices.
-- [ ] Develop a data converter.
+- [x] Develop a data converter.

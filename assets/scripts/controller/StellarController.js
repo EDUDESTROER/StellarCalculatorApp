@@ -36,7 +36,7 @@ class StellarControler {
         //console.log('pass: checkCalculatorMode');
         //console.log('Selected Mode: ', this._selectedCalculatorMode);
         
-        if(this._selectedCalculatorMode === 'standard'){
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -296,7 +296,7 @@ class StellarControler {
             this.isStartConverterMode = true;
 
         }
-        if(this._selectedCalculatorMode === 'data' || !this._selectedCalculatorMode){ 
+        if(this._selectedCalculatorMode === 'data'){ 
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
