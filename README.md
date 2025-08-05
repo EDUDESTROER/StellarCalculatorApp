@@ -38,7 +38,7 @@ Next tasks:
 - [x] Develop a currency converter.
 - [x] Develop a potency converter.
 - [x] Develop a pressure converter.
-- [ ] Develop a data converter.
+- [x] Develop a data converter.
 
 
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:

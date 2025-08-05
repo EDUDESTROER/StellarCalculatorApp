@@ -249,6 +249,11 @@ class ConverterMode {
             result = window.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
+        else if(this.converterType == 'data'){
+
+            result = window.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+        }
 
         if(result === false){
 
@@ -532,7 +537,42 @@ class ConverterMode {
             'kPa': 'Kilopascals',
             'mmHg': 'Millimeters of mercury',
             'Pa': 'Pascals',
-            'psi': 'Pounds per square inch'
+            'psi': 'Pounds per square inch',
+            'b': 'Bit',
+            'nibble': 'Nibble',
+            'B': 'Byte',
+            'kb': 'Kilobit',
+            'Kib': 'Kibibit',
+            'KB': 'Kilobyte',
+            'KiB': 'Kibibyte',
+            'Mb': 'Megabit',
+            'Mib': 'Mebibit',
+            'MB': 'Megabyte',
+            'MiB': 'Mebibyte',
+            'Gb': 'Gigabit',
+            'Gib': 'Gibibit',
+            'GB': 'Gigabyte',
+            'GiB': 'Gibibyte',
+            'Tb': 'Terabit',
+            'Tib': 'Tebibit',
+            'TB': 'Terabyte',
+            'TiB': 'Tebibyte',
+            'Pb': 'Petabit',
+            'Pib': 'Pebibit',
+            'PB': 'Petabyte',
+            'PiB': 'Pebibyte',
+            'Eb': 'Exabit',
+            'Eib': 'Exbibit',
+            'EB': 'Exabyte',
+            'EiB': 'Exbibyte',
+            'Zb': 'Zettabit',
+            'Zib': 'Zebibit',
+            'ZB': 'Zettabyte',
+            'ZiB': 'Zebibyte',
+            'Yb': 'Yottabit',
+            'Yib': 'Yobibit',
+            'YB': 'Yottabyte',
+            'YiB': 'Yobibyte'
         }
 
         let firstConverterName = abreviations[value[1]];

@@ -143,7 +143,7 @@ class History{
         }
         if(sizeOfCalc > 26 || sizeOfResult > 26){
 
-            console.log(sizeOfCalc, sizeOfResult);
+            //console.log(sizeOfCalc, sizeOfResult);
 
             window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
@@ -153,7 +153,7 @@ class History{
         }
         if(sizeOfCalc > 29 || sizeOfResult > 29){
 
-            console.log(sizeOfCalc, sizeOfResult);
+            //console.log(sizeOfCalc, sizeOfResult);
 
             window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
@@ -163,7 +163,7 @@ class History{
         }
         if(sizeOfCalc > 32 || sizeOfResult > 32){
 
-            console.log(sizeOfCalc, sizeOfResult);
+            //console.log(sizeOfCalc, sizeOfResult);
 
             window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
@@ -173,7 +173,7 @@ class History{
         }
         if(sizeOfCalc > 42 || sizeOfResult > 42){
 
-            console.log(sizeOfCalc, sizeOfResult);
+            //console.log(sizeOfCalc, sizeOfResult);
 
             window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
@@ -183,7 +183,7 @@ class History{
         }
         if(sizeOfCalc > 47 || sizeOfResult > 47){
 
-            console.log(sizeOfCalc, sizeOfResult);
+            //console.log(sizeOfCalc, sizeOfResult);
 
             window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 

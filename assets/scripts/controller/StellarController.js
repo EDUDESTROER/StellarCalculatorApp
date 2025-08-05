@@ -36,7 +36,7 @@ class StellarControler {
         //console.log('pass: checkCalculatorMode');
         //console.log('Selected Mode: ', this._selectedCalculatorMode);
         
-        if(this._selectedCalculatorMode === 'standard'){
+        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -277,7 +277,7 @@ class StellarControler {
             this.isStartConverterMode = true;
 
         }
-        if(this._selectedCalculatorMode === 'pressure' || !this._selectedCalculatorMode){ 
+        if(this._selectedCalculatorMode === 'pressure'){ 
 
             window.viewsCalculator.unshowWithInertList(this.allCalculators);
 
@@ -296,7 +296,25 @@ class StellarControler {
             this.isStartConverterMode = true;
 
         }
+        if(this._selectedCalculatorMode === 'data'){ 
 
+            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+
+            window.viewsCalculator.showWithInert(this._conversorEl);
+
+            window.calculatorHistory.changeHistoryType('converter');
+
+            window.calculatorConverterMode.start('data');
+
+            window.calculatorConverterMode.clearConverter();
+
+            window.viewsCalculator.displaySucess('Data select');
+
+            this._historyButtonEl.disabled = false;
+
+            this.isStartConverterMode = true;
+
+        }
 
     }
     startCalculatorsButtons(){
