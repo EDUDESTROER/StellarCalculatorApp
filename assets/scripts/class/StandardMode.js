@@ -279,9 +279,9 @@ class StellarStandardMode {
 
                     this._lastCalc = `${this._operation[1]} ${this._operation[2]}`;
 
-                    calculation = this._operation.toString().replaceAll(',', ' ');
+                    calculation = [this._operation[0], this._operation[1], this._operation[2]];
 
-                    calculationResult = eval(calculation).toString();
+                    calculationResult = this.returnCalc(this._operation);
 
                 }
 
@@ -290,22 +290,26 @@ class StellarStandardMode {
             }
             if(this._operation.length == 1 && this._lastCalc.length > 0){
 
-                calculation = `${this._operation[0]} ${this._lastCalc}`;
-                calculationResult = eval(calculation).toString();
+                calculation =  [this._operation[0],  this._lastCalc[0], this._lastCalc[2]];
+                calculationResult = this.returnCalc(calculation);
 
             }
             if(this._operation.length == 2){
 
                 this._lastCalc = `${this._operation[1]} ${this._operation[0]}`;
 
-                calculation = `${this._operation[0]} ${this._operation[1]} ${this._operation[0]} `;
-                calculationResult = eval(calculation).toString();
+                calculation = [this._operation[0], this._operation[1], this._operation[0]];
+                calculationResult = this.returnCalc(calculation);
 
             }
 
-            if(calculation){
+            if(calculationResult){
+
+                calculationResult = calculationResult.toString();
 
                 this.clearAll();
+
+                calculation = calculation.join(' ');
 
                 this.setToPreviousDisplay(calculation, ' =');
                 this.setToCurrentDisplay(calculationResult);
@@ -315,6 +319,22 @@ class StellarStandardMode {
                 window.calculatorHistory.addToHistory(`${calculation} =`, calculationResult);
 
             }
+
+        }
+
+    }
+
+    returnCalc(expresionArray){
+
+        console.log('Return Calc | expression recive: ', expresionArray);
+
+        try{
+
+            return new Function(`return ${expresionArray.join(' ')} `)();
+
+        }catch(err){
+
+            this.inError(err);
 
         }
 
@@ -488,6 +508,8 @@ class StellarStandardMode {
 
     setToCurrentDisplay(currentNumber){
 
+        console.log('Current Number: ' ,currentNumber);
+
         let inError = false;
 
         if(currentNumber !== '0.'){
@@ -503,19 +525,9 @@ class StellarStandardMode {
                 }
 
             }
-            if(currentNumber.length >= 15){
-
-                window.viewsCalculator.changeElementFontSize('decrease', 0.20, 'current-output', '80');
-
-            }
-            if(currentNumber.length >= 19){
-
-                window.viewsCalculator.changeElementFontSize('decrease', 0.20, 'current-output', '64');
-
-            }
             if(currentNumber.length >= 23){
 
-                window.viewsCalculator.changeElementFontSize('decrease', 0.30, 'current-output', '51.2');
+                window.viewsCalculator.changeElementFontSize('decrease', 0.30, 'current-output', '56');
 
             }
             if(currentNumber.length >= 32){
@@ -526,7 +538,7 @@ class StellarStandardMode {
             }
             if(currentNumber.length < 15){
 
-                window.viewsCalculator.changeElementFontSize('decrease', 0.20, 'current-output', '104');
+                window.viewsCalculator.changeElementFontSize('decrease', 0, 'current-output', '56');
 
             }
             
@@ -545,6 +557,8 @@ class StellarStandardMode {
 
     }
     setToPreviousDisplay(firstValue, secondValue){
+
+        console.log('First Value: ', firstValue);
 
         if((firstValue === '' || secondValue === '') || (!firstValue || !secondValue)){
 

@@ -605,6 +605,8 @@ class StellarViews{
 
     changeElementFontSize(typeOfChange, percent, elementId, standardSize = '', unit = 'px', element = ''){
 
+        //console.log('All parameters: ', typeOfChange, percent, elementId, standardSize, unit, element);
+
         let refElement
 
             if(elementId){
