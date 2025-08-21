@@ -21,24 +21,27 @@ https://github.com/user-attachments/assets/8abc40a4-474b-45e1-8f56-829850561248
 
 Next tasks:
 
-- [x] Develop a user-friendly, responsive Web calculator designed to ensure compatibility across all devices.
-- [x] Develop a user-friendly, responsive Programmer calculator designed to ensure compatibility across all devices.
 - [ ] Develop a user-friendly, responsive Date calculator designed to ensure compatibility across all devices.
 - [ ] Develop a user-friendly, responsive Graphical representation calculator designed to ensure compatibility across all devices.
-- [x] Develop a measure converter.
-- [x] Develop a history for the calculator.
-- [x] Develop a angle converter.
-- [x] Develop a volume unit converter.
-- [x] Develop a weight and mass converter.
-- [x] Develop a temperature converter.
-- [x] Develop a energy converter.
-- [x] Develop a area converter. 
-- [x] Develop a speed converter.
-- [x] Develop a time converter.    
-- [x] Develop a currency converter.
-- [x] Develop a potency converter.
-- [x] Develop a pressure converter.
-- [x] Develop a data converter.
+
+Completed tasks:
+
+- [x] Responsive Web calculator 
+- [x] Programmer calculator
+- [x] Measure converter.
+- [x] History for the calculator.
+- [x] Angle converter.
+- [x] Volume unit converter.
+- [x] Weight and mass converter.
+- [x] Temperature converter.
+- [x] Energy converter.
+- [x] Area converter. 
+- [x] Speed converter.
+- [x] Time converter.    
+- [x] Currency converter.
+- [x] Potency converter.
+- [x] Pressure converter.
+- [x] Data converter.
 
 
 # 📫Contributing to the StellarCalculatorApp, Follow the next steps:
