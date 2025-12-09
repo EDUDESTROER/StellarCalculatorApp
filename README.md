@@ -10,7 +10,9 @@
 
 - The application consists of a **beautiful calculator** with histort and two type of converter.
 
+# how to use(temporary):
 
+- I´m using Live server to run the Html.
 
 https://github.com/user-attachments/assets/8abc40a4-474b-45e1-8f56-829850561248
 
