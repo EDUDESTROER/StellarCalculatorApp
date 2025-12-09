@@ -16,7 +16,7 @@ class StellarControler {
         this._soundButtonEl = document.querySelector('#button-sound');
         this._historyButtonEl = document.querySelector('#button-history');
         this._closeHistoryEl = document.querySelector('.exit-float-history');
-        this._clickSound = new Audio('assets/sound/click.wav');
+        this._clickSound = new Audio('/sound/click.wav');
 
         this._floatSideMenuEl = document.querySelector('.float-menu');
         this._sideMenuButtonsElList = document.querySelectorAll('.calculator-mode');
@@ -411,7 +411,7 @@ class StellarControler {
 
         if(this._selectedSoundMode === true){
 
-            this._soundButtonEl.firstElementChild.src = 'assets/icons/sound.png';
+            this._soundButtonEl.firstElementChild.src = '/icons/sound.png';
 
             window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
             window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
@@ -420,7 +420,7 @@ class StellarControler {
 
         }else if(this._selectedSoundMode === false){
 
-            this._soundButtonEl.firstElementChild.src = 'assets/icons/no_sound.png';
+            this._soundButtonEl.firstElementChild.src = '/icons/no_sound.png';
 
             window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
             window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
