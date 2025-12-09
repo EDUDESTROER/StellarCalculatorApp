@@ -5,6 +5,7 @@
 ## Errors
 - [ ] line 890 error in Bit shift, Rotate Through Carry! - Programmer calc
 - [ ] Rotate Through Carry. - Programmer calc
+- [x] converter/programmer menus, when you open these menus along with the mode selection menu, they end up being on top of the mode selection menu.
 
 
 ### Next tasks
