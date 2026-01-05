@@ -67,7 +67,7 @@ Completed tasks:
 4. send to original branch: `git push origin <project_name> / <local>`
 5. Ceate a pull request.
 
-visit this link to learn more [wow create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+visit this link to learn more [how create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 # 📝 License
 - This project is under license. See the [LICENSE](LICENSE.md) file for more details.
