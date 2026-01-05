@@ -4,8 +4,8 @@ class StellarViews{
 
         this._statusEl = document.querySelector('.wrapper-status-output');
         this.historyCalcAndResultsList = document.querySelector('.wrapper-calc-and-results');  
-        this._errorSound = new Audio('assets/sound/calcError.mp3');
-        this._sucessSound = new Audio('assets/sound/calcSucess.mp3');
+        this._errorSound = new Audio('/sound/calcError.mp3');
+        this._sucessSound = new Audio('/sound/calcSucess.mp3');
         this._bitToggle = false;
         this.baseMenu = [ false,'DEC'];
 
@@ -749,7 +749,7 @@ class StellarViews{
 
             this._statusEl.innerHTML = `
 
-                <img src="assets/icons/check.png" draggable="false" alt="Sucess icon">
+                <img src="/icons/check.png" draggable="false" alt="Sucess icon">
                 <span class="sucess">${textInfo}</span>
 
             `;
@@ -784,7 +784,7 @@ class StellarViews{
 
             this._statusEl.innerHTML = `
 
-                <img src="assets/icons/error.png" draggable="false" alt="Error icon">
+                <img src="/icons/error.png" draggable="false" alt="Error icon">
                 <span class="sucess">${textInfo}</span>
 
         `;

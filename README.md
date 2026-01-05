@@ -10,11 +10,24 @@
 
 - The application consists of a **beautiful calculator** with histort and two type of converter.
 
-# how to use(temporary):
+# 🚀 how to use:
 
-- I´m using Live server to run the Html.
+### 1. Install Dependencies
+Run the command below to install all project dependencies:
+- npm install
 
-https://github.com/user-attachments/assets/8abc40a4-474b-45e1-8f56-829850561248
+### 2. Start the Project
+After the installation, start the application with:
+- npm run start
+
+### 3. Using
+In our browser: 
+- Go to: http://localhost:3000
+
+
+
+
+https://github.com/user-attachments/assets/8e78199b-a735-493f-9058-d8412b698f65
 
 
 
