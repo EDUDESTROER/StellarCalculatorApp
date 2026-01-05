@@ -24,7 +24,10 @@ After the installation, start the application with:
 In our browser: 
 - Go to: http://localhost:3000
 
-https://github.com/user-attachments/assets/8abc40a4-474b-45e1-8f56-829850561248
+
+
+
+https://github.com/user-attachments/assets/8e78199b-a735-493f-9058-d8412b698f65
 
 
 
