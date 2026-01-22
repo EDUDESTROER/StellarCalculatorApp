@@ -1,4 +1,4 @@
-class Energy {
+export default class Energy {
 
     constructor(){}
 

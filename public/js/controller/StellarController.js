@@ -1,6 +1,13 @@
-class StellarControler {
+import StellarViews from '/js/views/StellarViews.js';
+import StellarViews from '/js/views/StellarViews.js';
+
+export default class StellarController {
 
     constructor(){
+
+        //console.log('Runing Calculator Controller.')
+
+        this.viewsCalculator = new StellarViews;
 
         this.isStartStandardMode = false;
         this.isStartProgrammerMode = false;
@@ -38,9 +45,9 @@ class StellarControler {
         
         if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._standardEl);
+            this.viewsCalculator.showWithInert(this._standardEl);
 
             window.calculatorHistory.changeHistoryType('standard');
 

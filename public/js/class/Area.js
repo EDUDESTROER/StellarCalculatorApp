@@ -1,4 +1,4 @@
-class Area {
+export default class Area {
 
     constructor(){}
 

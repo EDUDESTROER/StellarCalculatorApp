@@ -1,4 +1,4 @@
-class Temperature{
+export default class Temperature{
 
     constructor(){}
 

@@ -1,4 +1,4 @@
-class Pressure{
+export default class Pressure{
 
     calcPressureConverter(value, timeToConvert, timeResult){
 

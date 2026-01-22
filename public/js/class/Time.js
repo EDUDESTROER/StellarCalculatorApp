@@ -1,4 +1,4 @@
-class Time{
+export default class Time{
 
     calcTimeConverter(value, timeToConvert, timeResult){
 

@@ -1,4 +1,4 @@
-class Angle{
+export default class Angle{
 
     constructor(){}
 

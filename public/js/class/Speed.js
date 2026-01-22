@@ -1,4 +1,4 @@
-class Speed{
+export default class Speed{
 
     calcSpeedConverter(value, lengthToConvert, lengthResult){
 

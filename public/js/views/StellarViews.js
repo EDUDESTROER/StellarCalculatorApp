@@ -1,4 +1,4 @@
-class StellarViews{
+export default class StellarViews{
 
     constructor(){
 

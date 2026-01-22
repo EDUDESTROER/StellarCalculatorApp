@@ -1,4 +1,4 @@
-class Power{
+export default class Power{
 
     calcPowerConverter(value, timeToConvert, timeResult){
 

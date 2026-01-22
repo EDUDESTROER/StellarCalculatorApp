@@ -1,4 +1,4 @@
-class Data{
+export default class Data{
 
     calcDataConverter(value, timeToConvert, timeResult){
 

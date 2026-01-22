@@ -1,4 +1,4 @@
-class Volume{
+export default class Volume{
 
     constructor(){}
 

@@ -1,4 +1,4 @@
-class StellarStandardMode {
+export default class StellarStandardMode {
 
     constructor(){
 

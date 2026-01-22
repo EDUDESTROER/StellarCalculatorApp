@@ -1,4 +1,4 @@
-class ConverterMode {
+export default class ConverterMode {
 
     constructor(){
 

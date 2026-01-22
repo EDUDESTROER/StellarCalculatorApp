@@ -1,4 +1,4 @@
-class WeigthAndMass{
+export default class WeigthAndMass{
 
     constructor(){}
 

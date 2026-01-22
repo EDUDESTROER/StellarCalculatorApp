@@ -1,4 +1,4 @@
-class ProgrammerMode {
+export default class ProgrammerMode {
 
     constructor(){
 
