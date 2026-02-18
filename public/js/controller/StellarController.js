@@ -1,5 +1,5 @@
 import StellarViews from '/js/views/StellarViews.js';
-import StellarViews from '/js/views/StellarViews.js';
+import StellarHistory from '/js/class/history.js';
 
 export default class StellarController {
 
@@ -7,7 +7,8 @@ export default class StellarController {
 
         //console.log('Runing Calculator Controller.')
 
-        this.viewsCalculator = new StellarViews;
+        this.viewsCalculator = new StellarViews();
+        this.calculatorHistory = new StellarHistory();
 
         this.isStartStandardMode = false;
         this.isStartProgrammerMode = false;
@@ -49,7 +50,7 @@ export default class StellarController {
 
             this.viewsCalculator.showWithInert(this._standardEl);
 
-            window.calculatorHistory.changeHistoryType('standard');
+            this.calculatorHistory.changeHistoryType('standard');
 
             if(!this.isStartStandardMode) window.calculatorStandardMode.start();
 
@@ -66,7 +67,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._programmerEl);
 
-            window.calculatorHistory.changeHistoryType('programmer');
+            this.calculatorHistory.changeHistoryType('programmer');
 
             if(!this.isStartProgrammerMode) window.calculatorProgrammerMode.start();
 
@@ -84,7 +85,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('length');
 
@@ -100,7 +101,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('angle');
 
@@ -119,7 +120,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('volume');
 
@@ -138,7 +139,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('weigthAndMass');
 
@@ -157,7 +158,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('temperature');
 
@@ -176,7 +177,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('energy');
 
@@ -195,7 +196,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('area');
 
@@ -214,7 +215,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('speed');
 
@@ -233,7 +234,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('currency');
 
@@ -252,7 +253,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('time');
 
@@ -271,7 +272,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('power');
 
@@ -290,7 +291,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('pressure');
 
@@ -309,7 +310,7 @@ export default class StellarController {
 
             window.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
             window.calculatorConverterMode.start('data');
 

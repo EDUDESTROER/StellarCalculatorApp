@@ -1,6 +1,10 @@
+import StellarViews from '/js/views/StellarViews.js';
+
 export default class History{
 
     constructor(){
+
+        this
 
         this.calcList = [];
         this.calcResult = [];
@@ -91,7 +95,7 @@ export default class History{
         this.calcResult = [];
         this.lastListPosition = '';
 
-        window.viewsCalculator.historyCalcAndResultsList.innerHTML = '';
+        this.viewsCalculator.historyCalcAndResultsList.innerHTML = '';
 
     }
 
