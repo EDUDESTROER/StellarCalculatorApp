@@ -1,4 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Speed{
+
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcSpeedConverter(value, lengthToConvert, lengthResult){
 
@@ -91,7 +99,7 @@ export default class Speed{
             
         }
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 

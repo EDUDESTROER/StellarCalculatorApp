@@ -1,6 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Area {
 
-    constructor(){}
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcAreaConverter(value, lengthToConvert, lengthResult){
 
@@ -154,7 +160,7 @@ export default class Area {
             
         }
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 

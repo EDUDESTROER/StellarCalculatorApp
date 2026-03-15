@@ -1,6 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Energy {
 
-    constructor(){}
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcEnergyConverter(value, lengthToConvert, lengthResult){
 
@@ -111,7 +117,7 @@ export default class Energy {
             
         }
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 

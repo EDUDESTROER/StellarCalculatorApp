@@ -1,4 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Time{
+
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcTimeConverter(value, timeToConvert, timeResult){
 
@@ -108,7 +116,7 @@ export default class Time{
             'Years': 'y'
         };
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
 
     }
 

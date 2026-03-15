@@ -1,6 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Length{
 
-    constructor(){}
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcLengthConverter(value, lengthToConvert, lengthResult){
 
@@ -177,7 +183,7 @@ export default class Length{
             'nautical miles': 'NM'
         }
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 

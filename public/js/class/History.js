@@ -1,15 +1,17 @@
 import StellarViews from '/js/views/StellarViews.js';
+import StellarStandardMode from '/js/class/StandardMode.js';
 
 export default class History{
 
     constructor(){
 
-        this
-
         this.calcList = [];
         this.calcResult = [];
         this.lastListPosition;
         this.historyType = 'standard';
+        this.viewsCalculator = new StellarViews();
+        this.calculatorStandardMode = new StellarStandardMode();
+        this.calculatorConverterMode = new ConverterMode();
 
         this.addEventToClearnHistory();
         
@@ -49,15 +51,15 @@ export default class History{
 
     assemblerHistoric(calculation, result, position, valueToSave = ''){
 
-        let spanCalculation = window.viewsCalculator.returnSpan(calculation);
+        let spanCalculation = this.viewsCalculator.returnSpan(calculation);
 
         spanCalculation.classList.add('history-calc', 'bar-basic-efect');
 
-        let spanResult = window.viewsCalculator.returnSpan(result);
+        let spanResult = this.viewsCalculator.returnSpan(result);
 
         spanResult.classList.add('history-result', 'bar-basic-efect');
 
-        let li = window.viewsCalculator.returnLi([spanCalculation, spanResult], true, 2);
+        let li = this.viewsCalculator.returnLi([spanCalculation, spanResult], true, 2);
 
         li.dataset.position = position.toString();
 
@@ -73,7 +75,7 @@ export default class History{
 
         });
 
-        window.viewsCalculator.historyCalcAndResultsList.appendChild(li);
+        this.viewsCalculator.historyCalcAndResultsList.appendChild(li);
 
         this.historyAdapt(calculation.length, result.length, li);
 
@@ -103,12 +105,12 @@ export default class History{
 
         if(this.historyType == 'standard'){
 
-            window.calculatorStandardMode.historyRequest( this.calcList[parseInt(position)], this.calcResult[parseInt(position)]);
+            this.calculatorStandardMode.historyRequest( this.calcList[parseInt(position)], this.calcResult[parseInt(position)]);
 
         }
         if(this.historyType == 'converter'){
 
-            window.calculatorConverterMode.historyRequest(savedValue);
+            this.calculatorConverterMode.historyRequest(savedValue);
 
         }
 
@@ -139,60 +141,60 @@ export default class History{
 
             //console.log(sizeOfCalc, sizeOfResult);
 
-            window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
+            this.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.20, '', '2.3', 'rem', historyEl.children[0]);
-            window.viewsCalculator.changeElementFontSize('decrease', 0.20, '', '2.3', 'rem', historyEl.children[1]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.20, '', '2.3', 'rem', historyEl.children[0]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.20, '', '2.3', 'rem', historyEl.children[1]);
 
         }
         if(sizeOfCalc > 26 || sizeOfResult > 26){
 
             //console.log(sizeOfCalc, sizeOfResult);
 
-            window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
+            this.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.84', 'rem', historyEl.children[0]);
-            window.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.84', 'rem', historyEl.children[1]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.84', 'rem', historyEl.children[0]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.84', 'rem', historyEl.children[1]);
 
         }
         if(sizeOfCalc > 29 || sizeOfResult > 29){
 
             //console.log(sizeOfCalc, sizeOfResult);
 
-            window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
+            this.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.656', 'rem', historyEl.children[0]);
-            window.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.656', 'rem', historyEl.children[1]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.656', 'rem', historyEl.children[0]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.656', 'rem', historyEl.children[1]);
 
         }
         if(sizeOfCalc > 32 || sizeOfResult > 32){
 
             //console.log(sizeOfCalc, sizeOfResult);
 
-            window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
+            this.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.4904', 'rem', historyEl.children[0]);
-            window.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.4904', 'rem', historyEl.children[1]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.4904', 'rem', historyEl.children[0]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.4904', 'rem', historyEl.children[1]);
 
         }
         if(sizeOfCalc > 42 || sizeOfResult > 42){
 
             //console.log(sizeOfCalc, sizeOfResult);
 
-            window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
+            this.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.29665', 'rem', historyEl.children[0]);
-            window.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.29665', 'rem', historyEl.children[1]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.29665', 'rem', historyEl.children[0]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.13, '', '1.29665', 'rem', historyEl.children[1]);
 
         }
         if(sizeOfCalc > 47 || sizeOfResult > 47){
 
             //console.log(sizeOfCalc, sizeOfResult);
 
-            window.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
+            this.viewsCalculator.changeElementSize('increase', 0.20, historyEl, '', 22, '%');
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.12809', 'rem', historyEl.children[0]);
-            window.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.12809', 'rem', historyEl.children[1]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.12809', 'rem', historyEl.children[0]);
+            this.viewsCalculator.changeElementFontSize('decrease', 0.10, '', '1.12809', 'rem', historyEl.children[1]);
 
         }
 

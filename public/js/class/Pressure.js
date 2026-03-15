@@ -1,4 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Pressure{
+
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcPressureConverter(value, timeToConvert, timeResult){
 
@@ -76,7 +84,7 @@ export default class Pressure{
             'Pounds per square inch': 'psi'
         };
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
 
     }
 

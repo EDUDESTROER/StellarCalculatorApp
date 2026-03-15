@@ -1,4 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Data{
+
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcDataConverter(value, timeToConvert, timeResult){
 
@@ -1243,7 +1251,7 @@ export default class Data{
             'Yobibyte': 'YiB'
         };
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
 
     }
 

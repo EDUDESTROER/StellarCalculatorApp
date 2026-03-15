@@ -1,8 +1,13 @@
+import ConverterMode from "/js/class/ConverterMode.js";
+import History from '/js/class/History.js';
+
 export default class Currency{
 
     constructor(){
 
         this.convertedCurrenciesToValue = {};
+        this.calculatorConverterMode = new ConverterMode();
+        this.calculatorHistory = new History();
 
     }
 
@@ -170,7 +175,7 @@ export default class Currency{
 
         this.tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation).then(result=>{
 
-            window.calculatorConverterMode.setToDisplay(result);
+            this.calculatorConverterMode.setToDisplay(result);
 
         })
         .catch(()=>{
@@ -220,7 +225,7 @@ export default class Currency{
 
             this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
 
-            window.calculatorConverterMode.setToDisplay(result);
+            this.calculatorConverterMode.setToDisplay(result);
 
         }).catch(error=>{
 
@@ -249,7 +254,7 @@ export default class Currency{
 
             this.sendToHistory(value, result, firstCotation, cotationResult);
 
-            window.calculatorConverterMode.setToDisplay(result);
+            this.calculatorConverterMode.setToDisplay(result);
             
         })
         .catch(error=>{
@@ -260,7 +265,7 @@ export default class Currency{
 
     sendToHistory(value, result, firstCotation, cotationResult){
 
-        window.calculatorHistory.addToHistory(`${value} ${firstCotation} =`, `${result} ${cotationResult}`, `${value} ${firstCotation} ${cotationResult}`);
+        this.calculatorHistory.addToHistory(`${value} ${firstCotation} =`, `${result} ${cotationResult}`, `${value} ${firstCotation} ${cotationResult}`);
 
     }
 

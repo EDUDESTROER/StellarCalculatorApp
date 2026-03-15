@@ -1,6 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Temperature{
 
-    constructor(){}
+    constructor(){
+
+        this.calculatorHistory = History();
+
+    }
 
     calctemperatureConverter(value, lengthToConvert, lengthResult){
 

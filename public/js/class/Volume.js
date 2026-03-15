@@ -1,6 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Volume{
 
-    constructor(){}
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcVolumeConverter(value, lengthToConvert, lengthResult){
 
@@ -507,7 +513,7 @@ export default class Volume{
             'Gallons(UK)': 'gal(UK)'
         }
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} <sub>=`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} <sub>=`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 

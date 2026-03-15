@@ -1,4 +1,12 @@
+import History from '/js/class/History.js';
+
 export default class Power{
+
+    constructor(){
+
+        this.calculatorHistory = new History();
+
+    }
 
     calcPowerConverter(value, timeToConvert, timeResult){
 
@@ -60,7 +68,7 @@ export default class Power{
             'BTUs/minute': 'BTU/min'
         };
 
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
 
     }
 

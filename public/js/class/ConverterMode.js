@@ -1,7 +1,37 @@
+import StellarViews from '/js/views/StellarViews.js';
+import Length from '/js/class/Length.js';
+import Angle from '/js/class/Angle.js';
+import Volume from '/js/class/Volume.js';
+import WeigthAndMass from '/js/class/WeigthAndMass.js';
+import Temperature from '/js/class/Temperature.js';
+import Energy from '/js/class/Energy.js';
+import Area from '/js/class/Area.js';
+import Speed from '/js/class/Speed.js';
+import Currency from '/js/class/Currency.js';
+import Time from '/js/class/Time.js';
+import Power from '/js/class/Power.js';
+import Pressure from '/js/class/Pressure.js'
+import Data from '/js/class/Data.js'
+
+
 export default class ConverterMode {
 
     constructor(){
 
+        this.viewsCalculator = new StellarViews();
+        this.length = new Length();
+        this.angleConverter = new Angle();
+        this.volumeConverter = new Volume();
+        this.weigthAndMassConverter = new WeigthAndMass();
+        this.temperatureConverter = new Temperature();
+        this.energyConverter = new Energy();
+        this.areaConverter = new Area();
+        this.speedConverter = new Speed();
+        this.currencyConverter = new Currency();
+        this.timeConverter = new Time();
+        this.powerConverter = new Power();
+        this.pressureConverter = new Pressure();
+        this.dataConverter = new Data();
         this.firstConversorListEl;
         this.secondConversorListEl;
         this.btnSelectionFirst;
@@ -27,7 +57,7 @@ export default class ConverterMode {
         this.firstSelectedEl = document.querySelector('#first-select');
         this.secondSelectedEl = document.querySelector('#second-select');
 
-        window.viewsCalculator.setConversorTo(type, this.firstConversorListEl, this.firstSelectedEl, this.secondConversorListEl, this.secondSelectedEl);
+        this.viewsCalculator.setConversorTo(type, this.firstConversorListEl, this.firstSelectedEl, this.secondConversorListEl, this.secondSelectedEl);
 
         this.converterType = type;
 
@@ -53,7 +83,7 @@ export default class ConverterMode {
 
                 li.addEventListener('click', ()=>{
 
-                    window.viewsCalculator.removeClassFromListOfEl(selectionListEl.childNodes, 'active-converter');
+                    this.viewsCalculator.removeClassFromListOfEl(selectionListEl.childNodes, 'active-converter');
 
                     li.classList.add('active-converter');
 
@@ -67,7 +97,7 @@ export default class ConverterMode {
 
             if(selectionListEl.dataset.open == 'no' || !selectionListEl.dataset.open){
 
-                window.viewsCalculator.showElement(selectionListEl, 'block');
+                this.viewsCalculator.showElement(selectionListEl, 'block');
 
                 selectionListEl.dataset.open = 'yes';
 
@@ -75,7 +105,7 @@ export default class ConverterMode {
 
             }else if(selectionListEl.dataset.open == 'yes'){
 
-                window.viewsCalculator.unShowElement(selectionListEl);
+                this.viewsCalculator.unShowElement(selectionListEl);
 
                 selectionListEl.dataset.open = 'no';
 
@@ -180,7 +210,7 @@ export default class ConverterMode {
 
         }
 
-        window.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
 
         this.checkConverterType();
 
@@ -192,72 +222,72 @@ export default class ConverterMode {
 
         if(this.converterType == 'length'){
 
-            result = window.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
         
         }else if(this.converterType == 'angle'){
 
-            result = window.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }else if(this.converterType == 'volume'){
 
-            result = window.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
 
         }else if(this.converterType == 'weigthAndMass'){
 
-            result = window.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
 
         }else if(this.converterType == 'temperature'){
 
-            result = window.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }else if(this.converterType == 'energy'){
 
-            result = window.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
         else if(this.converterType == 'area'){
 
-            result = window.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
         else if(this.converterType == 'speed'){
 
-            result = window.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
         else if(this.converterType == 'currency'){
 
-            window.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            this.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
             result = 'calculando...';
 
         }
         else if(this.converterType == 'time'){
 
-            result = window.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
         else if(this.converterType == 'power'){
 
-            result = window.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
         else if(this.converterType == 'pressure'){
 
-            result = window.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
         else if(this.converterType == 'data'){
 
-            result = window.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            result = this.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
         }
 
         if(result === false){
 
-            window.viewsCalculator.displayFail('Is impossible realize the conversion...');
+            this.viewsCalculator.displayFail('Is impossible realize the conversion...');
             this.clearConverter();
 
         }else{
@@ -272,11 +302,11 @@ export default class ConverterMode {
 
         if(result == '' || result == undefined){
 
-            window.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
+            this.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
 
         }else{
 
-            window.viewsCalculator.setInnerHtmlToElement(result, 'second-converter-output');
+            this.viewsCalculator.setInnerHtmlToElement(result, 'second-converter-output');
 
         }
 
@@ -578,11 +608,11 @@ export default class ConverterMode {
         let firstConverterName = abreviations[value[1]];
         let secondConverterName = abreviations[value[2]];;
 
-        window.viewsCalculator.removeClassFromListOfEl(this.firstConversorListEl.childNodes, 'active-converter');
-        window.viewsCalculator.removeClassFromListOfEl(this.secondConversorListEl.childNodes, 'active-converter');
+        this.viewsCalculator.removeClassFromListOfEl(this.firstConversorListEl.childNodes, 'active-converter');
+        this.viewsCalculator.removeClassFromListOfEl(this.secondConversorListEl.childNodes, 'active-converter');
 
-        let firstLi = window.viewsCalculator.returnChildNodeWithThisText(firstConverterName, this.firstConversorListEl.childNodes);
-        let secondLi = window.viewsCalculator.returnChildNodeWithThisText(secondConverterName, this.secondConversorListEl.childNodes);
+        let firstLi = this.viewsCalculator.returnChildNodeWithThisText(firstConverterName, this.firstConversorListEl.childNodes);
+        let secondLi = this.viewsCalculator.returnChildNodeWithThisText(secondConverterName, this.secondConversorListEl.childNodes);
 
         
 
@@ -619,7 +649,7 @@ export default class ConverterMode {
 
         this.firstOutputValue = value[0];
 
-        window.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
 
         this.checkConverterType();
 
@@ -631,8 +661,8 @@ export default class ConverterMode {
 
         this.firstOutputValue = '';
 
-        window.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
-        window.viewsCalculator.setInnerHtmlToElement(0, 'first-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(0, 'first-converter-output');
 
         this.verifySizeOutput('first-converter-output');
         this.verifySizeOutput('second-converter-output');
@@ -651,30 +681,30 @@ export default class ConverterMode {
 
         if(outputLegth < 18){
 
-            window.viewsCalculator.changeElementFontSize('increase', 0.0, outputId, '4', 'rem');
+            this.viewsCalculator.changeElementFontSize('increase', 0.0, outputId, '4', 'rem');
 
         }
 
         if(outputLegth > 18){
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '4', 'rem');
+            this.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '4', 'rem');
 
         }
         if(outputLegth > 21){
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '3.4', 'rem');
+            this.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '3.4', 'rem');
 
         }
         if(outputLegth > 25){
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.20, outputId, '2.89', 'rem');
+            this.viewsCalculator.changeElementFontSize('decrease', 0.20, outputId, '2.89', 'rem');
 
         }
         if(outputLegth > 31){
 
             this.clearConverter();
 
-            window.viewsCalculator.displayFail('Use less than: 32 characters!');
+            this.viewsCalculator.displayFail('Use less than: 32 characters!');
 
         }
 
