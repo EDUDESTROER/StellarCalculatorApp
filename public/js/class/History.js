@@ -1,4 +1,5 @@
 import StellarViews from '/js/views/StellarViews.js';
+import ConverterMode from '/js/class/ConverterMode.js';
 import StellarStandardMode from '/js/class/StandardMode.js';
 
 export default class History{
@@ -10,7 +11,7 @@ export default class History{
         this.lastListPosition;
         this.historyType = 'standard';
         this.viewsCalculator = new StellarViews();
-        this.calculatorStandardMode = new StellarStandardMode();
+        this.calculatorStandardMode = StellarStandardMode();
         this.calculatorConverterMode = new ConverterMode();
 
         this.addEventToClearnHistory();

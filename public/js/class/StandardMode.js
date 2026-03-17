@@ -9,7 +9,7 @@ export default class StellarStandardMode {
         this._lastCalc = '';
         this._audioOnOff;
         this._clickSound;
-        this.calculatorHistory = new History(this);
+        this.calculatorHistory = new History();
         this.viewsCalculator = new StellarViews();
 
         
