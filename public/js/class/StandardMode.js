@@ -9,7 +9,7 @@ export default class StellarStandardMode {
         this._lastCalc = '';
         this._audioOnOff;
         this._clickSound;
-        this.calculatorHistory = new History();
+        this.calculatorHistory = new History(this.historyRequest.bind(this));
         this.viewsCalculator = new StellarViews();
 
         
@@ -381,7 +381,7 @@ export default class StellarStandardMode {
             this.setToCurrentDisplay(this._operation[0]);
 
             this.calculatorHistory.addToHistory(`sqr(${lastNumber}) =`, this._operation[0]);
-
+            
         }
 
     }
@@ -436,7 +436,6 @@ export default class StellarStandardMode {
             this.setToCurrentDisplay(this._operation[2]);
 
             this.calculatorHistory.addToHistory(`√(${lastNumber}) =`, this._operation[2]);
-
 
         }else if(this._operation.length == 1){
 

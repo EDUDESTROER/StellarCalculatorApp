@@ -4,7 +4,7 @@ export default class Temperature{
 
     constructor(){
 
-        this.calculatorHistory = History();
+        this.calculatorHistory = new History();
 
     }
 

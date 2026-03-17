@@ -1,18 +1,17 @@
 import StellarViews from '/js/views/StellarViews.js';
 import ConverterMode from '/js/class/ConverterMode.js';
-import StellarStandardMode from '/js/class/StandardMode.js';
 
 export default class History{
 
-    constructor(){
+    constructor(clickReturn){
 
         this.calcList = [];
         this.calcResult = [];
         this.lastListPosition;
         this.historyType = 'standard';
         this.viewsCalculator = new StellarViews();
-        this.calculatorStandardMode = StellarStandardMode();
         this.calculatorConverterMode = new ConverterMode();
+        this.clickHandle = clickReturn;
 
         this.addEventToClearnHistory();
         
@@ -40,11 +39,15 @@ export default class History{
 
         if(valueToSave != ''){
 
-            this.assemblerHistoric(calculation, result, this.lastListPosition, valueToSave);
+            let Test = this.assemblerHistoric(calculation, result, this.lastListPosition, valueToSave);
+
+            return Test
 
         }else{
 
-            this.assemblerHistoric(calculation, result, this.lastListPosition);
+            let Test = this.assemblerHistoric(calculation, result, this.lastListPosition);
+
+            return Test
 
         }
 
@@ -72,7 +75,9 @@ export default class History{
 
         li.addEventListener('click', ()=>{
 
-            this.sentToDisplay(li.dataset.position, li.dataset.value);
+            let Display = this.sentToDisplay(li.dataset.position, li.dataset.value);
+
+            return Display
 
         });
 
@@ -106,7 +111,7 @@ export default class History{
 
         if(this.historyType == 'standard'){
 
-            this.calculatorStandardMode.historyRequest( this.calcList[parseInt(position)], this.calcResult[parseInt(position)]);
+           this.clickHandle(this.calcList[parseInt(position)], this.calcResult[parseInt(position)]);
 
         }
         if(this.historyType == 'converter'){

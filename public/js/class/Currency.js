@@ -6,7 +6,7 @@ export default class Currency{
     constructor(){
 
         this.convertedCurrenciesToValue = {};
-        this.calculatorConverterMode = new ConverterMode();
+        //this.calculatorConverterMode = new ConverterMode();
         this.calculatorHistory = new History();
 
     }
@@ -175,7 +175,7 @@ export default class Currency{
 
         this.tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation).then(result=>{
 
-            this.calculatorConverterMode.setToDisplay(result);
+            //this.calculatorConverterMode.setToDisplay(result);
 
         })
         .catch(()=>{
@@ -225,7 +225,7 @@ export default class Currency{
 
             this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
 
-            this.calculatorConverterMode.setToDisplay(result);
+            //this.calculatorConverterMode.setToDisplay(result);
 
         }).catch(error=>{
 
@@ -254,7 +254,7 @@ export default class Currency{
 
             this.sendToHistory(value, result, firstCotation, cotationResult);
 
-            this.calculatorConverterMode.setToDisplay(result);
+            //this.calculatorConverterMode.setToDisplay(result);
             
         })
         .catch(error=>{
