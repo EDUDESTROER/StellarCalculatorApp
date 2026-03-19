@@ -1,12 +1,6 @@
-import History from '/js/class/History.js';
-
 export default class Volume{
 
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
+    
 
     calcVolumeConverter(value, lengthToConvert, lengthResult){
 
@@ -476,46 +470,8 @@ export default class Volume{
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
+        return [result, value, lengthToConvert, lengthResult];
 
     }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        if(value == ''){
-
-            value = '0';
-
-        }
-
-        let convertAbreviation = {
-            'Milliliters': 'ml', 
-            'Cubic centimeters': 'cc', 
-            'Liters': 'l',
-            'Cubic meters': 'm<sup>3', 
-            'Teaspoon(USA)': 'tsp(USA)',
-            'Tablespoons(USA)': 'tbsp(USA)',
-            'Fluid ounces(USA)': 'flOz(USA)',
-            'Cups(USA)': 'c(USA)', 
-            'Pint(USA)': 'pt(USA)',
-            'Quart(USA)': 'qt(USA)',
-            'Gallons(USA)': 'gal(USA)',
-            'Cubic inches': 'in<sup>3', 
-            'Cubic feet': 'ft<sup>3', 
-            'Cubic yards': 'yd<sup>3', 
-            'Teaspoon(UK)': 'tsp(UK)',
-            'Tablespoons(UK)': 'tbsp(UK)',
-            'Fluid ounces(UK)': 'flOz(UK)',
-            'Pint(UK)': 'pt(UK)',
-            'Quart(UK)': 'qt(UK)', 
-            'Gallons(UK)': 'gal(UK)'
-        }
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} <sub>=`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
-
-    }
-
 
 }

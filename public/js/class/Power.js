@@ -1,12 +1,4 @@
-import History from '/js/class/History.js';
-
 export default class Power{
-
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
 
     calcPowerConverter(value, timeToConvert, timeResult){
 
@@ -52,23 +44,7 @@ export default class Power{
 
         let result = value * toConvert[timeResult];
 
-        this.sendToHistory(value, result, timeToConvert, timeResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, timeToConvert, timeResult){
-
-        let convertAbreviation = {
-            'Watts': 'W',
-            'Kilowatts': 'kW',
-            'Horsepower(USA)': 'hp',
-            'Pound-feet/minute': 'lb-ft/min',
-            'BTUs/minute': 'BTU/min'
-        };
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

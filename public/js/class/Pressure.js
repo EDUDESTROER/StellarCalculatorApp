@@ -1,12 +1,4 @@
-import History from '/js/class/History.js';
-
 export default class Pressure{
-
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
 
     calcPressureConverter(value, timeToConvert, timeResult){
 
@@ -67,24 +59,7 @@ export default class Pressure{
 
         let result = value * toConvert[timeResult];
 
-        this.sendToHistory(value, result, timeToConvert, timeResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, timeToConvert, timeResult){
-
-        let convertAbreviation = {
-            'Atmospheres': 'atm',
-            'Bars': 'bar',
-            'Kilopascals': 'kPa',
-            'Millimeters of mercury': 'mmHg',
-            'Pascals': 'Pa',
-            'Pounds per square inch': 'psi'
-        };
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

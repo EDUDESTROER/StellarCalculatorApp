@@ -1,13 +1,8 @@
-import ConverterMode from "/js/class/ConverterMode.js";
-import History from '/js/class/History.js';
-
 export default class Currency{
 
     constructor(){
 
         this.convertedCurrenciesToValue = {};
-        //this.calculatorConverterMode = new ConverterMode();
-        this.calculatorHistory = new History();
 
     }
 
@@ -175,7 +170,7 @@ export default class Currency{
 
         this.tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation).then(result=>{
 
-            //this.calculatorConverterMode.setToDisplay(result);
+            return result;
 
         })
         .catch(()=>{
@@ -198,7 +193,7 @@ export default class Currency{
 
                 this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
 
-                resolve(result);
+                resolve([result, value, currencyToConvertAbreviation, currencyResultAbreviation]);
 
             }else{
                 reject();
@@ -223,9 +218,7 @@ export default class Currency{
 
             result = value * quotation;
 
-            this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
-
-            //this.calculatorConverterMode.setToDisplay(result);
+            return [result, value, currencyToConvertAbreviation, currencyResultAbreviation]
 
         }).catch(error=>{
 
@@ -252,20 +245,13 @@ export default class Currency{
 
             let result = value * quotation;
 
-            this.sendToHistory(value, result, firstCotation, cotationResult);
+            return [result, value, currencyToConvertAbreviation, currencyResultAbreviation];
 
-            //this.calculatorConverterMode.setToDisplay(result);
             
         })
         .catch(error=>{
             this.inError(error);
         });
-
-    }
-
-    sendToHistory(value, result, firstCotation, cotationResult){
-
-        this.calculatorHistory.addToHistory(`${value} ${firstCotation} =`, `${result} ${cotationResult}`, `${value} ${firstCotation} ${cotationResult}`);
 
     }
 

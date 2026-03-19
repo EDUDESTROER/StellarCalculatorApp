@@ -6,7 +6,7 @@
 - [] line 890 error in Bit shift, Rotate Through Carry! - Programmer calc
 - [] Rotate Through Carry. - Programmer calc
 - [x] converter/programmer menus, when you open these menus along with the mode selection menu, they end up being on top of the mode selection menu.
-- []infinit callStack nedd to fix de call betewn standardMode and History.
+- [] Problem, in StellarControler the type of is history is not changed.
 
 
 ### Next tasks

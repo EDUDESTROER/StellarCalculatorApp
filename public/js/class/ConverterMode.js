@@ -12,6 +12,8 @@ import Time from '/js/class/Time.js';
 import Power from '/js/class/Power.js';
 import Pressure from '/js/class/Pressure.js'
 import Data from '/js/class/Data.js'
+import History from '/js/class/History.js';
+
 
 
 export default class ConverterMode {
@@ -32,6 +34,7 @@ export default class ConverterMode {
         this.powerConverter = new Power();
         this.pressureConverter = new Pressure();
         this.dataConverter = new Data();
+        this.calculatorHistory = new History(this.historyRequest.bind(this));
         this.firstConversorListEl;
         this.secondConversorListEl;
         this.btnSelectionFirst;
@@ -222,66 +225,150 @@ export default class ConverterMode {
 
         if(this.converterType == 'length'){
 
-            result = this.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
-        
+            let list = this.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            console.log(list);
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
+
         }else if(this.converterType == 'angle'){
 
-            result = this.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'volume'){
 
-            result = this.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'weigthAndMass'){
 
-            result = this.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'temperature'){
 
-            result = this.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'energy'){
 
-            result = this.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'area'){
 
-            result = this.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'speed'){
 
-            result = this.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'currency'){
 
-            this.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            /*this.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
-            result = 'calculando...';
+            result = 'calculando...';*/
 
         }
         else if(this.converterType == 'time'){
 
-            result = this.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'power'){
 
-            result = this.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'pressure'){
 
-            result = this.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'data'){
 
-            result = this.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
 
@@ -295,6 +382,151 @@ export default class ConverterMode {
             this.setToDisplay(result);
 
         }
+
+    }
+
+    sendToHistory(value, result, lengthToConvert, lengthResult){
+
+        console.log('SendTOHist', value, result, lengthToConvert, lengthResult)
+
+        let convertAbreviation = {
+
+            "Square Millimeters": "mm²",
+            "Square Centimeters": "cm²",
+            "Square Meters": "m²",
+            "Hectares": "ha",
+            "Square Kilometers": "km²",
+            "Square Inches": "in²",
+            "Square Feet": "ft²",
+            "Square Yards": "yd²",
+            "Acres": "ac",
+            "Square Miles": "mi²",
+            'nanometers': 'nm',
+            'microns': 'µm',
+            'millimeters': 'mm',
+            'centimeter': 'cm',
+            'meters': 'm',
+            'kilometers': 'km',
+            'inches': 'n',
+            'Feet': 'ft',
+            'Yards': 'yd',
+            'miles': 'mi',
+            'nautical miles': 'NM',
+            'Grados': 'gon',
+            'Degree': '°',
+            'Radians': 'rad',
+            'Milliliters': 'ml', 
+            'Cubic centimeters': 'cc', 
+            'Liters': 'l',
+            'Cubic meters': 'm<sup>3', 
+            'Teaspoon(USA)': 'tsp(USA)',
+            'Tablespoons(USA)': 'tbsp(USA)',
+            'Fluid ounces(USA)': 'flOz(USA)',
+            'Cups(USA)': 'c(USA)', 
+            'Pint(USA)': 'pt(USA)',
+            'Quart(USA)': 'qt(USA)',
+            'Gallons(USA)': 'gal(USA)',
+            'Cubic inches': 'in<sup>3', 
+            'Cubic feet': 'ft<sup>3', 
+            'Cubic yards': 'yd<sup>3', 
+            'Teaspoon(UK)': 'tsp(UK)',
+            'Tablespoons(UK)': 'tbsp(UK)',
+            'Fluid ounces(UK)': 'flOz(UK)',
+            'Pint(UK)': 'pt(UK)',
+            'Quart(UK)': 'qt(UK)', 
+            'Gallons(UK)': 'gal(UK)',
+            'Carats': 'ct', 
+            'Miligrams': 'mg', 
+            'Centigrams': 'cg', 
+            'Decigrams': 'dg', 
+            'Gram': 'g', 
+            'Decagrams': 'dag', 
+            'Hectograms': 'hg', 
+            'Kilograms': 'kg', 
+            'Metric Tons': 't', 
+            'Ounce': 'oz', 
+            'Pounds': 'lb', 
+            'Stone': 'st', 
+            'Short Tons(USA)': 'ton(USA)', 
+            'Long Tons(UK)': 'L/T(UK)',
+            'Celsius': '°C',
+            'Fahrenheit': '°F',
+            'Kelvin': '°K',
+            "Electron volts": "eV",
+            "Joules": "J",
+            "Kilojoules": "kJ",
+            "Thermic calories": "cal",
+            "Food calories": "kcal",
+            "Pound-feet": "lbf-ft",
+            "British thermal units": "BTU",
+            "Kilowatt-hour": "kWh",
+            "Centimeters per second": "cm/s",
+            "Meters per second": "m/s",
+            "Kilometers per hour": "km/h",
+            "Feet per second": "ft/s",
+            "Miles per hour": "mph",
+            "Knots": "kn",
+            "Mach": "Mach",
+            'Microseconds': 'µs',
+            'Milliseconds': 'ms',
+            'Seconds': 's',
+            'Minutes': 'min',
+            'Hours': 'h',
+            'Days': 'd',
+            'Weeks': 'w',
+            'Years': 'y',
+            'Watts': 'W',
+            'Kilowatts': 'kW',
+            'Horsepower(USA)': 'hp',
+            'Pound-feet/minute': 'lb-ft/min',
+            'BTUs/minute': 'BTU/min',
+            'Atmospheres': 'atm',
+            'Bars': 'bar',
+            'Kilopascals': 'kPa',
+            'Millimeters of mercury': 'mmHg',
+            'Pascals': 'Pa',
+            'Pounds per square inch': 'psi',
+            'Bit': 'b',
+            'Nibble': 'nibble',
+            'Byte': 'B',
+            'Kilobit': 'kb',
+            'Kibibit': 'Kib',
+            'Kilobyte': 'KB',
+            'Kibibyte': 'KiB',
+            'Megabit': 'Mb',
+            'Mebibit': 'Mib',
+            'Megabyte': 'MB',
+            'Mebibyte': 'MiB',
+            'Gigabit': 'Gb',
+            'Gibibit': 'Gib',
+            'Gigabyte': 'GB',
+            'Gibibyte': 'GiB',
+            'Terabit': 'Tb',
+            'Tebibit': 'Tib',
+            'Terabyte': 'TB',
+            'Tebibyte': 'TiB',
+            'Petabit': 'Pb',
+            'Pebibit': 'Pib',
+            'Petabyte': 'PB',
+            'Pebibyte': 'PiB',
+            'Exabit': 'Eb',
+            'Exbibit': 'Eib',
+            'Exabyte': 'EB',
+            'Exbibyte': 'EiB',
+            'Zettabit': 'Zb',
+            'Zebibit': 'Zib',
+            'Zettabyte': 'ZB',
+            'Zebibyte': 'ZiB',
+            'Yottabit': 'Yb',
+            'Yobibit': 'Yib',
+            'Yottabyte': 'YB',
+            'Yobibyte': 'YiB'
+            
+        }
+
+        console.log('Send is: ', `${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${result} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 
@@ -316,6 +548,8 @@ export default class ConverterMode {
     }
 
     historyRequest(value){
+
+        console.log('Request: ', value);
 
         this.clearConverter();
 

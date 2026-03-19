@@ -1,12 +1,4 @@
-import History from '/js/class/History.js';
-
 export default class Time{
-
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
 
     calcTimeConverter(value, timeToConvert, timeResult){
 
@@ -97,26 +89,7 @@ export default class Time{
 
         let result = value * toConvert[timeResult];
 
-        this.sendToHistory(value, result, timeToConvert, timeResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, timeToConvert, timeResult){
-
-        let convertAbreviation = {
-            'Microseconds': 'µs',
-            'Milliseconds': 'ms',
-            'Seconds': 's',
-            'Minutes': 'min',
-            'Hours': 'h',
-            'Days': 'd',
-            'Weeks': 'w',
-            'Years': 'y'
-        };
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

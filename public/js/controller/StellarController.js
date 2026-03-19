@@ -1,5 +1,5 @@
 import StellarViews from '/js/views/StellarViews.js';
-import StellarHistory from '/js/class/history.js';
+import History from '/js/class/History.js';
 import StellarStandardMode from '/js/class/StandardMode.js';
 import ConverterMode from '/js/class/ConverterMode.js';
 import ProgrammerMode from '/js/class/ProgrammerMode.js';
@@ -11,7 +11,7 @@ export default class StellarController {
         //console.log('Runing Calculator Controller.')
 
         this.viewsCalculator = new StellarViews();
-        this.calculatorHistory = new StellarHistory();
+        this.calculatorHistory = new History();
         this.calculatorStandardMode = new StellarStandardMode();
         this.calculatorConverterMode = new ConverterMode();
         this.calculatorProgrammerMode = new ProgrammerMode();

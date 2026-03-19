@@ -1,12 +1,4 @@
-import History from '/js/class/History.js';
-
 export default class Data{
-
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
 
     calcDataConverter(value, timeToConvert, timeResult){
 
@@ -1205,53 +1197,7 @@ export default class Data{
 
         let result = value * toConvert[timeResult];
 
-        this.sendToHistory(value, result, timeToConvert, timeResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, timeToConvert, timeResult){
-
-        let convertAbreviation = {
-            'Bit': 'b',
-            'Nibble': 'nibble',
-            'Byte': 'B',
-            'Kilobit': 'kb',
-            'Kibibit': 'Kib',
-            'Kilobyte': 'KB',
-            'Kibibyte': 'KiB',
-            'Megabit': 'Mb',
-            'Mebibit': 'Mib',
-            'Megabyte': 'MB',
-            'Mebibyte': 'MiB',
-            'Gigabit': 'Gb',
-            'Gibibit': 'Gib',
-            'Gigabyte': 'GB',
-            'Gibibyte': 'GiB',
-            'Terabit': 'Tb',
-            'Tebibit': 'Tib',
-            'Terabyte': 'TB',
-            'Tebibyte': 'TiB',
-            'Petabit': 'Pb',
-            'Pebibit': 'Pib',
-            'Petabyte': 'PB',
-            'Pebibyte': 'PiB',
-            'Exabit': 'Eb',
-            'Exbibit': 'Eib',
-            'Exabyte': 'EB',
-            'Exbibyte': 'EiB',
-            'Zettabit': 'Zb',
-            'Zebibit': 'Zib',
-            'Zettabyte': 'ZB',
-            'Zebibyte': 'ZiB',
-            'Yottabit': 'Yb',
-            'Yobibit': 'Yib',
-            'Yottabyte': 'YB',
-            'Yobibyte': 'YiB'
-        };
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        return [result, value, toConvert, timeResult];
 
     }
 

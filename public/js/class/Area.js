@@ -1,12 +1,4 @@
-import History from '/js/class/History.js';
-
 export default class Area {
-
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
 
     calcAreaConverter(value, lengthToConvert, lengthResult){
 
@@ -137,30 +129,7 @@ export default class Area {
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-
-            "Square Millimeters": "mm²",
-            "Square Centimeters": "cm²",
-            "Square Meters": "m²",
-            "Hectares": "ha",
-            "Square Kilometers": "km²",
-            "Square Inches": "in²",
-            "Square Feet": "ft²",
-            "Square Yards": "yd²",
-            "Acres": "ac",
-            "Square Miles": "mi²"
-            
-        }
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

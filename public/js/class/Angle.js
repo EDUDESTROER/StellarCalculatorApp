@@ -1,12 +1,4 @@
-import History from '/js/class/History.js';
-
 export default class Angle{
-
-    constructor(){
-
-        this.calculatorHistory = new History();
-
-    }
 
     calcAngleConverter(value, lengthToConvert, lengthResult){
 
@@ -32,21 +24,7 @@ export default class Angle{
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-            'Grados': 'gon',
-            'Degree': '°',
-            'Radians': 'rad'
-        }
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 
