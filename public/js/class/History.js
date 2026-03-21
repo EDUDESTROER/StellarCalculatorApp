@@ -2,14 +2,13 @@ import StellarViews from '/js/views/StellarViews.js';
 
 export default class History{
 
-    constructor(clickReturn){
+    constructor(){
 
         this.calcList = [];
         this.calcResult = [];
         this.lastListPosition;
         this.historyType = 'standard';
         this.viewsCalculator = new StellarViews();
-        this.clickHandle = clickReturn;
 
         this.addEventToClearnHistory();
         
@@ -61,6 +60,9 @@ export default class History{
         let li = this.viewsCalculator.returnLi([spanCalculation, spanResult], true, 2);
 
         li.dataset.position = position.toString();
+        li.dataset.action = "send-result";
+        li.dataset.result = result;
+        li.dataset.calculation = calculation;
 
         if(valueToSave != ''){
 
@@ -68,13 +70,6 @@ export default class History{
 
         }
 
-        li.addEventListener('click', ()=>{
-
-            this.sentToDisplay(li.dataset.position, li.dataset.value);
-
-            console.log('LI',li.dataset.position, li.dataset.value)
-
-        });
 
         this.viewsCalculator.historyCalcAndResultsList.appendChild(li);
 
@@ -99,25 +94,6 @@ export default class History{
         this.lastListPosition = '';
 
         this.viewsCalculator.historyCalcAndResultsList.innerHTML = '';
-
-    }
-
-    sentToDisplay(position, savedValue){
-
-        if(this.historyType == 'standard'){
-            console.log('Saved Value!: ',savedValue);
-
-           this.clickHandle(this.calcList[parseInt(position)], this.calcResult[parseInt(position)]);
-
-        }
-        if(this.historyType == 'converter'){
-
-            console.log('Saved Value!: ',savedValue);
-
-            this.clickHandle(savedValue);
-
-        }
-
 
     }
 

@@ -12,8 +12,8 @@ export default class StellarController {
 
         this.viewsCalculator = new StellarViews();
         this.calculatorHistory = new History();
-        this.calculatorStandardMode = new StellarStandardMode();
-        this.calculatorConverterMode = new ConverterMode();
+        this.calculatorStandardMode = new StellarStandardMode(this.calculatorHistory);
+        this.calculatorConverterMode = new ConverterMode(this.calculatorHistory);
         this.calculatorProgrammerMode = new ProgrammerMode();
 
         this.isStartStandardMode = false;

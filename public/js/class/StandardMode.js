@@ -1,16 +1,16 @@
-import History from '/js/class/History.js';
 import StellarViews from '/js/views/StellarViews.js';
 
 export default class StellarStandardMode {
 
-    constructor(){
+    constructor(history){
 
         this._operation = [];
         this._lastCalc = '';
         this._audioOnOff;
         this._clickSound;
-        this.calculatorHistory = new History(this.historyRequest.bind(this));
+        this.calculatorHistory = history;
         this.viewsCalculator = new StellarViews();
+        this.startHistoryEvents();
 
         
     }
@@ -96,6 +96,33 @@ export default class StellarStandardMode {
             });
 
         });
+
+    }
+
+    startHistoryEvents(){
+
+        const actions = {
+            "send-result": (element) => this.getResult(element.dataset.result, element.dataset.calculation)
+        }
+
+        document.querySelector('.wrapper-calc-and-results')
+        .addEventListener('click', e =>{
+
+            this.dispatcherEvent(e, actions);
+
+        });
+
+    }
+
+    dispatcherEvent(e, actions){
+
+        const element =  e.target.closest('[data-action]');
+
+        if(!element) return;
+
+        const action = element.dataset.action;
+
+        actions[action]?.(element)
 
     }
 
@@ -332,8 +359,6 @@ export default class StellarStandardMode {
 
     returnCalc(expresionArray){
 
-        console.log('Return Calc | expression recive: ', expresionArray);
-
         try{
 
             return new Function(`return ${expresionArray.join(' ')} `)();
@@ -513,8 +538,6 @@ export default class StellarStandardMode {
 
     setToCurrentDisplay(currentNumber){
 
-        console.log('Current Number: ' ,currentNumber);
-
         let inError = false;
 
         if(currentNumber !== '0.'){
@@ -563,8 +586,6 @@ export default class StellarStandardMode {
     }
     setToPreviousDisplay(firstValue, secondValue){
 
-        console.log('First Value: ', firstValue);
-
         if((firstValue === '' || secondValue === '') || (!firstValue || !secondValue)){
 
             this.viewsCalculator.setInnerHtmlToElement('', 'previous-output');
@@ -594,7 +615,7 @@ export default class StellarStandardMode {
 
     }
 
-    historyRequest(calculation, result){
+    getResult(result, calculation){
 
         this.clearAll();
 

@@ -12,13 +12,12 @@ import Time from '/js/class/Time.js';
 import Power from '/js/class/Power.js';
 import Pressure from '/js/class/Pressure.js'
 import Data from '/js/class/Data.js'
-import History from '/js/class/History.js';
 
 
 
 export default class ConverterMode {
 
-    constructor(){
+    constructor(history){
 
         this.viewsCalculator = new StellarViews();
         this.length = new Length();
@@ -34,7 +33,7 @@ export default class ConverterMode {
         this.powerConverter = new Power();
         this.pressureConverter = new Pressure();
         this.dataConverter = new Data();
-        this.calculatorHistory = new History(this.historyRequest.bind(this));
+        this.calculatorHistory = history;
         this.firstConversorListEl;
         this.secondConversorListEl;
         this.btnSelectionFirst;
@@ -47,6 +46,8 @@ export default class ConverterMode {
         this._audioOnOff;
         this._clickSound
         this.activeBtn = false;
+        this.startHistoryEvents();
+
         
 
     }
@@ -73,6 +74,32 @@ export default class ConverterMode {
         }
 
         this.activeBtn = true;
+
+    }
+    startHistoryEvents(){
+
+        const actions = {
+            "send-result": (element) => this.getResult(element.dataset.value)
+        }
+
+        document.querySelector('.wrapper-calc-and-results')
+        .addEventListener('click', e =>{
+
+            this.dispatcherEvent(e, actions);
+
+        });
+
+    }
+
+    dispatcherEvent(e, actions){
+
+        const element =  e.target.closest('[data-action]');
+
+        if(!element) return;
+
+        const action = element.dataset.action;
+
+        actions[action]?.(element)
 
     }
 
@@ -232,8 +259,6 @@ export default class ConverterMode {
             let lengthToConvert = list[2];
             let lengthResult = list[3];
 
-            console.log(list);
-
             this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'angle'){
@@ -387,8 +412,6 @@ export default class ConverterMode {
 
     sendToHistory(value, result, lengthToConvert, lengthResult){
 
-        console.log('SendTOHist', value, result, lengthToConvert, lengthResult)
-
         let convertAbreviation = {
 
             "Square Millimeters": "mm²",
@@ -524,9 +547,7 @@ export default class ConverterMode {
             
         }
 
-        console.log('Send is: ', `${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
-
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${result} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
 
     }
 
@@ -547,9 +568,7 @@ export default class ConverterMode {
 
     }
 
-    historyRequest(value){
-
-        console.log('Request: ', value);
+    getResult(value){
 
         this.clearConverter();
 
