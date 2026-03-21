@@ -1,73 +1,110 @@
-# ⭐ StellarCalculatorApp
+# ⭐ Stellar Calculator App
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/EDUDESTROER/StellarCalculatorApp?style=for-the-badge)
 
-# About the project:
+---
 
-- The application consists of a **beautiful calculator** with histort and two type of converter.
+## 📌 About the Project
 
-# 🚀 how to use:
+Stellar Calculator is a **modern, responsive web calculator** designed to provide a complete set of calculation tools in a single application.
 
-### 1. Install Dependencies
-Run the command below to install all project dependencies:
-- npm install
+It includes:
 
-### 2. Start the Project
-After the installation, start the application with:
-- npm run start
+* 🧮 Standard calculator
+* 💻 Programmer calculator
+* 🔄 Multiple unit converters
+* 📜 Calculation history
 
-### 3. Using
-In our browser: 
-- Go to: http://localhost:3000
+The goal of this project is to build a **scalable, maintainable, and user-friendly application**, while applying clean architecture and best development practices.
 
+---
 
+## 🚀 Getting Started
 
+### 1. Install dependencies
 
-https://github.com/user-attachments/assets/8e78199b-a735-493f-9058-d8412b698f65
+```bash
+npm install
+```
 
+### 2. Run the project
 
+```bash
+npm start
+```
 
+### 3. Open in browser
 
-## ⚠️ In developing
+```
+http://localhost:3000
+```
 
-Next tasks:
+---
 
-- [ ] Develop a user-friendly, responsive Date calculator designed to ensure compatibility across all devices.
-- [ ] Develop a user-friendly, responsive Graphical representation calculator designed to ensure compatibility across all devices.
+## 🎥 Preview
 
-Completed tasks:
+[https://github.com/user-attachments/assets/8e78199b-a735-493f-9058-d8412b698f65](https://github.com/user-attachments/assets/8e78199b-a735-493f-9058-d8412b698f65)
 
-- [x] Responsive Web calculator 
-- [x] Programmer calculator
-- [x] Measure converter.
-- [x] History for the calculator.
-- [x] Angle converter.
-- [x] Volume unit converter.
-- [x] Weight and mass converter.
-- [x] Temperature converter.
-- [x] Energy converter.
-- [x] Area converter. 
-- [x] Speed converter.
-- [x] Time converter.    
-- [x] Currency converter.
-- [x] Potency converter.
-- [x] Pressure converter.
-- [x] Data converter.
+---
 
+## ⚙️ Features
 
-# 📫Contributing to the StellarCalculatorApp, Follow the next steps:
+### ✅ Completed
 
-1. fork this repository.
-2. Create a branch: `git checkout -b <branch_name>`.
-3. Make your changes and confirm them: `git commit -m '<commit_message>'`
-4. send to original branch: `git push origin <project_name> / <local>`
-5. Ceate a pull request.
+* Responsive web calculator
+* Programmer calculator
+* Calculation history
+* Multiple unit converters:
 
-visit this link to learn more [how create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+  * Angle
+  * Volume
+  * Weight & Mass
+  * Temperature
+  * Energy
+  * Area
+  * Speed
+  * Time
+  * Currency
+  * Power
+  * Pressure
+  * Data
 
-# 📝 License
-- This project is under license. See the [LICENSE](LICENSE.md) file for more details.
+### 🚧 In Progress
+
+* Date calculator (responsive and user-friendly)
+* Graphical calculator (data visualization)
+
+---
+
+## 🧠 Technical Highlights
+
+* Modular architecture
+* Separation of concerns (MVC concepts)
+* Scalable component structure
+* Focus on performance and maintainability
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Follow these steps:
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "feat: add new feature"`
+4. Push to your branch: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+You can learn more here:
+[https://docs.github.com/en/pull-requests](https://docs.github.com/en/pull-requests)
+
+---
+
+## 📝 License
+
+This project is licensed. See the [LICENSE](LICENSE.md) file for details.
+
