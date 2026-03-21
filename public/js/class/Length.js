@@ -1,6 +1,4 @@
-class Length{
-
-    constructor(){}
+export default class Length{
 
     calcLengthConverter(value, lengthToConvert, lengthResult){
 
@@ -155,29 +153,7 @@ class Length{
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-            'nanometers': 'nm',
-            'microns': 'µm',
-            'millimeters': 'mm',
-            'centimeter': 'cm',
-            'meters': 'm',
-            'kilometers': 'km',
-            'inches': 'n',
-            'Feet': 'ft',
-            'Yards': 'yd',
-            'miles': 'mi',
-            'nautical miles': 'NM'
-        }
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

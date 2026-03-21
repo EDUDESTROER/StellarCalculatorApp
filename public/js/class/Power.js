@@ -1,4 +1,4 @@
-class Power{
+export default class Power{
 
     calcPowerConverter(value, timeToConvert, timeResult){
 
@@ -44,23 +44,7 @@ class Power{
 
         let result = value * toConvert[timeResult];
 
-        this.sendToHistory(value, result, timeToConvert, timeResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, timeToConvert, timeResult){
-
-        let convertAbreviation = {
-            'Watts': 'W',
-            'Kilowatts': 'kW',
-            'Horsepower(USA)': 'hp',
-            'Pound-feet/minute': 'lb-ft/min',
-            'BTUs/minute': 'BTU/min'
-        };
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

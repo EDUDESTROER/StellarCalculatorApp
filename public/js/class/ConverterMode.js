@@ -1,7 +1,39 @@
-class ConverterMode {
+import StellarViews from '/js/views/StellarViews.js';
+import Length from '/js/class/Length.js';
+import Angle from '/js/class/Angle.js';
+import Volume from '/js/class/Volume.js';
+import WeigthAndMass from '/js/class/WeigthAndMass.js';
+import Temperature from '/js/class/Temperature.js';
+import Energy from '/js/class/Energy.js';
+import Area from '/js/class/Area.js';
+import Speed from '/js/class/Speed.js';
+import Currency from '/js/class/Currency.js';
+import Time from '/js/class/Time.js';
+import Power from '/js/class/Power.js';
+import Pressure from '/js/class/Pressure.js'
+import Data from '/js/class/Data.js'
 
-    constructor(){
 
+
+export default class ConverterMode {
+
+    constructor(history){
+
+        this.viewsCalculator = new StellarViews();
+        this.length = new Length();
+        this.angleConverter = new Angle();
+        this.volumeConverter = new Volume();
+        this.weigthAndMassConverter = new WeigthAndMass();
+        this.temperatureConverter = new Temperature();
+        this.energyConverter = new Energy();
+        this.areaConverter = new Area();
+        this.speedConverter = new Speed();
+        this.currencyConverter = new Currency();
+        this.timeConverter = new Time();
+        this.powerConverter = new Power();
+        this.pressureConverter = new Pressure();
+        this.dataConverter = new Data();
+        this.calculatorHistory = history;
         this.firstConversorListEl;
         this.secondConversorListEl;
         this.btnSelectionFirst;
@@ -14,6 +46,8 @@ class ConverterMode {
         this._audioOnOff;
         this._clickSound
         this.activeBtn = false;
+        this.startHistoryEvents();
+
         
 
     }
@@ -27,7 +61,7 @@ class ConverterMode {
         this.firstSelectedEl = document.querySelector('#first-select');
         this.secondSelectedEl = document.querySelector('#second-select');
 
-        window.viewsCalculator.setConversorTo(type, this.firstConversorListEl, this.firstSelectedEl, this.secondConversorListEl, this.secondSelectedEl);
+        this.viewsCalculator.setConversorTo(type, this.firstConversorListEl, this.firstSelectedEl, this.secondConversorListEl, this.secondSelectedEl);
 
         this.converterType = type;
 
@@ -42,6 +76,32 @@ class ConverterMode {
         this.activeBtn = true;
 
     }
+    startHistoryEvents(){
+
+        const actions = {
+            "send-result": (element) => this.getResult(element.dataset.value)
+        }
+
+        document.querySelector('.wrapper-calc-and-results')
+        .addEventListener('click', e =>{
+
+            this.dispatcherEvent(e, actions);
+
+        });
+
+    }
+
+    dispatcherEvent(e, actions){
+
+        const element =  e.target.closest('[data-action]');
+
+        if(!element) return;
+
+        const action = element.dataset.action;
+
+        actions[action]?.(element)
+
+    }
 
     addEventsToSelection(selectionBtnEl, selectionListEl){
 
@@ -53,7 +113,7 @@ class ConverterMode {
 
                 li.addEventListener('click', ()=>{
 
-                    window.viewsCalculator.removeClassFromListOfEl(selectionListEl.childNodes, 'active-converter');
+                    this.viewsCalculator.removeClassFromListOfEl(selectionListEl.childNodes, 'active-converter');
 
                     li.classList.add('active-converter');
 
@@ -67,7 +127,7 @@ class ConverterMode {
 
             if(selectionListEl.dataset.open == 'no' || !selectionListEl.dataset.open){
 
-                window.viewsCalculator.showElement(selectionListEl, 'block');
+                this.viewsCalculator.showElement(selectionListEl, 'block');
 
                 selectionListEl.dataset.open = 'yes';
 
@@ -75,7 +135,7 @@ class ConverterMode {
 
             }else if(selectionListEl.dataset.open == 'yes'){
 
-                window.viewsCalculator.unShowElement(selectionListEl);
+                this.viewsCalculator.unShowElement(selectionListEl);
 
                 selectionListEl.dataset.open = 'no';
 
@@ -180,7 +240,7 @@ class ConverterMode {
 
         }
 
-        window.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
 
         this.checkConverterType();
 
@@ -192,72 +252,154 @@ class ConverterMode {
 
         if(this.converterType == 'length'){
 
-            result = window.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
-        
+            let list = this.length.calcLengthConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
+
         }else if(this.converterType == 'angle'){
 
-            result = window.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.angleConverter.calcAngleConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'volume'){
 
-            result = window.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.volumeConverter.calcVolumeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'weigthAndMass'){
 
-            result = window.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.weigthAndMassConverter.calcWeigthAndMassConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'temperature'){
 
-            result = window.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.temperatureConverter.calctemperatureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }else if(this.converterType == 'energy'){
 
-            result = window.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.energyConverter.calcEnergyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'area'){
 
-            result = window.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.areaConverter.calcAreaConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'speed'){
 
-            result = window.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.speedConverter.calcSpeedConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'currency'){
 
-            window.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            /*this.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
-            result = 'calculando...';
+            result = 'calculando...';*/
 
         }
         else if(this.converterType == 'time'){
 
-            result = window.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'power'){
 
-            result = window.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.powerConverter.calcPowerConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'pressure'){
 
-            result = window.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.pressureConverter.calcPressureConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'data'){
 
-            result = window.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = this.dataConverter.calcDataConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
 
         if(result === false){
 
-            window.viewsCalculator.displayFail('Is impossible realize the conversion...');
+            this.viewsCalculator.displayFail('Is impossible realize the conversion...');
             this.clearConverter();
 
         }else{
@@ -268,15 +410,156 @@ class ConverterMode {
 
     }
 
+    sendToHistory(value, result, lengthToConvert, lengthResult){
+
+        let convertAbreviation = {
+
+            "Square Millimeters": "mm²",
+            "Square Centimeters": "cm²",
+            "Square Meters": "m²",
+            "Hectares": "ha",
+            "Square Kilometers": "km²",
+            "Square Inches": "in²",
+            "Square Feet": "ft²",
+            "Square Yards": "yd²",
+            "Acres": "ac",
+            "Square Miles": "mi²",
+            'nanometers': 'nm',
+            'microns': 'µm',
+            'millimeters': 'mm',
+            'centimeter': 'cm',
+            'meters': 'm',
+            'kilometers': 'km',
+            'inches': 'n',
+            'Feet': 'ft',
+            'Yards': 'yd',
+            'miles': 'mi',
+            'nautical miles': 'NM',
+            'Grados': 'gon',
+            'Degree': '°',
+            'Radians': 'rad',
+            'Milliliters': 'ml', 
+            'Cubic centimeters': 'cc', 
+            'Liters': 'l',
+            'Cubic meters': 'm<sup>3', 
+            'Teaspoon(USA)': 'tsp(USA)',
+            'Tablespoons(USA)': 'tbsp(USA)',
+            'Fluid ounces(USA)': 'flOz(USA)',
+            'Cups(USA)': 'c(USA)', 
+            'Pint(USA)': 'pt(USA)',
+            'Quart(USA)': 'qt(USA)',
+            'Gallons(USA)': 'gal(USA)',
+            'Cubic inches': 'in<sup>3', 
+            'Cubic feet': 'ft<sup>3', 
+            'Cubic yards': 'yd<sup>3', 
+            'Teaspoon(UK)': 'tsp(UK)',
+            'Tablespoons(UK)': 'tbsp(UK)',
+            'Fluid ounces(UK)': 'flOz(UK)',
+            'Pint(UK)': 'pt(UK)',
+            'Quart(UK)': 'qt(UK)', 
+            'Gallons(UK)': 'gal(UK)',
+            'Carats': 'ct', 
+            'Miligrams': 'mg', 
+            'Centigrams': 'cg', 
+            'Decigrams': 'dg', 
+            'Gram': 'g', 
+            'Decagrams': 'dag', 
+            'Hectograms': 'hg', 
+            'Kilograms': 'kg', 
+            'Metric Tons': 't', 
+            'Ounce': 'oz', 
+            'Pounds': 'lb', 
+            'Stone': 'st', 
+            'Short Tons(USA)': 'ton(USA)', 
+            'Long Tons(UK)': 'L/T(UK)',
+            'Celsius': '°C',
+            'Fahrenheit': '°F',
+            'Kelvin': '°K',
+            "Electron volts": "eV",
+            "Joules": "J",
+            "Kilojoules": "kJ",
+            "Thermic calories": "cal",
+            "Food calories": "kcal",
+            "Pound-feet": "lbf-ft",
+            "British thermal units": "BTU",
+            "Kilowatt-hour": "kWh",
+            "Centimeters per second": "cm/s",
+            "Meters per second": "m/s",
+            "Kilometers per hour": "km/h",
+            "Feet per second": "ft/s",
+            "Miles per hour": "mph",
+            "Knots": "kn",
+            "Mach": "Mach",
+            'Microseconds': 'µs',
+            'Milliseconds': 'ms',
+            'Seconds': 's',
+            'Minutes': 'min',
+            'Hours': 'h',
+            'Days': 'd',
+            'Weeks': 'w',
+            'Years': 'y',
+            'Watts': 'W',
+            'Kilowatts': 'kW',
+            'Horsepower(USA)': 'hp',
+            'Pound-feet/minute': 'lb-ft/min',
+            'BTUs/minute': 'BTU/min',
+            'Atmospheres': 'atm',
+            'Bars': 'bar',
+            'Kilopascals': 'kPa',
+            'Millimeters of mercury': 'mmHg',
+            'Pascals': 'Pa',
+            'Pounds per square inch': 'psi',
+            'Bit': 'b',
+            'Nibble': 'nibble',
+            'Byte': 'B',
+            'Kilobit': 'kb',
+            'Kibibit': 'Kib',
+            'Kilobyte': 'KB',
+            'Kibibyte': 'KiB',
+            'Megabit': 'Mb',
+            'Mebibit': 'Mib',
+            'Megabyte': 'MB',
+            'Mebibyte': 'MiB',
+            'Gigabit': 'Gb',
+            'Gibibit': 'Gib',
+            'Gigabyte': 'GB',
+            'Gibibyte': 'GiB',
+            'Terabit': 'Tb',
+            'Tebibit': 'Tib',
+            'Terabyte': 'TB',
+            'Tebibyte': 'TiB',
+            'Petabit': 'Pb',
+            'Pebibit': 'Pib',
+            'Petabyte': 'PB',
+            'Pebibyte': 'PiB',
+            'Exabit': 'Eb',
+            'Exbibit': 'Eib',
+            'Exabyte': 'EB',
+            'Exbibyte': 'EiB',
+            'Zettabit': 'Zb',
+            'Zebibit': 'Zib',
+            'Zettabyte': 'ZB',
+            'Zebibyte': 'ZiB',
+            'Yottabit': 'Yb',
+            'Yobibit': 'Yib',
+            'Yottabyte': 'YB',
+            'Yobibyte': 'YiB'
+            
+        }
+
+        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+
+    }
+
     setToDisplay(result){
 
         if(result == '' || result == undefined){
 
-            window.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
+            this.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
 
         }else{
 
-            window.viewsCalculator.setInnerHtmlToElement(result, 'second-converter-output');
+            this.viewsCalculator.setInnerHtmlToElement(result, 'second-converter-output');
 
         }
 
@@ -285,7 +568,7 @@ class ConverterMode {
 
     }
 
-    historyRequest(value){
+    getResult(value){
 
         this.clearConverter();
 
@@ -578,11 +861,11 @@ class ConverterMode {
         let firstConverterName = abreviations[value[1]];
         let secondConverterName = abreviations[value[2]];;
 
-        window.viewsCalculator.removeClassFromListOfEl(this.firstConversorListEl.childNodes, 'active-converter');
-        window.viewsCalculator.removeClassFromListOfEl(this.secondConversorListEl.childNodes, 'active-converter');
+        this.viewsCalculator.removeClassFromListOfEl(this.firstConversorListEl.childNodes, 'active-converter');
+        this.viewsCalculator.removeClassFromListOfEl(this.secondConversorListEl.childNodes, 'active-converter');
 
-        let firstLi = window.viewsCalculator.returnChildNodeWithThisText(firstConverterName, this.firstConversorListEl.childNodes);
-        let secondLi = window.viewsCalculator.returnChildNodeWithThisText(secondConverterName, this.secondConversorListEl.childNodes);
+        let firstLi = this.viewsCalculator.returnChildNodeWithThisText(firstConverterName, this.firstConversorListEl.childNodes);
+        let secondLi = this.viewsCalculator.returnChildNodeWithThisText(secondConverterName, this.secondConversorListEl.childNodes);
 
         
 
@@ -619,7 +902,7 @@ class ConverterMode {
 
         this.firstOutputValue = value[0];
 
-        window.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(this.firstOutputValue, 'first-converter-output');
 
         this.checkConverterType();
 
@@ -631,8 +914,8 @@ class ConverterMode {
 
         this.firstOutputValue = '';
 
-        window.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
-        window.viewsCalculator.setInnerHtmlToElement(0, 'first-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(0, 'second-converter-output');
+        this.viewsCalculator.setInnerHtmlToElement(0, 'first-converter-output');
 
         this.verifySizeOutput('first-converter-output');
         this.verifySizeOutput('second-converter-output');
@@ -651,30 +934,30 @@ class ConverterMode {
 
         if(outputLegth < 18){
 
-            window.viewsCalculator.changeElementFontSize('increase', 0.0, outputId, '4', 'rem');
+            this.viewsCalculator.changeElementFontSize('increase', 0.0, outputId, '4', 'rem');
 
         }
 
         if(outputLegth > 18){
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '4', 'rem');
+            this.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '4', 'rem');
 
         }
         if(outputLegth > 21){
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '3.4', 'rem');
+            this.viewsCalculator.changeElementFontSize('decrease', 0.15, outputId, '3.4', 'rem');
 
         }
         if(outputLegth > 25){
 
-            window.viewsCalculator.changeElementFontSize('decrease', 0.20, outputId, '2.89', 'rem');
+            this.viewsCalculator.changeElementFontSize('decrease', 0.20, outputId, '2.89', 'rem');
 
         }
         if(outputLegth > 31){
 
             this.clearConverter();
 
-            window.viewsCalculator.displayFail('Use less than: 32 characters!');
+            this.viewsCalculator.displayFail('Use less than: 32 characters!');
 
         }
 

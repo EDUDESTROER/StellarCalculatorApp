@@ -1,6 +1,4 @@
-class Temperature{
-
-    constructor(){}
+export default class Temperature{
 
     calctemperatureConverter(value, lengthToConvert, lengthResult){
 
@@ -28,21 +26,7 @@ class Temperature{
 
         let result = toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-            'Celsius': '°C',
-            'Fahrenheit': '°F',
-            'Kelvin': '°K'
-        }
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

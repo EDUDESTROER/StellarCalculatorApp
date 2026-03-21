@@ -1,4 +1,4 @@
-class Time{
+export default class Time{
 
     calcTimeConverter(value, timeToConvert, timeResult){
 
@@ -89,26 +89,7 @@ class Time{
 
         let result = value * toConvert[timeResult];
 
-        this.sendToHistory(value, result, timeToConvert, timeResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, timeToConvert, timeResult){
-
-        let convertAbreviation = {
-            'Microseconds': 'µs',
-            'Milliseconds': 'ms',
-            'Seconds': 's',
-            'Minutes': 'min',
-            'Hours': 'h',
-            'Days': 'd',
-            'Weeks': 'w',
-            'Years': 'y'
-        };
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[timeToConvert]} =`, `${result} ${convertAbreviation[timeResult]}`, `${value} ${convertAbreviation[timeToConvert]} ${convertAbreviation[timeResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

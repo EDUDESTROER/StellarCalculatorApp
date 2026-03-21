@@ -1,19 +1,3 @@
-window.calculatorHistory = new History();
-window.length = new Length();
-window.angleConverter = new Angle();
-window.volumeConverter = new Volume();
-window.energyConverter = new Energy();
-window.speedConverter = new Speed();
-window.areaConverter = new Area();
-window.currencyConverter = new Currency();
-window.timeConverter = new Time();
-window.weigthAndMassConverter = new WeigthAndMass();
-window.temperatureConverter = new Temperature();
-window.powerConverter = new Power();
-window.pressureConverter = new Pressure();
-window.dataConverter = new Data();
-window.calculatorStandardMode = new StellarStandardMode();
-window.calculatorProgrammerMode = new ProgrammerMode();
-window.calculatorConverterMode = new ConverterMode();
-window.viewsCalculator = new StellarViews();
-window.calculator = new StellarControler();
+import StellarController from "/js/controller/StellarController.js";
+
+const calculatorController = new StellarController();

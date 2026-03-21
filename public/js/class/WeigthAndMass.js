@@ -1,6 +1,4 @@
-class WeigthAndMass{
-
-    constructor(){}
+export default class WeigthAndMass{
 
     calcWeigthAndMassConverter(value, lengthToConvert, lengthResult){
 
@@ -237,32 +235,8 @@ class WeigthAndMass{
 
         this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
-        return result;
+        return [result, value, lengthToConvert, lengthResult];
 
     }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-            'Carats': 'ct', 
-            'Miligrams': 'mg', 
-            'Centigrams': 'cg', 
-            'Decigrams': 'dg', 
-            'Gram': 'g', 
-            'Decagrams': 'dag', 
-            'Hectograms': 'hg', 
-            'Kilograms': 'kg', 
-            'Metric Tons': 't', 
-            'Ounce': 'oz', 
-            'Pounds': 'lb', 
-            'Stone': 'st', 
-            'Short Tons(USA)': 'ton(USA)', 
-            'Long Tons(UK)': 'L/T(UK)'
-        }
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
-
-    }
-
 
 }

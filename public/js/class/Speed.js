@@ -1,4 +1,4 @@
-class Speed{
+export default class Speed{
 
     calcSpeedConverter(value, lengthToConvert, lengthResult){
 
@@ -71,27 +71,7 @@ class Speed{
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-
-            "Centimeters per second": "cm/s",
-            "Meters per second": "m/s",
-            "Kilometers per hour": "km/h",
-            "Feet per second": "ft/s",
-            "Miles per hour": "mph",
-            "Knots": "kn",
-            "Mach": "Mach"
-            
-        }
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

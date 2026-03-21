@@ -1,11 +1,17 @@
-class StellarStandardMode {
+import StellarViews from '/js/views/StellarViews.js';
 
-    constructor(){
+export default class StellarStandardMode {
+
+    constructor(history){
 
         this._operation = [];
         this._lastCalc = '';
         this._audioOnOff;
         this._clickSound;
+        this.calculatorHistory = history;
+        this.viewsCalculator = new StellarViews();
+        this.startHistoryEvents();
+
         
     }
 
@@ -90,6 +96,33 @@ class StellarStandardMode {
             });
 
         });
+
+    }
+
+    startHistoryEvents(){
+
+        const actions = {
+            "send-result": (element) => this.getResult(element.dataset.result, element.dataset.calculation)
+        }
+
+        document.querySelector('.wrapper-calc-and-results')
+        .addEventListener('click', e =>{
+
+            this.dispatcherEvent(e, actions);
+
+        });
+
+    }
+
+    dispatcherEvent(e, actions){
+
+        const element =  e.target.closest('[data-action]');
+
+        if(!element) return;
+
+        const action = element.dataset.action;
+
+        actions[action]?.(element)
 
     }
 
@@ -316,7 +349,7 @@ class StellarStandardMode {
 
                 this._operation.push(calculationResult);
 
-                window.calculatorHistory.addToHistory(`${calculation} =`, calculationResult);
+                this.calculatorHistory.addToHistory(`${calculation} =`, calculationResult);
 
             }
 
@@ -325,8 +358,6 @@ class StellarStandardMode {
     }
 
     returnCalc(expresionArray){
-
-        console.log('Return Calc | expression recive: ', expresionArray);
 
         try{
 
@@ -364,7 +395,7 @@ class StellarStandardMode {
             this.setToPreviousDisplay(`${this._operation[0]} ${this._operation[1]} sqr(${lastNumber}) `, ' ');
             this.setToCurrentDisplay(this._operation[2]);
 
-            window.calculatorHistory.addToHistory(`sqr(${lastNumber}) =`, this._operation[2]);
+            this.calculatorHistory.addToHistory(`sqr(${lastNumber}) =`, this._operation[2]);
 
         }else if(this._operation.length == 1){
 
@@ -374,8 +405,8 @@ class StellarStandardMode {
 
             this.setToCurrentDisplay(this._operation[0]);
 
-            window.calculatorHistory.addToHistory(`sqr(${lastNumber}) =`, this._operation[0]);
-
+            this.calculatorHistory.addToHistory(`sqr(${lastNumber}) =`, this._operation[0]);
+            
         }
 
     }
@@ -392,7 +423,7 @@ class StellarStandardMode {
             this.setToPreviousDisplay(`${this._operation[0]} ${this._operation[1]} 1/(${lastNumber}) `, ' ');
             this.setToCurrentDisplay(this._operation[2]);
 
-            window.calculatorHistory.addToHistory(`1 ÷ (${lastNumber}) =`, this._operation[2]);
+            this.calculatorHistory.addToHistory(`1 ÷ (${lastNumber}) =`, this._operation[2]);
 
         }else if(this._operation.length == 1){
 
@@ -403,7 +434,7 @@ class StellarStandardMode {
                 this._operation[0] = (1 / this._operation[0]).toString();
                 this.setToCurrentDisplay(this._operation[0]);
 
-                window.calculatorHistory.addToHistory(`1 ÷ (${lastNumber}) =`, this._operation[0]);
+                this.calculatorHistory.addToHistory(`1 ÷ (${lastNumber}) =`, this._operation[0]);
 
             }else{
 
@@ -429,8 +460,7 @@ class StellarStandardMode {
             this.setToPreviousDisplay(`${this._operation[0]} ${this._operation[1]} √(${lastNumber}) `, ' ');
             this.setToCurrentDisplay(this._operation[2]);
 
-            window.calculatorHistory.addToHistory(`√(${lastNumber}) =`, this._operation[2]);
-
+            this.calculatorHistory.addToHistory(`√(${lastNumber}) =`, this._operation[2]);
 
         }else if(this._operation.length == 1){
 
@@ -442,7 +472,7 @@ class StellarStandardMode {
 
             this.setToCurrentDisplay(this._operation[0]);
 
-            window.calculatorHistory.addToHistory(`√(${lastNumber}) =`, this._operation[0]);
+            this.calculatorHistory.addToHistory(`√(${lastNumber}) =`, this._operation[0]);
 
         }
 
@@ -508,8 +538,6 @@ class StellarStandardMode {
 
     setToCurrentDisplay(currentNumber){
 
-        console.log('Current Number: ' ,currentNumber);
-
         let inError = false;
 
         if(currentNumber !== '0.'){
@@ -527,18 +555,18 @@ class StellarStandardMode {
             }
             if(currentNumber.length >= 23){
 
-                window.viewsCalculator.changeElementFontSize('decrease', 0.30, 'current-output', '56');
+                this.viewsCalculator.changeElementFontSize('decrease', 0.30, 'current-output', '56');
 
             }
             if(currentNumber.length >= 32){
 
-                window.viewsCalculator.displayFail('Use less than: 32 characters!');
+                this.viewsCalculator.displayFail('Use less than: 32 characters!');
                 inError = true;
 
             }
             if(currentNumber.length < 15){
 
-                window.viewsCalculator.changeElementFontSize('decrease', 0, 'current-output', '56');
+                this.viewsCalculator.changeElementFontSize('decrease', 0, 'current-output', '56');
 
             }
             
@@ -551,18 +579,16 @@ class StellarStandardMode {
 
         }else{
 
-            window.viewsCalculator.setInnerHtmlToElement(currentNumber,'current-output');
+            this.viewsCalculator.setInnerHtmlToElement(currentNumber,'current-output');
 
         }
 
     }
     setToPreviousDisplay(firstValue, secondValue){
 
-        console.log('First Value: ', firstValue);
-
         if((firstValue === '' || secondValue === '') || (!firstValue || !secondValue)){
 
-            window.viewsCalculator.setInnerHtmlToElement('', 'previous-output');
+            this.viewsCalculator.setInnerHtmlToElement('', 'previous-output');
 
         }else{
 
@@ -583,13 +609,13 @@ class StellarStandardMode {
 
             //console.log(operationFinal);
 
-            window.viewsCalculator.setInnerHtmlToElement(operationFinal, 'previous-output');
+            this.viewsCalculator.setInnerHtmlToElement(operationFinal, 'previous-output');
 
         }
 
     }
 
-    historyRequest(calculation, result){
+    getResult(result, calculation){
 
         this.clearAll();
 
@@ -604,7 +630,7 @@ class StellarStandardMode {
 
     inError(errorName){
 
-        window.viewsCalculator.displayFail(`Error detected! ${errorName}`);
+        this.viewsCalculator.displayFail(`Error detected! ${errorName}`);
 
         console.error(`Error detected! ${errorName}`);
 

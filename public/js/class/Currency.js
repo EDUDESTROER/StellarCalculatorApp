@@ -1,4 +1,4 @@
-class Currency{
+export default class Currency{
 
     constructor(){
 
@@ -170,7 +170,7 @@ class Currency{
 
         this.tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation).then(result=>{
 
-            window.calculatorConverterMode.setToDisplay(result);
+            return result;
 
         })
         .catch(()=>{
@@ -193,7 +193,7 @@ class Currency{
 
                 this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
 
-                resolve(result);
+                resolve([result, value, currencyToConvertAbreviation, currencyResultAbreviation]);
 
             }else{
                 reject();
@@ -218,9 +218,7 @@ class Currency{
 
             result = value * quotation;
 
-            this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
-
-            window.calculatorConverterMode.setToDisplay(result);
+            return [result, value, currencyToConvertAbreviation, currencyResultAbreviation]
 
         }).catch(error=>{
 
@@ -247,20 +245,13 @@ class Currency{
 
             let result = value * quotation;
 
-            this.sendToHistory(value, result, firstCotation, cotationResult);
+            return [result, value, currencyToConvertAbreviation, currencyResultAbreviation];
 
-            window.calculatorConverterMode.setToDisplay(result);
             
         })
         .catch(error=>{
             this.inError(error);
         });
-
-    }
-
-    sendToHistory(value, result, firstCotation, cotationResult){
-
-        window.calculatorHistory.addToHistory(`${value} ${firstCotation} =`, `${result} ${cotationResult}`, `${value} ${firstCotation} ${cotationResult}`);
 
     }
 

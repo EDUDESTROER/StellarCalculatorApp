@@ -1,6 +1,4 @@
-class Energy {
-
-    constructor(){}
+export default class Energy {
 
     calcEnergyConverter(value, lengthToConvert, lengthResult){
 
@@ -90,28 +88,7 @@ class Energy {
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-
-            "Electron volts": "eV",
-            "Joules": "J",
-            "Kilojoules": "kJ",
-            "Thermic calories": "cal",
-            "Food calories": "kcal",
-            "Pound-feet": "lbf-ft",
-            "British thermal units": "BTU",
-            "Kilowatt-hour": "kWh"
-            
-        }
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 

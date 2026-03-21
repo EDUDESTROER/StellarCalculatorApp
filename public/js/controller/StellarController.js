@@ -1,6 +1,20 @@
-class StellarControler {
+import StellarViews from '/js/views/StellarViews.js';
+import History from '/js/class/History.js';
+import StellarStandardMode from '/js/class/StandardMode.js';
+import ConverterMode from '/js/class/ConverterMode.js';
+import ProgrammerMode from '/js/class/ProgrammerMode.js';
+
+export default class StellarController {
 
     constructor(){
+
+        //console.log('Runing Calculator Controller.')
+
+        this.viewsCalculator = new StellarViews();
+        this.calculatorHistory = new History();
+        this.calculatorStandardMode = new StellarStandardMode(this.calculatorHistory);
+        this.calculatorConverterMode = new ConverterMode(this.calculatorHistory);
+        this.calculatorProgrammerMode = new ProgrammerMode();
 
         this.isStartStandardMode = false;
         this.isStartProgrammerMode = false;
@@ -38,15 +52,15 @@ class StellarControler {
         
         if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._standardEl);
+            this.viewsCalculator.showWithInert(this._standardEl);
 
-            window.calculatorHistory.changeHistoryType('standard');
+            this.calculatorHistory.changeHistoryType('standard');
 
-            if(!this.isStartStandardMode) window.calculatorStandardMode.start();
+            if(!this.isStartStandardMode) this.calculatorStandardMode.start();
 
-            window.viewsCalculator.displaySucess('Standard select');
+            this.viewsCalculator.displaySucess('Standard select');
 
             this._historyButtonEl.disabled = false;
 
@@ -55,15 +69,15 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'programmer'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._programmerEl);
+            this.viewsCalculator.showWithInert(this._programmerEl);
 
-            window.calculatorHistory.changeHistoryType('programmer');
+            this.calculatorHistory.changeHistoryType('programmer');
 
-            if(!this.isStartProgrammerMode) window.calculatorProgrammerMode.start();
+            if(!this.isStartProgrammerMode) this.calculatorProgrammerMode.start();
 
-            window.viewsCalculator.displaySucess('Programmer select');
+            this.viewsCalculator.displaySucess('Programmer select');
 
             this._historyButtonEl.disabled = true;
             this._historyButtonEl.classList.add('disabled-btn');
@@ -73,33 +87,33 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'length'){ 
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('length');
+            this.calculatorConverterMode.start('length');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Length select');
+            this.viewsCalculator.displaySucess('Length select');
 
             this._historyButtonEl.disabled = false;
         }
         if(this._selectedCalculatorMode === 'angle'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('angle');
+            this.calculatorConverterMode.start('angle');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Angle select');
+            this.viewsCalculator.displaySucess('Angle select');
 
             this._historyButtonEl.disabled = false;
 
@@ -108,17 +122,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'volume'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('volume');
+            this.calculatorConverterMode.start('volume');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Volume select');
+            this.viewsCalculator.displaySucess('Volume select');
 
             this._historyButtonEl.disabled = false;
 
@@ -127,17 +141,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'weigth and mass'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('weigthAndMass');
+            this.calculatorConverterMode.start('weigthAndMass');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Weigth and mass select');
+            this.viewsCalculator.displaySucess('Weigth and mass select');
 
             this._historyButtonEl.disabled = false;
 
@@ -146,17 +160,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'temperature'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('temperature');
+            this.calculatorConverterMode.start('temperature');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Temperature select');
+            this.viewsCalculator.displaySucess('Temperature select');
 
             this._historyButtonEl.disabled = false;
 
@@ -165,17 +179,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'energy'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('energy');
+            this.calculatorConverterMode.start('energy');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Energy select');
+            this.viewsCalculator.displaySucess('Energy select');
 
             this._historyButtonEl.disabled = false;
 
@@ -184,17 +198,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'area'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('area');
+            this.calculatorConverterMode.start('area');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Area select');
+            this.viewsCalculator.displaySucess('Area select');
 
             this._historyButtonEl.disabled = false;
 
@@ -203,17 +217,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'speed'){
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('speed');
+            this.calculatorConverterMode.start('speed');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Speed select');
+            this.viewsCalculator.displaySucess('Speed select');
 
             this._historyButtonEl.disabled = false;
 
@@ -222,17 +236,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'currency'){ 
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('currency');
+            this.calculatorConverterMode.start('currency');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Currency select');
+            this.viewsCalculator.displaySucess('Currency select');
 
             this._historyButtonEl.disabled = false;
 
@@ -241,17 +255,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'time'){ 
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('time');
+            this.calculatorConverterMode.start('time');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Time select');
+            this.viewsCalculator.displaySucess('Time select');
 
             this._historyButtonEl.disabled = false;
 
@@ -260,17 +274,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'power' ){ 
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('power');
+            this.calculatorConverterMode.start('power');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Power select');
+            this.viewsCalculator.displaySucess('Power select');
 
             this._historyButtonEl.disabled = false;
 
@@ -279,17 +293,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'pressure'){ 
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('pressure');
+            this.calculatorConverterMode.start('pressure');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Pressure select');
+            this.viewsCalculator.displaySucess('Pressure select');
 
             this._historyButtonEl.disabled = false;
 
@@ -298,17 +312,17 @@ class StellarControler {
         }
         if(this._selectedCalculatorMode === 'data'){ 
 
-            window.viewsCalculator.unshowWithInertList(this.allCalculators);
+            this.viewsCalculator.unshowWithInertList(this.allCalculators);
 
-            window.viewsCalculator.showWithInert(this._conversorEl);
+            this.viewsCalculator.showWithInert(this._conversorEl);
 
-            window.calculatorHistory.changeHistoryType('converter');
+            this.calculatorHistory.changeHistoryType('converter');
 
-            window.calculatorConverterMode.start('data');
+            this.calculatorConverterMode.start('data');
 
-            window.calculatorConverterMode.clearConverter();
+            this.calculatorConverterMode.clearConverter();
 
-            window.viewsCalculator.displaySucess('Data select');
+            this.viewsCalculator.displaySucess('Data select');
 
             this._historyButtonEl.disabled = false;
 
@@ -356,15 +370,15 @@ class StellarControler {
 
         if(varState === 'close'){
 
-            window.viewsCalculator.showWithInert(varEl);
-            window.viewsCalculator.showWithInert(this.exitSideMenuEl);
+            this.viewsCalculator.showWithInert(varEl);
+            this.viewsCalculator.showWithInert(this.exitSideMenuEl);
 
             return 'open';
 
         }else if(varState === 'open'){
 
-            window.viewsCalculator.unshowWithInertList([varEl]);
-            window.viewsCalculator.unshowWithInertList([this.exitSideMenuEl]);
+            this.viewsCalculator.unshowWithInertList([varEl]);
+            this.viewsCalculator.unshowWithInertList([this.exitSideMenuEl]);
 
             return 'close';
 
@@ -413,19 +427,19 @@ class StellarControler {
 
             this._soundButtonEl.firstElementChild.src = '/icons/sound.png';
 
-            window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
-            window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
+            this.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
+            this.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
 
-            window.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
+            this.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
 
         }else if(this._selectedSoundMode === false){
 
             this._soundButtonEl.firstElementChild.src = '/icons/no_sound.png';
 
-            window.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
-            window.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
+            this.calculatorStandardMode.setSound(this._selectedSoundMode, this._clickSound);
+            this.calculatorProgrammerMode.setSound(this._selectedSoundMode, this._clickSound);
 
-            window.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
+            this.calculatorConverterMode.setSound(this._selectedSoundMode, this._clickSound);
 
         }
 

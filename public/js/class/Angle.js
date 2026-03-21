@@ -1,6 +1,4 @@
-class Angle{
-
-    constructor(){}
+export default class Angle{
 
     calcAngleConverter(value, lengthToConvert, lengthResult){
 
@@ -26,21 +24,7 @@ class Angle{
 
         let result = value * toConvert[lengthResult];
 
-        this.sendToHistory(value, result, lengthToConvert, lengthResult);
-
-        return result;
-
-    }
-
-    sendToHistory(value, result, lengthToConvert, lengthResult){
-
-        let convertAbreviation = {
-            'Grados': 'gon',
-            'Degree': '°',
-            'Radians': 'rad'
-        }
-
-        window.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        return [result, value, lengthToConvert, lengthResult];
 
     }
 
