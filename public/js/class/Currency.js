@@ -6,7 +6,7 @@ export default class Currency{
 
     }
 
-    calcCurrencyConverter(value, currencyToConvert, currencyResult){
+    async calcCurrencyConverter(value, currencyToConvert, currencyResult){
 
         let currencyToAbreviation = {
             "Afghan Afghani": "AFN",
@@ -164,101 +164,105 @@ export default class Currency{
 
         if(!value) value = 0;
 
-        let currencyToConvertAbreviation = currencyToAbreviation[currencyToConvert];
-        let currencyResultAbreviation = currencyToAbreviation[currencyResult];
-        let combination = `${currencyToConvertAbreviation}${currencyResultAbreviation}`;
+        const currencyToConvertAbreviation = currencyToAbreviation[currencyToConvert];
+        const currencyResultAbreviation = currencyToAbreviation[currencyResult];
 
-        this.tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation).then(result=>{
+        if(currencyToConvertAbreviation === currencyResultAbreviation){
 
-            return result;
+            return [value, value, currencyToConvertAbreviation, currencyResultAbreviation];
 
-        })
-        .catch(()=>{
+        }
 
-            this.tryAesomeApi(value, currencyToConvertAbreviation, currencyResultAbreviation, combination);
+        try {
+            return await this.tryMemoryConvert(
+                value,
+                currencyToConvertAbreviation,
+                currencyResultAbreviation
+            );
+        } catch {
 
-        });
+        try {
+            return await this.tryAwesomeApi(
+                value,
+                currencyToConvertAbreviation,
+                currencyResultAbreviation
+            );
+        } catch {
+
+            return await this.tryExchangeRateApi(
+                value,
+                currencyToConvertAbreviation,
+                currencyResultAbreviation
+            );
+        }
+    }
 
     }
 
-    tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation){
+    async tryMemoryConvert(value, currencyToConvertAbreviation, currencyResultAbreviation){
 
-        return new Promise((resolve, reject) => {
+        
             
-            let quotation = this.convertedCurrenciesToValue[`${currencyToConvertAbreviation}-${currencyResultAbreviation}`];
+        let quotation = this.convertedCurrenciesToValue[`${currencyToConvertAbreviation}-${currencyResultAbreviation}`];
 
-            if(quotation){
-
-                let result = value * quotation;
-
-                this.sendToHistory(value, result, currencyToConvertAbreviation, currencyResultAbreviation);
-
-                resolve([result, value, currencyToConvertAbreviation, currencyResultAbreviation]);
-
-            }else{
-                reject();
-            }
-
-        })
-
-    }
-
-    tryAesomeApi(value, currencyToConvertAbreviation, currencyResultAbreviation, combination){
-
-        let quotation;
-        let result;
-
-        let promise = axios.get(`https://economia.awesomeapi.com.br/json/last/${currencyToConvertAbreviation}-${currencyResultAbreviation}`);
-
-        promise.then(response=>{
-
-            quotation = response.data[combination].bid;
-
-            this.convertedCurrenciesToValue[`${currencyToConvertAbreviation}-${currencyResultAbreviation}`] = quotation;
-
-            result = value * quotation;
-
-            return [result, value, currencyToConvertAbreviation, currencyResultAbreviation]
-
-        }).catch(error=>{
-
-           this.tryExchangeRateApi(value, currencyToConvertAbreviation, currencyResultAbreviation);
-
-        });
-
-    }
-
-    tryExchangeRateApi(value, firstCotation, cotationResult){
-
-        let quotationList;
-        let quotation;
-
-        let promise = axios.get(`https://v6.exchangerate-api.com/v6/93582931df6ea3627463f7fc/latest/${firstCotation}`);
-
-        promise.then(response=>{
-
-            quotationList = response.data.conversion_rates;
-
-            quotation = quotationList[cotationResult];
-
-            this.convertedCurrenciesToValue[`${firstCotation}-${cotationResult}`] = quotation;
+        if(quotation){
 
             let result = value * quotation;
 
             return [result, value, currencyToConvertAbreviation, currencyResultAbreviation];
 
-            
-        })
-        .catch(error=>{
-            this.inError(error);
-        });
+        }else{
+            throw new Error('Try other API...');
+        }
+
+        
 
     }
 
-    inError(error){
+    async tryAwesomeApi(value, from, to) {
 
-        console.error(error);
+        try{
 
+            const response = await axios.get(
+                `https://economia.awesomeapi.com.br/json/last/${from}-${to}`
+            );
+            const quotation = response.data[`${from}${to}`].bid;
+
+            this.convertedCurrenciesToValue[`${from}-${to}`] = quotation;
+
+            const result = value * quotation;
+
+            return [result, value, from, to];
+
+        }catch(err){
+
+            throw new Error('Try other API...');
+
+        }
+
+        
+    }
+
+    async tryExchangeRateApi(value, from, to) {
+
+        try{
+            const response = await axios.get(
+                `https://v6.exchangerate-api.com/v6/93582931df6ea3627463f7fc/latest/${from}`
+            );
+
+            const quotation = response.data.conversion_rates[to];
+
+            this.convertedCurrenciesToValue[`${from}-${to}`] = quotation;
+
+            const result = value * quotation;
+
+            return [result, value, from, to];
+        }catch(err){
+
+
+            throw new Error('It was not possible to convert this currency....');
+
+        }
     }
     
 
