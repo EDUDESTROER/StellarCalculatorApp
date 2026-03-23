@@ -246,7 +246,7 @@ export default class ConverterMode {
 
     }
 
-    checkConverterType(){ 
+    async checkConverterType(){ 
 
         let result = '';
 
@@ -343,14 +343,21 @@ export default class ConverterMode {
         }
         else if(this.converterType == 'currency'){
 
-            /*this.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+            let list = await this.currencyConverter.calcCurrencyConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
 
-            result = 'calculando...';*/
+            result = list[0];
+            let value = list[1];
+            let lengthToConvert = list[2];
+            let lengthResult = list[3];
+
+            this.sendToHistory(value, result, lengthToConvert, lengthResult);
 
         }
         else if(this.converterType == 'time'){
 
             let list = this.timeConverter.calcTimeConverter(this.firstOutputValue, this.firstSelectedEl.textContent, this.secondSelectedEl.textContent);
+
+            console.log(list);
 
             result = list[0];
             let value = list[1];
