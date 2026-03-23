@@ -212,7 +212,7 @@ export default class Currency{
             return [result, value, currencyToConvertAbreviation, currencyResultAbreviation];
 
         }else{
-            throw new Error('Currency Error!');
+            throw new Error('Try other API...');
         }
 
         
@@ -236,7 +236,7 @@ export default class Currency{
 
         }catch(err){
 
-            return
+            throw new Error('Try other API...');
 
         }
 
@@ -259,15 +259,10 @@ export default class Currency{
             return [result, value, from, to];
         }catch(err){
 
-            throw new Error(err);
+
+            throw new Error('It was not possible to convert this currency....');
 
         }
-    }
-
-    inError(error){
-
-        console.error(error);
-
     }
     
 
