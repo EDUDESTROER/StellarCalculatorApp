@@ -350,7 +350,7 @@ export default class ConverterMode {
             let lengthToConvert = list[2];
             let lengthResult = list[3];
 
-            this.sendToHistory(value, result, lengthToConvert, lengthResult);
+            this.sendToHistory(value, result, lengthToConvert, lengthResult, true);
 
         }
         else if(this.converterType == 'time'){
@@ -417,7 +417,9 @@ export default class ConverterMode {
 
     }
 
-    sendToHistory(value, result, lengthToConvert, lengthResult){
+    sendToHistory(value, result, lengthToConvert, lengthResult, isCurrency = false){
+
+        //console.log('Send to hitory: ', value, result, lengthToConvert, lengthResult);
 
         let convertAbreviation = {
 
@@ -554,7 +556,10 @@ export default class ConverterMode {
             
         }
 
-        this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+        if(!isCurrency) this.calculatorHistory.addToHistory(`${value} ${convertAbreviation[lengthToConvert]} =`, `${result} ${convertAbreviation[lengthResult]}`, `${value} ${convertAbreviation[lengthToConvert]} ${convertAbreviation[lengthResult]}`);
+
+        if(isCurrency) this.calculatorHistory.addToHistory(`${value} ${lengthToConvert} =`, `${result} ${lengthResult}`, `${value} ${lengthToConvert} ${lengthResult}`);
+
 
     }
 

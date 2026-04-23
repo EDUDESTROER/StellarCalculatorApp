@@ -8,6 +8,8 @@ export default class Currency{
 
     async calcCurrencyConverter(value, currencyToConvert, currencyResult){
 
+        //console.log('Enter in Currency: ', value, currencyToConvert, currencyResult);
+
         let currencyToAbreviation = {
             "Afghan Afghani": "AFN",
             "Albanian Lek": "ALL",
