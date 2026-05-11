@@ -19,7 +19,7 @@ export default class StellarController {
         this.isStartStandardMode = false;
         this.isStartProgrammerMode = false;
 
-        this._selectedCalculatorMode;
+        this._selectedCalculatorMode = 'standard';
         this._selectedSoundMode = false;
         this.selectedCalculatorModeEl = document.querySelector('#mode-name');
         this._standardEl = document.querySelector('#standard-calculator-wrapper');
@@ -45,10 +45,40 @@ export default class StellarController {
 
     }
 
+    startMode(isStart, classToStart, history, showEl = this._conversorEl){
+
+        let selectedMode = this._selectedCalculatorMode;
+
+        if(!(selectedMode === 'standard' || selectedMode === 'programmer')) selectedMode = 'converter';
+
+        this.viewsCalculator.unshowWithInertList(this.allCalculators);
+        this.viewsCalculator.showWithInert(showEl);
+        this.calculatorHistory.changeHistoryType(selectedMode);
+
+        if(!isStart) classToStart.start();
+
+        if(selectedMode === 'converter') // stop here!
+
+        this.viewsCalculator.displaySucess(`${selectedMode.charAt(0).toUpperCase() + texto.slice(1)} select!`);
+
+        this._historyButtonEl.disabled = history;
+
+        isStart = true;
+
+    }
+
     checkCalculatorMode(){
 
         //console.log('pass: checkCalculatorMode');
         //console.log('Selected Mode: ', this._selectedCalculatorMode);
+
+        const redirectTo = {
+
+            'standard': this.startMode(this.isStartStandardMode, this.calculatorStandardMode, false, this._standardEl),
+            'programmer': this.startMode(this.isStartProgrammerMode, this.calculatorProgrammerMode, true, this._programmerEl),
+            'length': this.startMode(true,),
+
+        }
         
         if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
 
