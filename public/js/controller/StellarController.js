@@ -45,11 +45,9 @@ export default class StellarController {
 
     }
 
-    startMode(isStart, classToStart, history, showEl = this._conversorEl){
+    startMode(isStart = true, classToStart = this.calculatorConverterMode, history = false, showEl = this._conversorEl){
 
         let selectedMode = this._selectedCalculatorMode;
-
-        if(!(selectedMode === 'standard' || selectedMode === 'programmer')) selectedMode = 'converter';
 
         this.viewsCalculator.unshowWithInertList(this.allCalculators);
         this.viewsCalculator.showWithInert(showEl);
@@ -57,9 +55,14 @@ export default class StellarController {
 
         if(!isStart) classToStart.start();
 
-        if(selectedMode === 'converter') // stop here!
+        if(!selectedMode === 'standard' || selectedMode === 'programmer'){
 
-        this.viewsCalculator.displaySucess(`${selectedMode.charAt(0).toUpperCase() + texto.slice(1)} select!`);
+            classToStart.clearConverter();
+            classToStart.start(selectedMode);
+
+        }
+
+        this.viewsCalculator.displaySucess(`${selectedMode.charAt(0).toUpperCase() + selectedMode.slice(1)} select!`);
 
         this._historyButtonEl.disabled = history;
 
@@ -76,289 +79,23 @@ export default class StellarController {
 
             'standard': this.startMode(this.isStartStandardMode, this.calculatorStandardMode, false, this._standardEl),
             'programmer': this.startMode(this.isStartProgrammerMode, this.calculatorProgrammerMode, true, this._programmerEl),
-            'length': this.startMode(true,),
-
-        }
-        
-        if(this._selectedCalculatorMode === 'standard' || !this._selectedCalculatorMode){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._standardEl);
-
-            this.calculatorHistory.changeHistoryType('standard');
-
-            if(!this.isStartStandardMode) this.calculatorStandardMode.start();
-
-            this.viewsCalculator.displaySucess('Standard select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartStandardMode = true;
-            
-        }
-        if(this._selectedCalculatorMode === 'programmer'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._programmerEl);
-
-            this.calculatorHistory.changeHistoryType('programmer');
-
-            if(!this.isStartProgrammerMode) this.calculatorProgrammerMode.start();
-
-            this.viewsCalculator.displaySucess('Programmer select');
-
-            this._historyButtonEl.disabled = true;
-            this._historyButtonEl.classList.add('disabled-btn');
-
-            this.isStartProgrammerMode = true;
-            
-        }
-        if(this._selectedCalculatorMode === 'length'){ 
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('length');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Length select');
-
-            this._historyButtonEl.disabled = false;
-        }
-        if(this._selectedCalculatorMode === 'angle'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('angle');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Angle select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'volume'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('volume');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Volume select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'weigth and mass'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('weigthAndMass');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Weigth and mass select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'temperature'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('temperature');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Temperature select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'energy'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('energy');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Energy select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'area'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('area');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Area select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'speed'){
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('speed');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Speed select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'currency'){ 
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('currency');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Currency select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'time'){ 
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('time');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Time select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'power' ){ 
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('power');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Power select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'pressure'){ 
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('pressure');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Pressure select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
-        if(this._selectedCalculatorMode === 'data'){ 
-
-            this.viewsCalculator.unshowWithInertList(this.allCalculators);
-
-            this.viewsCalculator.showWithInert(this._conversorEl);
-
-            this.calculatorHistory.changeHistoryType('converter');
-
-            this.calculatorConverterMode.start('data');
-
-            this.calculatorConverterMode.clearConverter();
-
-            this.viewsCalculator.displaySucess('Data select');
-
-            this._historyButtonEl.disabled = false;
-
-            this.isStartConverterMode = true;
-
-        }
+            'length': this.startMode(),
+            'angle': this.startMode(),
+            'weigth and mass': this.startMode(),
+            'volume': this.startMode(),
+            'temperature': this.startMode(),
+            'energy': this.startMode(),
+            'area': this.startMode(),
+            'speed': this.startMode(),
+            'currency': this.startMode(),
+            'time': this.startMode(),
+            'power': this.startMode(),
+            'pressure': this.startMode(),
+            'data': this.startMode(),
+            'time': this.startMode(),
+
+        };
+        redirectTo[this._selectedCalculatorMode];
 
     }
     startCalculatorsButtons(){
