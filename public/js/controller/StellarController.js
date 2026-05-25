@@ -53,10 +53,13 @@ export default class StellarController {
         this.viewsCalculator.showWithInert(showEl);
         this.calculatorHistory.changeHistoryType(selectedMode);
 
+        //console.log(isStart)
+
         if(!isStart) classToStart.start();
 
-        if(!selectedMode === 'standard' || selectedMode === 'programmer'){
+        if(selectedMode !== 'standard' && selectedMode !== 'programmer'){
 
+            console.log(selectedMode)
             classToStart.clearConverter();
             classToStart.start(selectedMode);
 
@@ -77,25 +80,24 @@ export default class StellarController {
 
         const redirectTo = {
 
-            'standard': this.startMode(this.isStartStandardMode, this.calculatorStandardMode, false, this._standardEl),
-            'programmer': this.startMode(this.isStartProgrammerMode, this.calculatorProgrammerMode, true, this._programmerEl),
-            'length': this.startMode(),
-            'angle': this.startMode(),
-            'weigth and mass': this.startMode(),
-            'volume': this.startMode(),
-            'temperature': this.startMode(),
-            'energy': this.startMode(),
-            'area': this.startMode(),
-            'speed': this.startMode(),
-            'currency': this.startMode(),
-            'time': this.startMode(),
-            'power': this.startMode(),
-            'pressure': this.startMode(),
-            'data': this.startMode(),
-            'time': this.startMode(),
+            'standard': ()=>{this.startMode(this.isStartStandardMode, this.calculatorStandardMode, false, this._standardEl)},
+            'programmer': ()=>this.startMode(this.isStartProgrammerMode, this.calculatorProgrammerMode, true, this._programmerEl),
+            'length': ()=>this.startMode(),
+            'angle': ()=>this.startMode(),
+            'weigth and mass': ()=>this.startMode(),
+            'volume': ()=>this.startMode(),
+            'temperature': ()=>this.startMode(),
+            'energy': ()=>this.startMode(),
+            'area': ()=>this.startMode(),
+            'speed': ()=>this.startMode(),
+            'currency':()=> this.startMode(),
+            'time': ()=>this.startMode(),
+            'power': ()=>this.startMode(),
+            'pressure':()=> this.startMode(),
+            'data': ()=>this.startMode(),
 
         };
-        redirectTo[this._selectedCalculatorMode];
+        redirectTo[this._selectedCalculatorMode]?.();
 
     }
     startCalculatorsButtons(){
